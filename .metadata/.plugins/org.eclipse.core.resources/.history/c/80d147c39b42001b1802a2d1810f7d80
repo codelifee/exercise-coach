@@ -1,0 +1,22 @@
+package com.exercisecoach.exercisecoach.repository;
+
+public class CommentDTO {
+
+	private String commentId;
+	private String commentContents;
+	private String UserId;
+	private UserDTO user; //foreign key convention
+	
+	CommentDTO() {
+	}
+	
+	public CommentDTO(String commentId, String commentContents, String userId, UserDTO user) {
+		super();
+		this.commentId = commentId;
+		this.commentContents = commentContents;
+		UserId = userId;
+		this.user = user;
+	}
+	
+	
+}

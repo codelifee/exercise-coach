@@ -1,0 +1,5 @@
+package com.exercisecoach.exercisecoach.repository;
+
+public class Administrator {
+
+}

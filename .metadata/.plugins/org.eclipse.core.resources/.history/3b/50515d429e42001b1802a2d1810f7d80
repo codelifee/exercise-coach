@@ -1,0 +1,7 @@
+package com.exercisecoach.exercisecoach.repository;
+
+public class ExerciseDTO {
+	private Integer id;
+	private String contents;
+	private UserDTO user;
+}
