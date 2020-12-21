@@ -1,9 +1,0 @@
-package com.exercisecoach.exercisecoach.controller;
-
-import org.springframework.web.bind.annotation.RestController;
-
-@RestController
-@CrossOrigin(origin="")
-public class UserController {
-
-}
