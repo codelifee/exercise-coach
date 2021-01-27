@@ -15,10 +15,10 @@ import com.shoppingmall.model.CartItems;
 @Mapper
 public interface CartItemsMapper {
 
-	@Select("select * from cartitems")
+	@Select("select * from cart_items")
 	List<CartItems> findAll();
 	
-	@Select("SELECT * FROM cartitems WHERE cart_item_id=#{cart_item_id}")
+	@Select("SELECT * FROM cart_items WHERE cart_item_id=#{cart_item_id}")
 	CartItems getCartItems(@Param("cart_item_id")int cart_item_id);
 	
 	@Insert("INSERT INTO cart_items(user_sequence_id, product_detail_id, product_id,cart_item_quantity)"
@@ -27,10 +27,11 @@ public interface CartItemsMapper {
 	int insert(@Param("cartitems")CartItems cartitems);
 		
 	
-	@Update("UPDATE cartitems SET exercise_name=#{exercise_name},descriptions=#{descriptions} where exercise_sequence_id=#{exercise_sequence_id}")
-	int updateCartItems(@Param("exercise_sequence_id")int exercise_sequence_id, 
-			@Param("exercise_name")String exercise_name, @Param("descriptions")String descriptions);
+	@Update("UPDATE cart_items SET cart_item_quantity=#{cart_item_quantity} where cart_item_id=#{cart_item_id}")
+	int updateCartItems(@Param("cart_item_id")int cart_item_id, 
+			@Param("cart_item_quantity")int cart_item_quantity);
 	
-	@Delete("DELETE FROM cartitems WHERE exercise_sequence_id=#{exercise_sequence_id}")
-	int deleteCartItems(@Param("exercise_sequence_id")int exercise_sequence_id);
+	@Delete("DELETE FROM cart_items WHERE cart_item_id=#{cart_item_id}")
+	int deleteCartItems(@Param("cart_item_id")int cart_item_id);
+
 }

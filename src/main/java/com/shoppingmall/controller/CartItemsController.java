@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,29 +19,25 @@ import com.shoppingmall.mapper.CartItemsMapper;
 import com.shoppingmall.model.CartItems;
 
 @RestController
-@RequestMapping("/rest/cartitems")
+@RequestMapping("/cartitems")
 @CrossOrigin(origins="http://localhost:5000")
 public class CartItemsController {
 
 	
 	private CartItemsMapper cartItemsMapper;
 	
-	@Autowired
-	public CartItemsController(CartItemsMapper cartItemsMapper) {
-		this.cartItemsMapper = cartItemsMapper;
+	@GetMapping("/all")
+	public List<CartItems> getAll(){
+		return cartItemsMapper.findAll();
 	}
+	
 	
 	@GetMapping("/{cart_item_id}")
 	public CartItems getCartItems(@PathVariable("cart_item_id") int cart_item_id) {
 		return cartItemsMapper.getCartItems(cart_item_id);
 	}
 	
-	@GetMapping("")
-	public List<CartItems> getAll(){
-		return cartItemsMapper.findAll();
-	}
-	
-	
+
 	@PostMapping("")
 	public CartItems post(@RequestBody CartItems cartitems) {
 		cartItemsMapper.insert(cartitems);
@@ -49,9 +46,15 @@ public class CartItemsController {
 	
 	
 	@PutMapping("/{cart_item_id}")
-	public void putCartItems(@PathVariable("cart_item_id") int cart_item_id, @RequestParam("user_sequence_id") int user_sequence_id,
-			@RequestParam("product_detail_id") int product_detail_id, @RequestParam("product_id") int product_id, 
+	public void putCartItems(@PathVariable("cart_item_id") int cart_item_id,
 			@RequestParam("cart_item_quantity") int cart_item_quantity) {
+		cartItemsMapper.updateCartItems(cart_item_id, cart_item_quantity);
 		
 	}
+	
+	@DeleteMapping("/{cart_item_id}")
+	public void deleteUser(@PathVariable("cart_item_id")int cart_item_id) {
+		cartItemsMapper.deleteCartItems(cart_item_id);
+	}
+	
 }
