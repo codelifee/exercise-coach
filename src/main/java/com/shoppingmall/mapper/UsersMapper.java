@@ -20,7 +20,7 @@ public interface UsersMapper {
 	List<Users> findAll();
 	
 	@Select("select * from users where user_sequence_id=#{user_sequence_id}")
-	Users getUser(@Param("user_sequence_id")String user_sequence_id);
+	Users getUser(@Param("user_sequence_id")int user_sequence_id);
 
 	@Insert("insert into users (user_id,user_pwd,user_name, user_date_of_birth, user_email, user_phone, user_address,"
 			+ "user_date_joined) values(#{users.user_id},#{users.user_pwd},#{users.user_name},#{users.user_date_of_birth},"
@@ -33,9 +33,9 @@ public interface UsersMapper {
 			+ "where user_sequence_id=#{user_sequence_id}")
 	int updateUser(@Param("user_pwd")String user_pwd, @Param("user_name")String user_name,
 			@Param("user_date_of_birth")String user_date_of_birth, @Param("user_email")String user_email,
-			@Param("user_phone")String user_phone, @Param("user_address")String user_address, @Param("user_sequence_id")String user_sequence_id);
+			@Param("user_phone")String user_phone, @Param("user_address")String user_address, @Param("user_sequence_id")int user_sequence_id);
 	
 	@Delete("delete from users where user_sequence_id=#{user_sequence_id}")
-	int deleteUser(@Param("user_sequence_id")String user_sequence_id);
+	int deleteUser(@Param("user_sequence_id")int user_sequence_id);
 
 }
