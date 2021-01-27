@@ -15,7 +15,7 @@ import com.shoppingmall.model.CartItems;
 @Mapper
 public interface CartItemsMapper {
 
-	@Select("select * from cart_items")
+	@Select("select * from cart_items order by cart_item_id")
 	List<CartItems> findAll();
 	
 	@Select("SELECT * FROM cart_items WHERE cart_item_id=#{cart_item_id}")

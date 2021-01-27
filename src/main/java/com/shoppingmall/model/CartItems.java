@@ -1,5 +1,8 @@
 package com.shoppingmall.model;
 
+
+
+
 public class CartItems {
 	
 	private int cart_item_id;
@@ -39,6 +42,7 @@ public class CartItems {
 		this.cart_item_quantity = cart_item_quantity;
 	}
 	
+
 	
 	
 
