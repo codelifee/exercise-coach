@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.codelifee.exercisecoach.exercisecoach.mapper.AdministratorMapper;
-import com.codelifee.exercisecoach.exercisecoach.model.Administrator;
+import com.shoppingmall.mapper.AdministratorMapper;
+import com.shoppingmall.model.Administrator;
 
 @RestController
 @RequestMapping("/rest/administrator")
@@ -32,10 +32,10 @@ public class AdministratorResource {
 	}
 	
 	@PutMapping("/create_administrator")
-	public void createAdministrator(@RequestParam("admin_id")String admin_id,@RequestParam("admin_pwd")String admin_pwd,
+	public void createAdministrator(@PathVariable("admin_id")String admin_id,@RequestParam("admin_pwd")String admin_pwd,
 			@RequestParam("admin_name")String admin_name) {
 		administratorMapper.insertAdministrator(admin_id, admin_pwd, admin_name);
-	}
+	} 
 	
 	@PostMapping("/{admin_id}")
 	public void updateAdministrator(@PathVariable("admin_id")String admin_id, @RequestParam("admin_pwd")String admin_pwd,
