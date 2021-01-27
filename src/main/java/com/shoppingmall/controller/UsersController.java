@@ -36,17 +36,10 @@ public class UsersController {
 	}
 	
 	@PostMapping("")
-	public void post(@RequestBody Users users) {
+	public Users post(@RequestBody Users users) {
 		usersMapper.insert(users);
+		return users;
 	}
-	
-	
-//	@PostMapping("/user")
-//	public void insertUser(@RequestParam("user_id")String user_id, @RequestParam("user_pwd")String user_pwd, @RequestParam("user_name")String user_name,
-//			@RequestParam("user_date_of_birth")String user_date_of_birth, @RequestParam("user_email")String user_email,
-//			@RequestParam("user_phone")String user_phone, @RequestParam("user_address")String user_address) {
-//		usersMapper.insertUser(user_id, user_pwd, user_name, user_date_of_birth, user_email, user_phone, user_address);
-//	}
 	
 	@PutMapping("/{user_sequence_id}")
 	public void updateUser(@RequestParam("user_pwd")String user_pwd, @RequestParam("user_name")String user_name,

@@ -23,17 +23,10 @@ public interface UsersMapper {
 	Users getUser(@Param("user_sequence_id")String user_sequence_id);
 
 	@Insert("insert into users (user_id,user_pwd,user_name, user_date_of_birth, user_email, user_phone, user_address,"
-			+ "user_date_joined values(#{users.user_id},#{users.user_pwd},#{users.user_name},#{users.user_date_of_birth},"
-			+ "#{users.user_email},#{users.user_phone},#{users.user_address},now())")
+			+ "user_date_joined) values(#{users.user_id},#{users.user_pwd},#{users.user_name},#{users.user_date_of_birth},"
+			+ "#{users.user_email},#{users.user_phone},#{users.user_address},curdate())")
 	@Options(useGeneratedKeys = true, keyProperty = "user_sequence_id")
 	int insert(@Param("users") Users users);
-	
-//	@Insert("insert into users(user_id, user_pwd, user_name, user_date_of_birth,"
-//			+ "user_email, user_phone, user_address, user_date_joined) values(#{user_id},#{user_pwd},"
-//			+ "#{user_name},#{user_date_of_birth},#{user_email},#{user_phone},#{user_address},now())")
-//	int insertUser(@Param("user_id")String user_id, @Param("user_pwd")String user_pwd, @Param("user_name")String user_name,
-//			@Param("user_date_of_birth")String user_date_of_birth, @Param("user_email")String user_email,
-//			@Param("user_phone")String user_phone, @Param("user_address")String user_address);
 	
 	@Update("update users set user_pwd=#{user_pwd}, user_name=#{user_name}, user_date_of_birth=#{user_date_of_birth},"
 			+ "user_email=#{user_email}, user_phone=#{user_phone}, user_address=#{user_address}"
