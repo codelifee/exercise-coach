@@ -1,5 +1,6 @@
 package com.shoppingmall.mapper;
 
+
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
@@ -43,6 +44,5 @@ public interface UsersMapper {
 	
 	@Delete("delete from users where user_sequence_id=#{user_sequence_id}")
 	int deleteUser(@Param("user_sequence_id")String user_sequence_id);
-
 
 }
