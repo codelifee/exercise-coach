@@ -33,11 +33,13 @@ public class UsersController {
 	@GetMapping("/{user_sequence_id}")
 	public Users getUser(@PathVariable("user_sequence_id")int user_sequence_id) {
 		return usersMapper.getUsers(user_sequence_id);
+
 	}
 	
 	@PostMapping("")
 	public Users post(@RequestBody Users users) {
 		usersMapper.insertUsers(users);
+
 		return users;
 	}
 	
@@ -48,10 +50,12 @@ public class UsersController {
 			@PathVariable("user_sequence_id")int user_sequence_id) {
 
 		usersMapper.updateUsers(user_pwd, user_name, user_date_of_birth, user_email, user_phone, user_address, user_sequence_id);
+
 	}
 	
 	@DeleteMapping("/{user_sequence_id}")
 	public void deleteUser(@PathVariable("user_sequence_id")int user_sequence_id) {
+
 		usersMapper.deleteUsers(user_sequence_id);
 	}
 }

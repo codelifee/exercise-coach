@@ -23,7 +23,7 @@ public interface OrdersMapper {
 	Orders getOrders(@Param("order_id")int order_id);
 
 	@Insert("insert into orders (user_sequence_id, order_date_created, order_status, order_amount) "
-			+ "values(#{user_sequence_id}, now(),#{order_status},#{order_amount})")
+			+ "values(#{orders.user_sequence_id}, now(),#{orders.order_status},#{orders.order_amount})")
 	@Options(useGeneratedKeys = true, keyProperty = "order_id")
 	int insert(@Param("orders") Orders orders);
 	

@@ -57,4 +57,5 @@ public class QuestionTabController {
 	public void delete(@PathVariable("question_id")int question_id){
 		questionTabMapper.deleteQuestionTab(question_id);
 	}
+
 }

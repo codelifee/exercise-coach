@@ -21,8 +21,8 @@ public interface CartItemsMapper {
 	@Select("SELECT * FROM cart_items WHERE cart_item_id=#{cart_item_id}")
 	CartItems getCartItems(@Param("cart_item_id")int cart_item_id);
 	
-	@Insert("INSERT INTO cart_items(user_sequence_id, product_detail_id, product_id,cart_item_quantity)"
-			+ " VALUES(#{user_sequence_id},#{product_detail_id}, #{product_id}, #{cart_item_quantity})")
+	@Insert("INSERT INTO cart_items(user_sequence_id, product_detail_id, product_id, cart_item_quantity)"
+			+ " VALUES(#{cartitems.user_sequence_id},#{cartitems.product_detail_id}, #{cartitems.product_id}, #{cartitems.cart_item_quantity})")
 	@Options(useGeneratedKeys=true, keyProperty = "cart_item_id")
 	int insert(@Param("cartitems")CartItems cartitems);
 		

@@ -1,5 +1,6 @@
 package com.shoppingmall.mapper;
 
+
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
@@ -12,8 +13,12 @@ import org.apache.ibatis.annotations.Update;
 
 import com.shoppingmall.model.QuestionTab;
 
+import com.shoppingmall.model.Users;
+
+
 @Mapper
 public interface QuestionTabMapper {
+
 
 	@Select("select * from question_tab")
 	List<QuestionTab> getAll();
@@ -34,5 +39,6 @@ public interface QuestionTabMapper {
 	
 	@Delete("DELETE FROM question_tab WHERE question_id=#{question_id}")
 	int deleteQuestionTab(@Param("question_id")int question_id);
+
 	
 }
