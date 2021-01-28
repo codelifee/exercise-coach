@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shoppingmall.mapper.QuestionTabMapper;
 import com.shoppingmall.model.QuestionTab;
+import com.shoppingmall.service.QuestionTabService;
 
 @RestController
 @RequestMapping("/question")
@@ -25,10 +26,13 @@ public class QuestionTabController {
 	
 	@Autowired
 	private QuestionTabMapper questionTabMapper;
+	
+	@Autowired
+	private QuestionTabService questionTabService;
 
 	@GetMapping("/all")
 	public List<QuestionTab> getAll(){
-		return questionTabMapper.getAll();
+		return questionTabService.getAll();
 	}
 	
 	@GetMapping("/{question_id}")
@@ -38,7 +42,7 @@ public class QuestionTabController {
 	
 	@PostMapping("")
 	public QuestionTab insert(@RequestBody QuestionTab questionTab) {
-		questionTabMapper.insertquestionTab(questionTab);
+		questionTabMapper.insertQuestionTab(questionTab);
 		return questionTab;
 	}
 	
@@ -46,11 +50,11 @@ public class QuestionTabController {
 	public void update(@PathVariable("question_id")int question_id, 
 			@Param("product_id") int product_id,@Param("user_sequence_id") int user_sequence_id,
 			@Param("question") String question) {
-		questionTabMapper.updatequestionTab(question_id, product_id, user_sequence_id, question);
+		questionTabMapper.updateQuestionTab(question_id, product_id, user_sequence_id, question);
 		}
 	
 	@DeleteMapping("/{question_id}")
 	public void delete(@PathVariable("question_id")int question_id){
-		questionTabMapper.deletequestionTab(question_id);
+		questionTabMapper.deleteQuestionTab(question_id);
 	}
 }
