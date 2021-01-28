@@ -1,11 +1,14 @@
 package com.shoppingmall.model;
 
+import java.util.List;
+
 public class OrderItems {
 	
 	private int order_item_id;
 	private int order_id;
 	private int product_detail_id;
 	private int order_item_quantity;
+	private List<ProductDetails> productDetailsList;
 	
 	public int getOrder_item_id() {
 		return order_item_id;
@@ -30,6 +33,12 @@ public class OrderItems {
 	}
 	public void setOrder_item_quantity(int order_item_quantity) {
 		this.order_item_quantity = order_item_quantity;
+	}
+	public List<ProductDetails> getProductDetailsList() {
+		return productDetailsList;
+	}
+	public void setProductDetailsList(List<ProductDetails> productDetailsList) {
+		this.productDetailsList = productDetailsList;
 	}
 	
 	

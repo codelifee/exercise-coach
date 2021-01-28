@@ -35,7 +35,7 @@ public interface AnswerTabMapper {
 
 	@Select("select * from answer_tab where question_id=#{question_id}")
 	@Options(useGeneratedKeys = true, keyProperty = "answer_id")
-	List<AnswerTab> getByQuestionId(@Param("question_id")int question_id);
+	List<AnswerTab> getanswerTab(@Param("question_id")int question_id);
 	
 }
 

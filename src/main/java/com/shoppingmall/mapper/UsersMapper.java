@@ -46,6 +46,13 @@ public interface UsersMapper {
 	@Delete("delete from users where user_sequence_id=#{user_sequence_id}")
 
 	int deleteUsers(@Param("user_sequence_id")int user_sequence_id);
-
+	
+	@Select("select user_id from users where user_sequence_id=#{user_sequence_id}")
+	@Options(useGeneratedKeys = true, keyProperty = "user_sequence_id")
+	String getUserId(int user_sequence_id);
+	
+	@Select("select user_address from users where user_sequence_id=#{user_sequence_id}")
+	@Options(useGeneratedKeys = true, keyProperty = "user_sequence_id")
+	String getUserAddress(int user_sequence_id);
 
 }

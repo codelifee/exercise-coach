@@ -35,4 +35,12 @@ public interface ProductsMapper {
 	
 	@Delete("DELETE FROM products WHERE product_id=#{product_id}")
 	int deleteProducts(@Param("product_id")int product_id);
+	
+	@Select("select product_name from products where product_id=#{product_id}")
+	@Options(useGeneratedKeys = true, keyProperty = "product_id")
+	String getProductName(int product_id);
+	
+	@Select("select product_picture from products where product_id=#{product_id}")
+	@Options(useGeneratedKeys = true, keyProperty = "product_id")
+	String getProductPicture(int product_id);
 }

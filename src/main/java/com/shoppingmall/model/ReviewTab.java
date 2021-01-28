@@ -1,5 +1,7 @@
 package com.shoppingmall.model;
 
+import java.util.List;
+
 public class ReviewTab {
 
 	private int review_id;
@@ -10,6 +12,8 @@ public class ReviewTab {
 	private float star;
 	private String review_picture;
 	private String review_date_created;
+	private String product_name;
+	private List<ProductDetails> productDetailsList;
 	
 	public int getReview_id() {
 		return review_id;
@@ -58,5 +62,17 @@ public class ReviewTab {
 	}
 	public void setReview_date_created(String review_date_created) {
 		this.review_date_created = review_date_created;
+	}
+	public List<ProductDetails> getProductDetailsList() {
+		return productDetailsList;
+	}
+	public void setProductDetailsList(List<ProductDetails> productDetailsList) {
+		this.productDetailsList = productDetailsList;
+	}
+	public String getProduct_name() {
+		return product_name;
+	}
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
 	}
 }

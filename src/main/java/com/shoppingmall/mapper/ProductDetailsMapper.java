@@ -33,4 +33,9 @@ public interface ProductDetailsMapper {
 	
 	@Delete("DELETE FROM product_details WHERE product_detail_id=#{product_detail_id}")
 	int deleteProductDetails(@Param("product_detail_id")int product_detail_id);
+
+	@Select("select * from product_details where product_detail_id=#{product_detail_id}")
+	@Options(useGeneratedKeys = true, keyProperty = "product_detail_id")
+	List<ProductDetails> getAllProductDetails(int product_detail_id);
+
 }

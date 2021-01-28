@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shoppingmall.mapper.OrderItemsMapper;
 import com.shoppingmall.model.OrderItems;
-import com.shoppingmall.model.Orders;
-
 
 @RestController
 @RequestMapping("/orderitems")
@@ -29,7 +27,7 @@ public class OrderItemsController {
 	
 	@GetMapping("/all")
 	public List<OrderItems> getAll(){
-		return orderItemsMapper.findAll();
+		return orderItemsMapper.getAll();
 	}
 	
 	@GetMapping("/{order_item_id}")

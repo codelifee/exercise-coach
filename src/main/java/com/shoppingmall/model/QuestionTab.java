@@ -9,7 +9,8 @@ public class QuestionTab {
 	 private int user_sequence_id;
 	 private String question; 
 	 private String question_date_created;
-	 private List<AnswerTab> AnswerTabList;
+	 private String product_picture;
+	 private List<AnswerTab> answerTabList;
 	 
 	public int getQuestion_id() {
 		return question_id;
@@ -42,9 +43,15 @@ public class QuestionTab {
 		this.question_date_created = question_date_created;
 	}
 	public List<AnswerTab> getAnswerTabList() {
-		return AnswerTabList;
+		return answerTabList;
 	}
 	public void setAnswerTabList(List<AnswerTab> answerTabList) {
-		AnswerTabList = answerTabList;
+		this.answerTabList = answerTabList;
+	}
+	public String getProduct_picture() {
+		return product_picture;
+	}
+	public void setProduct_picture(String product_picture) {
+		this.product_picture = product_picture;
 	}
 }

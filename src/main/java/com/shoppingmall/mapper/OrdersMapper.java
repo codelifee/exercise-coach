@@ -4,9 +4,13 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.ResultMap;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -15,11 +19,15 @@ import com.shoppingmall.model.Orders;
 @Mapper
 public interface OrdersMapper {
 	
-	
 	@Select("select * from orders order by order_id")
+	@Results(id="OrdersMap", value= {
+			@Result(property = "user_id", column = "user_sequence_id", many=@Many(select="com.shoppingmall.mapper.UsersMapper.getUserId")),	
+			@Result(property ="user_address", column="user_sequence_id", many=@Many(select="com.shoppingmall.mapper.UsersMapper.getUserAddress"))
+		})
 	List<Orders> findAll();
 	
 	@Select("select * from orders where order_id=#{order_id}")
+	@ResultMap("OrdersMap")
 	Orders getOrders(@Param("order_id")int order_id);
 
 	@Insert("insert into orders (user_sequence_id, order_date_created, order_status, order_amount) "

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shoppingmall.mapper.QuestionTabMapper;
 import com.shoppingmall.model.QuestionTab;
-import com.shoppingmall.service.QuestionTabService;
 
 @RestController
 @RequestMapping("/question")
@@ -27,13 +26,18 @@ public class QuestionTabController {
 	@Autowired
 	private QuestionTabMapper questionTabMapper;
 	
-	@Autowired
-	private QuestionTabService questionTabService;
-
+//	@Autowired
+//	private QuestionTabService questionTabService;
+//
+//	@GetMapping("/all")
+//	public List<QuestionTab> getAll(){
+//		return questionTabService.getAll();
+//	}
+	
 	@GetMapping("/all")
 	public List<QuestionTab> getAll(){
-		return questionTabService.getAll();
-	}
+		return questionTabMapper.getAll();
+	}	
 	
 	@GetMapping("/{question_id}")
 	public QuestionTab get(@PathVariable("question_id")int question_id) {
