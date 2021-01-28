@@ -31,13 +31,13 @@ public class UsersController {
 	}
 	
 	@GetMapping("/{user_sequence_id}")
-	public Users getUser(@PathVariable("user_sequence_id")String user_sequence_id) {
-		return usersMapper.getUser(user_sequence_id);
+	public Users getUser(@PathVariable("user_sequence_id")int user_sequence_id) {
+		return usersMapper.getUsers(user_sequence_id);
 	}
 	
 	@PostMapping("")
 	public Users post(@RequestBody Users users) {
-		usersMapper.insert(users);
+		usersMapper.insertUsers(users);
 		return users;
 	}
 	
@@ -45,13 +45,13 @@ public class UsersController {
 	public void updateUser(@RequestParam("user_pwd")String user_pwd, @RequestParam("user_name")String user_name,
 			@RequestParam("user_date_of_birth")String user_date_of_birth, @RequestParam("user_email")String user_email,
 			@RequestParam("user_phone")String user_phone, @RequestParam("user_address")String user_address,
-			@PathVariable("user_sequence_id")String user_sequence_id) {
-		usersMapper.updateUser(user_pwd, user_name, user_date_of_birth, user_email, user_phone, user_address, user_sequence_id);
+			@PathVariable("user_sequence_id")int user_sequence_id) {
+		usersMapper.updateUsers(user_pwd, user_name, user_date_of_birth, user_email, user_phone, user_address, user_sequence_id);
 	}
 	
 	@DeleteMapping("/{user_sequence_id}")
-	public void deleteUser(@PathVariable("user_sequence_id")String user_sequence_id) {
-		usersMapper.deleteUser(user_sequence_id);
+	public void deleteUser(@PathVariable("user_sequence_id")int user_sequence_id) {
+		usersMapper.deleteUsers(user_sequence_id);
 	}
 
 }
