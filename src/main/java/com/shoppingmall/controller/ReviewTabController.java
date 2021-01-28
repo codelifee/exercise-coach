@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shoppingmall.mapper.ReviewTabMapper;
 import com.shoppingmall.model.ReviewTab;
-import com.shoppingmall.model.Users;
 
 @RestController
 @RequestMapping("/review")
@@ -32,7 +31,7 @@ public class ReviewTabController {
 	}
 	
 	@GetMapping("/{review_id}")
-	public Users get(@PathVariable("review_id")int review_id) {
+	public ReviewTab get(@PathVariable("review_id")int review_id) {
 		return reviewTabMapper.getReviewTab(review_id);
 	}
 	

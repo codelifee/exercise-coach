@@ -32,7 +32,7 @@ public class ProductsController {
 	}
 	
 	@GetMapping("/{product_id}")
-	public Users get(@PathVariable("product_id")int product_id) {
+	public Products get(@PathVariable("product_id")int product_id) {
 		return productsMapper.getProducts(product_id);
 	}
 	

@@ -18,17 +18,17 @@ public interface ProductDetailsMapper {
 	List<ProductDetails> getAll();
 	
 	@Select("select * from product_details where product_detail_id=#{product_detail_id}")
-	Users getProductDetails(@Param("product_detail_id")int product_detail_id);
+	ProductDetails getProductDetails(@Param("product_detail_id")int product_detail_id);
 	
 	@Insert("INSERT INTO product_details(product_id,product_color,product_stock) "
-			+ "VALUES(#{productDetails.product_id},#{productDetails.product_color},#{productDetails.product_stock}")
+			+ "VALUES(#{productDetails.product_id},#{productDetails.product_color},#{productDetails.product_stock})")
 	@Options(useGeneratedKeys = true, keyProperty = "product_detail_id")
 	int insertProductDetails(@Param("productDetails") ProductDetails productDetails);
 	
 	@Update("UPDATE product_details SET product_id=#{product_id},product_color=#{product_color},"
-			+ "product_stock=#{product_stock} WHERE review_id=#{review_id}")
-	int updateProductDetails(@Param("product_id") int product_id,@Param("product_color") String product_color,
-			@Param("product_stock") int product_stock);
+			+ "product_stock=#{product_stock} WHERE product_detail_id=#{product_detail_id}")
+	int updateProductDetails(@Param("product_detail_id") int product_detail_id,@Param("product_id") int product_id,
+			@Param("product_color") String product_color,@Param("product_stock") int product_stock);
 	
 	@Delete("DELETE FROM product_details WHERE product_detail_id=#{product_detail_id}")
 	int deleteProductDetails(@Param("product_detail_id")int product_detail_id);

@@ -1,3 +1,4 @@
+
 package com.shoppingmall;
 
 import org.apache.ibatis.type.MappedTypes;
@@ -17,4 +18,4 @@ public class ShoppingMallApplication {
 	}
 
 }
- 
+

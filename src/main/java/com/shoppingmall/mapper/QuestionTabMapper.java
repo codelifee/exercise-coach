@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.shoppingmall.model.QuestionTab;
+
 import com.shoppingmall.model.Users;
 
 
@@ -23,10 +24,10 @@ public interface QuestionTabMapper {
 	List<QuestionTab> getAll();
 	
 	@Select("select * from question_tab where question_id=#{question_id}")
-	Users getQuestionTab(@Param("question_id")int question_id);
+	QuestionTab getQuestionTab(@Param("question_id")int question_id);
 	
-	@Insert("INSERT INTO question_tab(user_sequence_id,question,question_date_created) "
-			+ "VALUES(#{question_tab.user_sequence_id},#{question_tab.question},now())")
+	@Insert("INSERT INTO question_tab(product_id,user_sequence_id,question,question_date_created) "
+			+ "VALUES(#{questionTab.product_id},#{questionTab.user_sequence_id},#{questionTab.question},now())")
 	@Options(useGeneratedKeys = true, keyProperty = "question_id")
 	int insertquestionTab(@Param("questionTab") QuestionTab questionTab);
 	

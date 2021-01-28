@@ -57,7 +57,5 @@ public class UsersController {
 	public void deleteUser(@PathVariable("user_sequence_id")int user_sequence_id) {
 
 		usersMapper.deleteUsers(user_sequence_id);
-
 	}
-
 }

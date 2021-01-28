@@ -1,5 +1,6 @@
 package com.shoppingmall.controller;
 
+
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -15,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shoppingmall.mapper.QuestionTabMapper;
-import com.shoppingmall.model.Administrator;
 import com.shoppingmall.model.QuestionTab;
-import com.shoppingmall.model.Users;
 
 @RestController
 @RequestMapping("/question")
@@ -33,7 +32,7 @@ public class QuestionTabController {
 	}
 	
 	@GetMapping("/{question_id}")
-	public Users get(@PathVariable("question_id")int question_id) {
+	public QuestionTab get(@PathVariable("question_id")int question_id) {
 		return questionTabMapper.getQuestionTab(question_id);
 	}
 	
@@ -54,6 +53,5 @@ public class QuestionTabController {
 	public void delete(@PathVariable("question_id")int question_id){
 		questionTabMapper.deletequestionTab(question_id);
 	}
-
 
 }

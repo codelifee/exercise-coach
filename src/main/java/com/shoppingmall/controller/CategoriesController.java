@@ -32,10 +32,10 @@ public class CategoriesController {
 	}
 	
 	@GetMapping("/{category_id}")
-	public Users get(@PathVariable("category_id")int category_id) {
+	public Categories get(@PathVariable("category_id")int category_id) {
 		return categoriesMapper.getCategories(category_id);
 	}
-	
+		
 	@PostMapping("")
 	public Categories insert(@RequestBody Categories categories) {
 		categoriesMapper.insertCategories(categories);

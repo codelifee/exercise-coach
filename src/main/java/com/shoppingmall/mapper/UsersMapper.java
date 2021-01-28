@@ -21,6 +21,7 @@ public interface UsersMapper {
 	
 	@Select("select * from users where user_sequence_id=#{user_sequence_id}")
 
+
 	Users getUsers(@Param("user_sequence_id")int user_sequence_id);
 
 
@@ -37,12 +38,12 @@ public interface UsersMapper {
 
 	int updateUsers(@Param("user_pwd")String user_pwd, @Param("user_name")String user_name,
 
+
 			@Param("user_date_of_birth")String user_date_of_birth, @Param("user_email")String user_email,
 			@Param("user_phone")String user_phone, @Param("user_address")String user_address, 
 			@Param("user_sequence_id")int user_sequence_id);
 	
 	@Delete("delete from users where user_sequence_id=#{user_sequence_id}")
-
 
 	int deleteUsers(@Param("user_sequence_id")int user_sequence_id);
 
