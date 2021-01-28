@@ -1,5 +1,6 @@
 package com.shoppingmall.mapper;
 
+<<<<<<< HEAD
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
@@ -12,10 +13,15 @@ import org.apache.ibatis.annotations.Update;
 
 import com.shoppingmall.model.QuestionTab;
 import com.shoppingmall.model.Users;
+=======
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+>>>>>>> 39aa652b9041e2a0697f4da73001d9b6948f3d89
 
 @Mapper
 public interface QuestionTabMapper {
 
+<<<<<<< HEAD
 	@Select("select * from question_tab")
 	List<QuestionTab> getAll();
 	
@@ -35,5 +41,8 @@ public interface QuestionTabMapper {
 	
 	@Delete("DELETE FROM question_tab WHERE question_id=#{question_id}")
 	int deletequestionTab(@Param("question_id")int question_id);
+=======
+	
+>>>>>>> 39aa652b9041e2a0697f4da73001d9b6948f3d89
 	
 }

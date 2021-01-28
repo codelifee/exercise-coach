@@ -1,5 +1,6 @@
 package com.shoppingmall.controller;
 
+<<<<<<< HEAD
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -54,5 +55,16 @@ public class QuestionTabController {
 	public void delete(@PathVariable("question_id")int question_id){
 		questionTabMapper.deletequestionTab(question_id);
 	}
+=======
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/rest/question")
+@CrossOrigin(origins="http://localhost:5000")
+public class QuestionTabController {
+	
+>>>>>>> 39aa652b9041e2a0697f4da73001d9b6948f3d89
 
 }
