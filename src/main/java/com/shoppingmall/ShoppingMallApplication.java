@@ -10,10 +10,10 @@ import com.shoppingmall.model.Users;
 @MappedTypes(Users.class)
 @MapperScan("com.shoppingmall.mapper")
 @SpringBootApplication
-public class ExerciseCoachApplication {
+public class ShoppingMallApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ExerciseCoachApplication.class, args);
+		SpringApplication.run(ShoppingMallApplication.class, args);
 	}
 
 }

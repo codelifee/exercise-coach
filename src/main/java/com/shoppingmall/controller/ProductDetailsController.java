@@ -32,7 +32,7 @@ public class ProductDetailsController {
 	}
 	
 	@GetMapping("/{product_detail_id}")
-	public Users get(@PathVariable("product_detail_id")int product_detail_id) {
+	public ProductDetails get(@PathVariable("product_detail_id")int product_detail_id) {
 		return productDetailsMapper.getProductDetails(product_detail_id);
 	}
 	
@@ -45,7 +45,7 @@ public class ProductDetailsController {
 	@PutMapping("/{product_detail_id}")
 	public void update(@PathVariable("product_detail_id")int product_detail_id, @Param("product_id") int product_id,
 			@Param("product_color") String product_color,@Param("product_stock") int product_stock) {
-		productDetailsMapper.updateProductDetails(product_id, product_color, product_stock);
+		productDetailsMapper.updateProductDetails(product_detail_id,product_id, product_color, product_stock);
 		}
 	
 	@DeleteMapping("/{product_detail_id}")

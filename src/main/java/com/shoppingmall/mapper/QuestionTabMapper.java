@@ -1,6 +1,5 @@
 package com.shoppingmall.mapper;
 
-<<<<<<< HEAD
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
@@ -12,24 +11,18 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.shoppingmall.model.QuestionTab;
-import com.shoppingmall.model.Users;
-=======
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
->>>>>>> 39aa652b9041e2a0697f4da73001d9b6948f3d89
 
 @Mapper
 public interface QuestionTabMapper {
 
-<<<<<<< HEAD
 	@Select("select * from question_tab")
 	List<QuestionTab> getAll();
 	
 	@Select("select * from question_tab where question_id=#{question_id}")
-	Users getQuestionTab(@Param("question_id")int question_id);
+	QuestionTab getQuestionTab(@Param("question_id")int question_id);
 	
-	@Insert("INSERT INTO question_tab(user_sequence_id,question,question_date_created) "
-			+ "VALUES(#{question_tab.user_sequence_id},#{question_tab.question},now())")
+	@Insert("INSERT INTO question_tab(product_id,user_sequence_id,question,question_date_created) "
+			+ "VALUES(#{questionTab.product_id},#{questionTab.user_sequence_id},#{questionTab.question},now())")
 	@Options(useGeneratedKeys = true, keyProperty = "question_id")
 	int insertquestionTab(@Param("questionTab") QuestionTab questionTab);
 	
@@ -41,8 +34,5 @@ public interface QuestionTabMapper {
 	
 	@Delete("DELETE FROM question_tab WHERE question_id=#{question_id}")
 	int deletequestionTab(@Param("question_id")int question_id);
-=======
-	
->>>>>>> 39aa652b9041e2a0697f4da73001d9b6948f3d89
 	
 }
