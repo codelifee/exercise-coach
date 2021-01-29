@@ -19,7 +19,7 @@ import com.shoppingmall.model.Users;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin(origins="http://localhost:5000")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UsersController {
 	
 	@Autowired

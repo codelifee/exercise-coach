@@ -19,7 +19,7 @@ import com.shoppingmall.model.AnswerTab;
 
 @RestController
 @RequestMapping("/answer")
-@CrossOrigin(origins="http://localhost:5000")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AnswerTabController {
 	
 	@Autowired

@@ -20,7 +20,7 @@ import com.shoppingmall.model.DetailQualityTab;
 
 @RestController
 @RequestMapping("/detailinformationtab")
-@CrossOrigin(origins="http://localhost:5000")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class DetailInformationTabController {
 
 	@Autowired

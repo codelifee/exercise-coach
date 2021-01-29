@@ -19,7 +19,7 @@ import com.shoppingmall.model.ReviewTab;
 
 @RestController
 @RequestMapping("/review")
-@CrossOrigin(origins="http://localhost:5000")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ReviewTabController {
 
 	@Autowired
