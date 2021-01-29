@@ -2,7 +2,6 @@ package com.shoppingmall.controller;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.shoppingmall.mapper.CartItemsMapper;
 import com.shoppingmall.model.CartItems;
 
@@ -28,7 +26,7 @@ public class CartItemsController {
 	
 	@GetMapping("/all")
 	public List<CartItems> getAll(){
-		return cartItemsMapper.findAll();
+		return cartItemsMapper.getAll();
 	}
 	
 	

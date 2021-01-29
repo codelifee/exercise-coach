@@ -1,12 +1,12 @@
 package com.shoppingmall;
 
-
 import org.apache.ibatis.type.MappedTypes;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.shoppingmall.model.Users;
 
-@MappedTypes(com.shoppingmall.model.Users.class)
+@MappedTypes(Users.class)
 @MapperScan("com.shoppingmall.mapper")
 @SpringBootApplication
 public class ShoppingMallApplication {
@@ -16,4 +16,3 @@ public class ShoppingMallApplication {
 	}
 
 }
- 

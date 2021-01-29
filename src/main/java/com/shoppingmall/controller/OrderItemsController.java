@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shoppingmall.mapper.OrderItemsMapper;
 import com.shoppingmall.model.OrderItems;
-import com.shoppingmall.model.Orders;
-
 
 @RestController
 @RequestMapping("/orderitems")
@@ -29,11 +27,11 @@ public class OrderItemsController {
 	
 	@GetMapping("/all")
 	public List<OrderItems> getAll(){
-		return orderItemsMapper.findAll();
+		return orderItemsMapper.getAll();
 	}
 	
 	@GetMapping("/{order_item_id}")
-	public Orders getOrderItems(@PathVariable("order_item_id")int order_item_id) {
+	public OrderItems getOrderItems(@PathVariable("order_item_id")int order_item_id) {
 		return orderItemsMapper.getOrderItems(order_item_id);
 	}
 	
@@ -44,9 +42,11 @@ public class OrderItemsController {
 	}
 	
 	@PutMapping("/{order_item_id}")
-	public void updateOrderItems(@PathVariable("order_item_id")int order_item_id, 
+	public void updateOrderItems(@PathVariable("order_item_id")int order_item_id, @RequestParam("order_id") int order_id,
+			@RequestParam("product_detail_id") int product_detail_id,
 			@RequestParam("order_item_quantity")int order_item_quantity) {
-		orderItemsMapper.updateOrderItems(order_item_id, order_item_quantity);
+		orderItemsMapper.updateOrderItems(order_item_id, order_id, product_detail_id, order_item_quantity);
+		
 	}
 	
 	@DeleteMapping("/{order_item_id}")

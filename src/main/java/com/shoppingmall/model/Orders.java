@@ -7,6 +7,8 @@ public class Orders {
 	private String order_date_created;
 	private String order_status;
 	private int order_amount;
+	private String user_id;
+	private String user_address;
 	
 	public int getOrder_id() {
 		return order_id;
@@ -37,6 +39,18 @@ public class Orders {
 	}
 	public void setOrder_amount(int order_amount) {
 		this.order_amount = order_amount;
+	}
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
+	public String getUser_address() {
+		return user_address;
+	}
+	public void setUser_address(String user_address) {
+		this.user_address = user_address;
 	}
 	
 	

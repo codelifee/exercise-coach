@@ -1,5 +1,7 @@
 package com.shoppingmall.model;
 
+import java.util.List;
+
 public class QuestionTab {
 	
 	 private int question_id;
@@ -7,6 +9,8 @@ public class QuestionTab {
 	 private int user_sequence_id;
 	 private String question; 
 	 private String question_date_created;
+	 private String product_picture;
+	 private List<AnswerTab> answerTabList;
 	 
 	public int getQuestion_id() {
 		return question_id;
@@ -37,5 +41,17 @@ public class QuestionTab {
 	}
 	public void setQuestion_date_created(String question_date_created) {
 		this.question_date_created = question_date_created;
+	}
+	public List<AnswerTab> getAnswerTabList() {
+		return answerTabList;
+	}
+	public void setAnswerTabList(List<AnswerTab> answerTabList) {
+		this.answerTabList = answerTabList;
+	}
+	public String getProduct_picture() {
+		return product_picture;
+	}
+	public void setProduct_picture(String product_picture) {
+		this.product_picture = product_picture;
 	}
 }

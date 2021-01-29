@@ -1,7 +1,6 @@
 package com.shoppingmall.model;
 
-
-
+import java.util.List;
 
 public class CartItems {
 	
@@ -10,6 +9,7 @@ public class CartItems {
 	private int product_detail_id;
 	private int product_id; 
 	private int cart_item_quantity;
+	private List<ProductDetails> productDetailsList;
 	
 	public int getCart_item_id() {
 		return cart_item_id;
@@ -40,6 +40,12 @@ public class CartItems {
 	}
 	public void setCart_item_quantity(int cart_item_quantity) {
 		this.cart_item_quantity = cart_item_quantity;
+	}
+	public List<ProductDetails> getProductDetailsList() {
+		return productDetailsList;
+	}
+	public void setProductDetailsList(List<ProductDetails> productDetailsList) {
+		this.productDetailsList = productDetailsList;
 	}
 	
 
