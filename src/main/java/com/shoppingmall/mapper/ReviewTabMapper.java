@@ -4,13 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -19,15 +15,10 @@ import com.shoppingmall.model.ReviewTab;
 @Mapper
 public interface ReviewTabMapper {
 
-	@Select("select * from review_tab")
-	@Results(id="ReviewTabMap", value= {
-		@Result(property = "product_name", column = "product_id", many=@Many(select="com.shoppingmall.mapper.ProductsMapper.getProductName")),	
-		@Result(property ="productDetailsList", column="product_detail_id", many=@Many(select="com.shoppingmall.mapper.ProductDetailsMapper.getAllProductDetails"))
-	})
+	@Select("select * from review_tab r join product_details p on r.product_detail_id = p.product_detail_id order by review_id")
 	List<ReviewTab> getAll();
 	
-	@Select("select * from review_tab where review_id=#{review_id}")
-	@ResultMap("ReviewTabMap")
+	@Select("select * from review_tab r join product_details p on r.product_detail_id = p.product_detail_id where review_id=#{review_id}")
 	ReviewTab getReviewTab(@Param("review_id")int review_id);
 	
 	@Insert("INSERT INTO review_tab(product_id,user_sequence_id,product_detail_id, review, star, review_picture,"

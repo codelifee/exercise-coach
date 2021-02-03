@@ -22,7 +22,7 @@
 //		List<QuestionTab> questionTabList = questionTabMapper.getAll();
 //		if(questionTabList != null & questionTabList.size() > 0) {
 //			for(QuestionTab questionTab : questionTabList) {
-//				questionTab.setAnswerTabList(answerTabMapper.getByQuestionId(questionTab.getQuestion_id()));
+//				questionTab.setAnswerTabList(answerTabMapper.getanswerTab(questionTab.getQuestion_id()));
 //			}//for
 //		}//if
 //		return questionTabList;

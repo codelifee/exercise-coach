@@ -33,10 +33,6 @@ public interface AnswerTabMapper {
 	@Delete("DELETE FROM answer_tab WHERE answer_id=#{answer_id}")
 	int deleteAnswerTab(@Param("answer_id")int answer_id);
 
-	@Select("select * from answer_tab where question_id=#{question_id}")
-	@Options(useGeneratedKeys = true, keyProperty = "answer_id")
-	List<AnswerTab> getanswerTab(@Param("question_id")int question_id);
-	
 }
 
 

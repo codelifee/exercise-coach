@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.shoppingmall.mapper.CartItemsMapper;
 import com.shoppingmall.model.CartItems;
 
@@ -24,12 +25,15 @@ public class CartItemsController {
 	@Autowired
 	private CartItemsMapper cartItemsMapper;
 	
+//	@Autowired
+//	private CartItemsService cartItemsService;
+	
 	@GetMapping("/all")
 	public List<CartItems> getAll(){
 		return cartItemsMapper.getAll();
 	}
 	
-	
+
 	@GetMapping("/{cart_item_id}")
 	public CartItems getCartItems(@PathVariable("cart_item_id") int cart_item_id) {
 		return cartItemsMapper.getCartItems(cart_item_id);

@@ -52,7 +52,5 @@ public class Orders {
 	public void setUser_address(String user_address) {
 		this.user_address = user_address;
 	}
-	
-	
 
 }

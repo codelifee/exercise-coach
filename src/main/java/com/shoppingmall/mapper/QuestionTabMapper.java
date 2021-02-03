@@ -4,13 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -20,15 +16,10 @@ import com.shoppingmall.model.QuestionTab;
 public interface QuestionTabMapper {
 
 
-	@Select("select * from question_tab")
-	@Results(id="QuestionTabMap", value= {
-			@Result(property = "product_picture", column = "product_id", many=@Many(select="com.shoppingmall.mapper.ProductsMapper.getProductPicture")),	
-			@Result(property ="answerTabList", column="question_id", many=@Many(select="com.shoppingmall.mapper.AnswerTabMapper.getanswerTab"))
-		})
+	@Select("select * from question_tab q join answer_tab a on q.question_id=a.question_id order by q.question_id")
 	List<QuestionTab> getAll();
 	
-	@Select("select * from question_tab where question_id=#{question_id}")
-	@ResultMap("QuestionTabMap")
+	@Select("select * from question_tab q join answer_tab a on q.question_id=a.question_id where q.question_id=#{q.question_id}")
 	QuestionTab getQuestionTab(@Param("question_id")int question_id);
 	
 	@Insert("INSERT INTO question_tab(product_id,user_sequence_id,question,question_date_created) "

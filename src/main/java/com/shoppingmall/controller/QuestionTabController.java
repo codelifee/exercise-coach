@@ -26,14 +26,6 @@ public class QuestionTabController {
 	@Autowired
 	private QuestionTabMapper questionTabMapper;
 	
-//	@Autowired
-//	private QuestionTabService questionTabService;
-//
-//	@GetMapping("/all")
-//	public List<QuestionTab> getAll(){
-//		return questionTabService.getAll();
-//	}
-	
 	@GetMapping("/all")
 	public List<QuestionTab> getAll(){
 		return questionTabMapper.getAll();
