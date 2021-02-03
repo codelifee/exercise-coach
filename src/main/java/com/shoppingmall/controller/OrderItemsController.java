@@ -19,7 +19,7 @@ import com.shoppingmall.model.OrderItems;
 
 @RestController
 @RequestMapping("/orderitems")
-@CrossOrigin(origins="http://localhost:5000")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class OrderItemsController {
 	
 	@Autowired

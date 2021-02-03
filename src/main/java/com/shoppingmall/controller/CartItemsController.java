@@ -19,7 +19,7 @@ import com.shoppingmall.model.CartItems;
 
 @RestController
 @RequestMapping("/cartitems")
-@CrossOrigin(origins="http://localhost:5000")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CartItemsController {
 
 	@Autowired

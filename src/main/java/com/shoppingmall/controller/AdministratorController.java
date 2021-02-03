@@ -20,7 +20,7 @@ import com.shoppingmall.model.Administrator;
 
 @RestController
 @RequestMapping("/administrator")
-@CrossOrigin(origins="http://localhost:5000")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AdministratorController {
 
 	@Autowired
