@@ -9,6 +9,7 @@ public class OrderItems {
 	private int product_id;
 	private String product_color;
 	private String product_size;
+
 	
 	public int getOrder_item_id() {
 		return order_item_id;
@@ -53,6 +54,7 @@ public class OrderItems {
 	public void setProduct_size(String product_size) {
 		this.product_size = product_size;
 	}
+
 
 
 }

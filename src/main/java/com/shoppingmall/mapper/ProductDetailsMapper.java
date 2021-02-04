@@ -31,11 +31,15 @@ public interface ProductDetailsMapper {
 	int updateProductDetails(@Param("product_detail_id") int product_detail_id,@Param("product_id") int product_id,
 			@Param("product_color") String product_color,@Param("product_stock") int product_stock, 
 			@Param("product_size") String product_size);
+		
 	
 	@Delete("DELETE FROM product_details WHERE product_detail_id=#{product_detail_id}")
 	int deleteProductDetails(@Param("product_detail_id")int product_detail_id);
 
 
+
 }
+
+
 
 

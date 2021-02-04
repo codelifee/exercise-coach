@@ -17,6 +17,7 @@ public interface DetailInformationTabMapper {
 	
 	@Select("select * from detail_information_tab order by detail_information_id")
 	List<DetailInformationTab> getAll();
+
 	
 	@Select("select * from detail_information_tab where detail_information_id=#{detail_information_id}")
 	DetailInformationTab getDetailInformationTab(@Param("detail_information_id")int detail_information_id);

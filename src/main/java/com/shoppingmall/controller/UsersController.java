@@ -28,6 +28,7 @@ public class UsersController {
 	@GetMapping("/all")
 	public List<Users> getAll(){
 		return usersMapper.getAll();
+
 	}
 	
 	@GetMapping("/{user_sequence_id}")

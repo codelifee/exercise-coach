@@ -8,8 +8,8 @@ public class CartItems {
 	private int product_id; 
 	private int cart_item_quantity;
 	private String product_color;
-	private int product_stock;
-	
+
+
 	public int getCart_item_id() {
 		return cart_item_id;
 	}
@@ -47,11 +47,8 @@ public class CartItems {
 	public void setProduct_color(String product_color) {
 		this.product_color = product_color;
 	}
-	public int getProduct_stock() {
-		return product_stock;
-	}
-	public void setProduct_stock(int product_stock) {
-		this.product_stock = product_stock;
-	}
+
+
+
 
 }

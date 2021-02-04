@@ -34,6 +34,4 @@ public interface CartItemsMapper {
 	@Delete("DELETE FROM cart_items WHERE cart_item_id=#{cart_item_id}")
 	int deleteCartItems(@Param("cart_item_id")int cart_item_id);
 
-
-
 }

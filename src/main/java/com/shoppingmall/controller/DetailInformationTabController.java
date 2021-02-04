@@ -30,6 +30,7 @@ public class DetailInformationTabController {
 	@GetMapping("/all")
 	public List<DetailInformationTab> getAll(){
 		return detailinformationmapper.getAll();
+
 	}
 	
 	@GetMapping("/{detail_information_id}")

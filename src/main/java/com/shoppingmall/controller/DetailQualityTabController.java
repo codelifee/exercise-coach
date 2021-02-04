@@ -29,6 +29,7 @@ public class DetailQualityTabController {
 	@GetMapping("/all")
 	public List<DetailQualityTab> getAll(){
 		return detailqualitytabmapper.getAll();
+
 	}
 	
 	@GetMapping("/{detail_quality_id}")

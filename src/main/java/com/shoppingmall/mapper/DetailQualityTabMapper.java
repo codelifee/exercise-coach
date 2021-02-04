@@ -15,6 +15,7 @@ public interface DetailQualityTabMapper {
 	
 	@Select("select * from detail_quality_tab order by detail_quality_id")
 	List<DetailQualityTab> getAll();
+
 	
 	@Select("select * from detail_quality_tab where detail_quality_id=#{detail_quality_id}")
 	DetailQualityTab getDetailQualityTab(@Param("detail_quality_id")int detail_quality_id);

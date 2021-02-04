@@ -46,6 +46,7 @@ public class ProductDetailsController {
 	public void update(@PathVariable("product_detail_id")int product_detail_id, @Param("product_id") int product_id,
 			@Param("product_color") String product_color,@Param("product_stock") int product_stock,@Param("product_stock") String product_size) {
 		productDetailsMapper.updateProductDetails(product_detail_id,product_id, product_color, product_stock,product_size);
+
 		}
 	
 	@DeleteMapping("/{product_detail_id}")

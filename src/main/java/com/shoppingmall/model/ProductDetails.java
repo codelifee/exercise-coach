@@ -7,6 +7,7 @@ public class ProductDetails {
 	private String product_color;
 	private int product_stock;
 	private String product_size;
+
 	
 	public int getProduct_detail_id() {
 		return product_detail_id;
@@ -32,10 +33,12 @@ public class ProductDetails {
 	public void setProduct_stock(int product_stock) {
 		this.product_stock = product_stock;
 	}
+
 	public String getProduct_size() {
 		return product_size;
 	}
 	public void setProduct_size(String product_size) {
 		this.product_size = product_size;
 	}
+
 }

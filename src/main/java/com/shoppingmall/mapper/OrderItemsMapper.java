@@ -18,9 +18,8 @@ public interface OrderItemsMapper {
 	@Select("select * from order_items o join product_details p on o.product_detail_id = p.product_detail_id order by order_item_id")
 	List<OrderItems> getAll();
 	
-	@Select("select * from order_items o "
-			+ "join product_details p on o.product_detail_id = p.product_detail_id "
-			+ "where order_item_id=#{order_item_id}")
+
+	@Select("select * from order_items o join product_details p on o.product_detail_id = p.product_detail_id where order_item_id=#{order_item_id}")
 	OrderItems getOrderItems(@Param("order_item_id")int order_item_id);
 
 	@Insert("insert into order_items (order_id, product_detail_id,order_item_quantity) values(#{orderitems.order_id},"
