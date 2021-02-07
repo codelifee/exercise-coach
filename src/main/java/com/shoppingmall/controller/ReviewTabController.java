@@ -38,6 +38,9 @@ public class ReviewTabController {
 	@PostMapping("")
 	public ReviewTab insert(@RequestBody ReviewTab reviewTab) {
 		reviewTabMapper.insertReviewTab(reviewTab);
+		
+		
+		
 		return reviewTab;
 	}
 	

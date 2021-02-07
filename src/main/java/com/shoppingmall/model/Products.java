@@ -1,13 +1,19 @@
 package com.shoppingmall.model;
 
+
+
 public class Products {
 	
+
 	private int product_id;
+	
 	private int category_id;
 	private String product_name;
 	private String product_description;
 	private int product_price;
-	private String product_picture;
+	private byte[] product_picture;
+	private int stock;
+	
 	
 	public int getProduct_id() {
 		return product_id;
@@ -39,10 +45,20 @@ public class Products {
 	public void setProduct_price(int product_price) {
 		this.product_price = product_price;
 	}
-	public String getProduct_picture() {
+	public byte[] getProduct_picture() {
 		return product_picture;
 	}
-	public void setProduct_picture(String product_picture) {
+	public void setProduct_picture(byte[] product_picture) {
 		this.product_picture = product_picture;
 	}
+	public int getStock() {
+		return stock;
+	}
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+
+	
+	
+	
 }

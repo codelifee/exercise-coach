@@ -44,10 +44,9 @@ public class OrdersController {
 	
 	@PutMapping("/{order_id}")
 	public void updateOrder(@PathVariable("order_id")int order_id, @RequestParam("user_sequence_id")int user_sequence_id,
-			@RequestParam("order_date_created")String order_date_created,
 			@RequestParam("order_status")String order_status, 
 			@RequestParam("order_amount")int order_amount) {
-		ordersMapper.updateOrders(user_sequence_id, order_date_created, order_status, order_amount);
+		ordersMapper.updateOrders(user_sequence_id, order_status, order_amount);
 	}
 	
 	@DeleteMapping("/{order_id}")
