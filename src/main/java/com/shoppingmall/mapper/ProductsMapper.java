@@ -49,12 +49,6 @@ public interface ProductsMapper {
 	@Select("select product_picture from products where product_id=#{product_id}")
 	@Options(useGeneratedKeys = true, keyProperty = "product_id")
 	byte[] selectImage(int product_id);
-	
 
-
-
-
-
-	
 }
 

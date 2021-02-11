@@ -8,7 +8,7 @@ public class ReviewTab {
 	private int product_detail_id;
 	private String review;
 	private float star;
-	private String review_picture;
+	private byte[] review_picture;
 	private String review_date_created;
 	private String product_name;
 	private String product_color;
@@ -50,10 +50,10 @@ public class ReviewTab {
 	public void setStar(float star) {
 		this.star = star;
 	}
-	public String getReview_picture() {
+	public byte[] getReview_picture() {
 		return review_picture;
 	}
-	public void setReview_picture(String review_picture) {
+	public void setReview_picture(byte[] review_picture) {
 		this.review_picture = review_picture;
 	}
 	public String getReview_date_created() {

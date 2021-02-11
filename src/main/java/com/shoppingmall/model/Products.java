@@ -1,19 +1,15 @@
 package com.shoppingmall.model;
 
-import java.sql.Blob;
 
 public class Products {
 	
-
-	private int product_id;
-	
+	private int product_id;	
 	private int category_id;
 	private String product_name;
 	private String product_description;
 	private int product_price;
 	private byte[] product_picture;
 	private int stock;
-	
 	
 	public int getProduct_id() {
 		return product_id;
