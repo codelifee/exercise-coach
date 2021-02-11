@@ -25,12 +25,12 @@ public class PortfolioApplication {
 		SpringApplication.run(PortfolioApplication.class, args);
 	}
 	
-	@Bean
+/*	@Bean
 	public SqlSessionFactory sqlSessionFactory() throws Exception {
 	    SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
 	    sessionFactory.setDataSource(dataSource);
 	    return sessionFactory.getObject();
-	}
+	}*/
 	
 	
 }

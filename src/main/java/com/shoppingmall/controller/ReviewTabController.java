@@ -1,5 +1,6 @@
 package com.shoppingmall.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.shoppingmall.mapper.ReviewTabMapper;
 import com.shoppingmall.model.ReviewTab;
@@ -47,9 +49,12 @@ public class ReviewTabController {
 	@PutMapping("/{review_id}")
 	public void update(@PathVariable("review_id")int review_id, @Param("product_id") int product_id,
 			@Param("user_sequence_id") int user_sequence_id, @Param("product_detail_id") int product_detail_id,
-			@Param("review") String review,@Param("star") float star,@Param("review_picture") String review_picture) {
-		reviewTabMapper.updateReviewTab(product_id, user_sequence_id, product_detail_id, review, star, review_picture, review_id);
-		}
+			@Param("review") String review,@Param("star") float star,@Param("review_picture") MultipartFile review_picture) throws IOException {
+		byte[] imageData= review_picture.getBytes();
+		reviewTabMapper.updateReviewTab(product_id, user_sequence_id, product_detail_id, review, star, imageData, review_id);
+		
+	
+	}
 	
 	@DeleteMapping("/{review_id}")
 	public void delete(@PathVariable("review_id")int review_id){

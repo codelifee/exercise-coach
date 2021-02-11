@@ -4,13 +4,31 @@ public class OrderItems {
 	
 	private int order_item_id;
 	private int order_id;
-	private int product_detail_id;
 	private int order_item_quantity;
 	private int product_id;
-	private String product_color;
-	private String product_size;
-
+	private String product_name;
+	private String product_description;
+	private int product_price;
+	private byte[] product_picture;
 	
+	public int getProduct_price() {
+		return product_price;
+	}
+	public void setProduct_price(int product_price) {
+		this.product_price = product_price;
+	}
+	public byte[] getProduct_picture() {
+		return product_picture;
+	}
+	public void setProduct_picture(byte[] product_picture) {
+		this.product_picture = product_picture;
+	}
+	public String getProduct_name() {
+		return product_name;
+	}
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
+	}
 	public int getOrder_item_id() {
 		return order_item_id;
 	}
@@ -23,12 +41,7 @@ public class OrderItems {
 	public void setOrder_id(int order_id) {
 		this.order_id = order_id;
 	}
-	public int getProduct_detail_id() {
-		return product_detail_id;
-	}
-	public void setProduct_detail_id(int product_detail_id) {
-		this.product_detail_id = product_detail_id;
-	}
+
 	public int getOrder_item_quantity() {
 		return order_item_quantity;
 	}
@@ -42,17 +55,13 @@ public class OrderItems {
 	public void setProduct_id(int product_id) {
 		this.product_id = product_id;
 	}
-	public String getProduct_color() {
-		return product_color;
+
+
+	public String getProduct_description() {
+		return product_description;
 	}
-	public void setProduct_color(String product_color) {
-		this.product_color = product_color;
-	}
-	public String getProduct_size() {
-		return product_size;
-	}
-	public void setProduct_size(String product_size) {
-		this.product_size = product_size;
+	public void setProduct_description(String product_description) {
+		this.product_description = product_description;
 	}
 
 

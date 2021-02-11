@@ -31,7 +31,7 @@ public class OrderItemsController {
 	}
 	
 	@GetMapping("/{order_item_id}")
-	public OrderItems getOrderItems(@PathVariable("order_item_id")int order_item_id) {
+	public  OrderItems getOrderItems(@PathVariable("order_item_id")int order_item_id) {
 		return orderItemsMapper.getOrderItems(order_item_id);
 	}
 	
@@ -43,9 +43,9 @@ public class OrderItemsController {
 	
 	@PutMapping("/{order_item_id}")
 	public void updateOrderItems(@PathVariable("order_item_id")int order_item_id, @RequestParam("order_id") int order_id,
-			@RequestParam("product_detail_id") int product_detail_id,
+			@RequestParam("product_id") int product_id,
 			@RequestParam("order_item_quantity")int order_item_quantity) {
-		orderItemsMapper.updateOrderItems(order_item_id, order_id, product_detail_id, order_item_quantity);
+		orderItemsMapper.updateOrderItems(order_item_id, order_id, product_id, order_item_quantity);
 		
 	}
 	

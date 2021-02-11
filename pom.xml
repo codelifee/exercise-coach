@@ -19,7 +19,6 @@
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
 		<java.version>1.8</java.version>
 	</properties>
 
@@ -30,7 +29,6 @@
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
 
 		<!-- https://mvnrepository.com/artifact/org.eclipse.persistence/javax.persistence -->
 		<dependency>
@@ -56,12 +54,11 @@
 			<version>2.1.4</version>
 		</dependency>
 
-<dependency>
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
 
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
@@ -98,16 +95,14 @@
 			<artifactId>retrofit</artifactId>
 			<version>2.3.0</version>
 		</dependency>
-		
-<dependency>
 
-<groupId>com.squareup.retrofit2</groupId>
+		<!-- https://mvnrepository.com/artifact/commons-fileupload.wso2/commons-fileupload -->
 
-<artifactId>converter-gson</artifactId>
-
-<version>2.3.0</version>
-
-</dependency>
+		<dependency>
+			<groupId>com.squareup.retrofit2</groupId>
+			<artifactId>converter-gson</artifactId>
+			<version>2.3.0</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.h2database</groupId>
@@ -119,14 +114,11 @@
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 		</dependency>
-		
-<dependency>
 
-<groupId>org.springframework.kafka</groupId>
-
-<artifactId>spring-kafka</artifactId>
-
-</dependency>
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.webjars</groupId>

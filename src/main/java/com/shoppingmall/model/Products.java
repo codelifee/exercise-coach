@@ -1,6 +1,6 @@
 package com.shoppingmall.model;
 
-
+import java.sql.Blob;
 
 public class Products {
 	
@@ -48,8 +48,8 @@ public class Products {
 	public byte[] getProduct_picture() {
 		return product_picture;
 	}
-	public void setProduct_picture(byte[] product_picture) {
-		this.product_picture = product_picture;
+	public void setProduct_picture(byte[] imageData) {
+		this.product_picture = imageData;
 	}
 	public int getStock() {
 		return stock;
