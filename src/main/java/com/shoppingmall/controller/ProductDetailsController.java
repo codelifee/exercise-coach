@@ -104,7 +104,7 @@ public class ProductDetailsController {
 	     }
 	  }
 	
-	@GetMapping("/show/info_image/{product_detail_id}")
+	   @GetMapping("/show/info_image/{product_detail_id}")
 	   @ResponseBody
 	   public ResponseEntity<?> downloadInfoImage(@PathVariable("product_detail_id") int product_detail_id, HttpServletResponse response,
 	         HttpServletRequest request) throws IOException, SQLException {
