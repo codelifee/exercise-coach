@@ -44,7 +44,4 @@ public interface ProductsMapper {
 	@Options(useGeneratedKeys = true, keyProperty = "product_id")
 	String getProductPicture(int product_id);
 	
-
-
-	
 }
