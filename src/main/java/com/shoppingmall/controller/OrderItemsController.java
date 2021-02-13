@@ -27,6 +27,8 @@ public class OrderItemsController {
 	
 	@GetMapping("/all")
 	public List<OrderItems> getAll(){
+		
+
 		return orderItemsMapper.getAll();
 	}
 	

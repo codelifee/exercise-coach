@@ -58,10 +58,10 @@ public class ReviewTabController {
 	
 	@PutMapping("/{review_id}")
 	public void update(@PathVariable("review_id")int review_id, @Param("product_id") int product_id,
-			@Param("user_sequence_id") int user_sequence_id, @Param("product_detail_id") int product_detail_id,
+			@Param("user_sequence_id") int user_sequence_id, 
 			@Param("review") String review,@Param("star") float star,@Param("review_picture") MultipartFile review_picture) throws IOException {
 		byte[] imageData= review_picture.getBytes();
-		reviewTabMapper.updateReviewTab(product_id, user_sequence_id, product_detail_id, review, star, imageData, review_id);
+		reviewTabMapper.updateReviewTab(product_id, user_sequence_id,review, star, imageData, review_id);
 		
 	
 	}
@@ -74,8 +74,7 @@ public class ReviewTabController {
 	
 	@PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> uploadFile(@RequestParam("product_id") int product_id,
-			@RequestParam("user_sequence_id") int user_sequence_id, @RequestParam("product_detail_id") int product_detail_id, 
-			@RequestParam("review") String review, @RequestParam("star") float star//@RequestParam("review_date_created") String review_date_created,
+			@RequestParam("user_sequence_id") int user_sequence_id,	@RequestParam("review") String review, @RequestParam("star") float star//@RequestParam("review_date_created") String review_date_created,
 			, HttpServletRequest request, final @RequestParam("review_picture") MultipartFile review_picture) {
 		
         logger.info(String.format("File name '%s' uploaded successfully.", review_picture.getOriginalFilename()));
@@ -85,8 +84,7 @@ public class ReviewTabController {
 			ReviewTab r = new ReviewTab();
 
 			r.setProduct_id(product_id);
-			r.setUser_sequence_id(user_sequence_id);
-			r.setProduct_detail_id(product_detail_id);
+			r.setUser_sequence_id(user_sequence_id);			
 			r.setReview(review);
 			r.setStar(star);
 			r.setReview_picture(imageData);

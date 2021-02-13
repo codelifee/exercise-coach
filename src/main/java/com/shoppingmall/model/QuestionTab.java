@@ -10,6 +10,8 @@ public class QuestionTab {
 	 private int answer_id;
 	 private String answer;
 	 private String answer_date_created;
+	 private byte[] info_image;
+	 private byte[] quality_image;
 	 
 	public int getQuestion_id() {
 		return question_id;
@@ -58,6 +60,18 @@ public class QuestionTab {
 	}
 	public void setAnswer_date_created(String answer_date_created) {
 		this.answer_date_created = answer_date_created;
+	}
+	public byte[] getInfo_image() {
+		return info_image;
+	}
+	public void setInfo_image(byte[] info_image) {
+		this.info_image = info_image;
+	}
+	public byte[] getQuality_image() {
+		return quality_image;
+	}
+	public void setQuality_image(byte[] quality_image) {
+		this.quality_image = quality_image;
 	}
 
 }

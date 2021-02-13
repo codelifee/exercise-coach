@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.zip.DataFormatException;
+import java.util.zip.Inflater;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -75,11 +77,14 @@ public class ProductsController {
 	public void update(@PathVariable("product_id") int product_id, @Param("category_id") int category_id,
 			@Param("product_name") String product_name, @Param("product_description") String product_description,
 			@Param("product_price") int product_price, @Param("stock") int stock,
-			final @RequestParam("product_picture") MultipartFile product_picture) throws IOException {
+			final @RequestParam("product_picture") MultipartFile product_picture,
+			final @RequestParam("info_img") MultipartFile info_img,
+			final @RequestParam("quality_img") MultipartFile quality_img) throws IOException {
 		byte[] imageData = product_picture.getBytes();
-
+		byte[] imageData1 = info_img.getBytes();
+		byte[] imageData2 = quality_img.getBytes();
 		productsMapper.updateProducts(product_id, category_id, product_name, product_description, product_price,
-				imageData, stock);
+				imageData, stock, imageData1, imageData2);
 	}
 
 	@DeleteMapping("/{product_id}")
@@ -87,55 +92,116 @@ public class ProductsController {
 		productsMapper.deleteProducts(product_id);
 	}
 
-
-	
 	@PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<?> uploadFile(@RequestParam("category_id") int category_id,
-	        @RequestParam("product_name") String product_name,
-	        @RequestParam("product_description") String product_description,
-	        @RequestParam("product_price") int product_price, @RequestParam("stock") int stock,
-	        HttpServletRequest request, final @RequestParam("product_picture") MultipartFile product_picture) {
+			@RequestParam("product_name") String product_name,
+			@RequestParam("product_description") String product_description,
+			@RequestParam("product_price") int product_price, @RequestParam("stock") int stock,
+			HttpServletRequest request, final @RequestParam("product_picture") MultipartFile product_picture,
+			final @RequestParam("info_img") MultipartFile info_img,
+			final @RequestParam("quality_img") MultipartFile quality_img) {
 
-	     logger.info(String.format("File name '%s' uploaded successfully.", product_picture.getOriginalFilename()));
+		logger.info(String.format("File name '%s' uploaded successfully.", product_picture.getOriginalFilename()));
 
-	     try {
+		try {
 
-	    	  byte[] imageData = product_picture.getBytes();
-	        Products p = new Products();
+			byte[] imageData = product_picture.getBytes();
+			byte[] imageData1 = info_img.getBytes();
+			byte[] imageData2 = quality_img.getBytes();
 
-	        p.setCategory_id(category_id);
-	        p.setProduct_description(product_description);
-	        p.setProduct_name(product_name);
-	        p.setProduct_picture(imageData);
-	        p.setProduct_price(product_price);
-	        p.setStock(stock);
-	        productsMapper.insertProducts(p);
+			Products p = new Products();
 
-	        logger.info("HttpStatus===" + new ResponseEntity<>(HttpStatus.OK));
-	        return new ResponseEntity<>("Product Saved With File - ", HttpStatus.OK);
+			p.setCategory_id(category_id);
+			p.setProduct_description(product_description);
+			p.setProduct_name(product_name);
+			p.setProduct_picture(imageData);
+			p.setInfo_img(imageData1);
+			p.setQuality_img(imageData2);
+			p.setProduct_price(product_price);
+			p.setStock(stock);
+			productsMapper.insertProducts(p);
 
-	     }catch (Exception e) {
-	        e.printStackTrace();
-	        logger.info("Exception: " + e);
-	        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-	     }
-	  }
+			logger.info("HttpStatus===" + new ResponseEntity<>(HttpStatus.OK));
+			return new ResponseEntity<>("Product Saved With File - ", HttpStatus.OK);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.info("Exception: " + e);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	public static byte[] decompressBytes(byte[] data) {
+		Inflater inflater = new Inflater();
+		inflater.setInput(data);
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
+		byte[] buffer = new byte[1024];
+		try {
+			while (!inflater.finished()) {
+				int count = inflater.inflate(buffer);
+				outputStream.write(buffer, 0, count);
+			}
+			outputStream.close();
+		} catch (IOException ioe) {
+		} catch (DataFormatException e) {
+		}
+		return outputStream.toByteArray();
+	}
 	
-	@GetMapping("/show/{product_id}")
-	   @ResponseBody
-	   public ResponseEntity<?> downloadFile(@PathVariable("product_id") int product_id, HttpServletResponse response,
-	         HttpServletRequest request) throws IOException, SQLException {
-	      try {
-	         Products p = productsMapper.getProducts(product_id);
-	         response.setContentType("image/jpeg; image/jpg; image/png; image/gif");
+	@GetMapping("/showProductImage/{product_id}")
+	@ResponseBody
+	public ResponseEntity<?> downloadFile(@PathVariable("product_id") int product_id, HttpServletResponse response,
+			HttpServletRequest request) throws IOException, SQLException {
+		try {
+			Products p = productsMapper.getProducts(product_id);
+			response.setContentType("image/jpeg; image/jpg; image/png; image/gif");
 
-	         response.getOutputStream().write(p.getProduct_picture());
-	         response.getOutputStream().close();
-	         return new ResponseEntity<>("Product Saved With File - ", HttpStatus.OK);
-	      } catch (Exception e) {
-	         e.printStackTrace();
-	         logger.info("Exception: " + e);
-	         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-	      }
-	   }
+			response.getOutputStream().write(p.getProduct_picture());
+			response.getOutputStream().close();
+			return new ResponseEntity<>("Product Saved With File - ", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.info("Exception: " + e);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
+
+	@GetMapping("/showInfoImage/{product_id}")
+
+	@ResponseBody
+	public ResponseEntity<?> downloadFile1(@PathVariable("product_id") int product_id, HttpServletResponse response,
+			HttpServletRequest request) throws IOException, SQLException {
+		try {
+			Products p = productsMapper.getProducts(product_id);
+			response.setContentType("image/jpeg; image/jpg; image/png; image/gif");
+
+			response.getOutputStream().write(p.getInfo_img());
+			response.getOutputStream().close();
+			return new ResponseEntity<>("Product Saved With File", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.info("Exception: " + e);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	@GetMapping("/showQualityImage/{product_id}")
+	@ResponseBody
+	public ResponseEntity<?> downloadFile2(@PathVariable("product_id") int product_id, HttpServletResponse response,
+			HttpServletRequest request) throws IOException, SQLException {
+		try {
+			Products p = productsMapper.getProducts(product_id);
+			response.setContentType("image/jpeg; image/jpg; image/png; image/gif");
+
+			response.getOutputStream().write(p.getQuality_img());
+			response.getOutputStream().close();
+			return new ResponseEntity<>("Product Saved With File - ", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.info("Exception: " + e);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
 }
