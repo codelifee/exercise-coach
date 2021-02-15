@@ -15,10 +15,14 @@ import com.shoppingmall.model.Orders;
 @Mapper
 public interface OrdersMapper {
 	
-	@Select("select * from orders o join users u on o.user_sequence_id = u.user_sequence_id order by order_id")
+	@Select("select u.user_address, u.user_id, o.*, p.product_name, p.product_price from orders o "+ 
+			"join products p on o.product_id=p.product_id " + 
+			"join users u on o.user_sequence_id=u.user_sequence_id")
 	List<Orders> findAll();
 	
-	@Select("select * from orders o join users u on o.user_sequence_id = u.user_sequence_id where order_id=#{order_id}")
+	@Select("select u.user_address, u.user_id, o.*, p.product_name, p.product_price from orders o " + 
+			"join products p on o.product_id=p.product_id "+
+			"join users u on o.user_sequence_id=u.user_sequence_id where o.order_id=#{order_id}")
 	Orders getOrders(@Param("order_id")int order_id);
 
 	@Insert("insert into orders (user_sequence_id, order_date_created, order_status, order_amount) "
@@ -35,5 +39,9 @@ public interface OrdersMapper {
 	@Delete("delete from orders where order_id=#{order_id}")
 	int deleteOrders(@Param("order_id")int order_id);
 	
-
+	
+	@Select("select p.product_picture from orders o join order_items oi on o.order_id=oi.order_id join products p on oi.product_id=p.product_id " + 
+			"where o.order_id=#{order_id}")
+	@Options(useGeneratedKeys = true, keyProperty = "order_id")
+	byte[] selectImage(int order_id);
 }

@@ -17,7 +17,7 @@ import com.shoppingmall.model.ReviewTab;
 public interface ReviewTabMapper {
 
 
-	@Select("select * from review_tab")
+	@Select("select from review_tab")
 	List<ReviewTab> getAll();
 
 	@Select("select * from review_tab where review_id=#{review_id}")
