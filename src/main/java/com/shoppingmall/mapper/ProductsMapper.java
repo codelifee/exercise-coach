@@ -1,8 +1,6 @@
 package com.shoppingmall.mapper;
 
-import java.sql.Blob;
 import java.util.List;
-import java.util.Optional;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -11,14 +9,13 @@ import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.shoppingmall.model.Products;
 
 @Mapper
 public interface ProductsMapper {
 
-	@Select("select * from products")
+	@Select("select * from products order by product_id")
 	List<Products> getAll();
 	
 	@Select("select * from products where product_id=#{product_id}")
@@ -26,15 +23,17 @@ public interface ProductsMapper {
 	
 	@Insert("INSERT INTO products(category_id,product_name,product_description,product_price, product_picture, stock)"
 			+ " VALUES(#{products.category_id}, #{products.product_name},#{products.product_description}, "
-			+ "#{products.product_price}, #{products.product_picture}, #{products.stock})")
+			+ "#{products.product_price}, #{products.product_picture}, #{products.stock}. #{info_img}, #{quality_img})")
 	@Options(useGeneratedKeys = true, keyProperty = "product_id")
 	int insertProducts(@Param("products") Products products);
 	
 	@Update("UPDATE products SET category_id=#{category_id},product_name=#{product_name},product_description=#{product_description},"
-			+ "product_price=#{product_price},product_picture=#{imageData}, stock=#{stock} WHERE product_id=#{product_id}")
+			+ "product_price=#{product_price},product_picture=#{imageData}, stock=#{stock}, info_img=#{info_img}, quality_img}=#{quality_img}"
+			+ "WHERE product_id=#{product_id}")
 	int updateProducts(@Param("product_id") int product_id,@Param("category_id") int category_id,
 			@Param("product_name") String product_name, @Param("product_description") String product_description,
-			@Param("product_price") int product_price,@Param("imageData") byte[] imageData, @Param("stock") int stock);
+			@Param("product_price") int product_price,@Param("imageData") byte[] imageData, @Param("stock") int stock, 
+			@Param("imageData1") byte[] imageData1, @Param("imageData2") byte[] imageData2);
 	
 	@Delete("DELETE FROM products WHERE product_id=#{product_id}")
 	int deleteProducts(@Param("product_id")int product_id);

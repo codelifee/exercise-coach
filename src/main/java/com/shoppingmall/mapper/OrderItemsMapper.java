@@ -13,8 +13,13 @@ import com.shoppingmall.model.OrderItems;
 @Mapper
 public interface OrderItemsMapper {
 	
+<<<<<<< HEAD
 	@Select("select o.* , p.product_name, p.product_description, p.product_price, p.product_picture from order_items as o " + 
 			"join products as p on o.product_id = p.product_id order by order_item_id")
+=======
+	@Select("select o.* , p.product_name, p.product_description, p.product_price from order_items as o "
+			+ "join products as p on o.product_id= p.product_id order by o.order_item_id" )
+>>>>>>> 7524db0e60dbc50399f829981b47d8df2e1b9fa7
 	List<OrderItems> getAll();
 	
 	@Select("select o.* , p.product_name, p.product_description, p.product_price, p.product_picture from order_items as o "
