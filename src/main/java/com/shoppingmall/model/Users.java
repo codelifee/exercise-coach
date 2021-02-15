@@ -6,8 +6,6 @@ public class Users {
 	private String user_id;
 	private String user_pwd;
 	private String user_name;
-	private String user_date_of_birth;
-	private String user_email;
 	private String user_phone;
 	private String user_address;
 	private String user_date_joined;
@@ -35,18 +33,6 @@ public class Users {
 	}
 	public void setUser_name(String user_name) {
 		this.user_name = user_name;
-	}
-	public String getUser_date_of_birth() {
-		return user_date_of_birth;
-	}
-	public void setUser_date_of_birth(String user_date_of_birth) {
-		this.user_date_of_birth = user_date_of_birth;
-	}
-	public String getUser_email() {
-		return user_email;
-	}
-	public void setUser_email(String user_email) {
-		this.user_email = user_email;
 	}
 	public String getUser_phone() {
 		return user_phone;
