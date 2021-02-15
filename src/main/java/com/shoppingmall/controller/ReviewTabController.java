@@ -62,8 +62,6 @@ public class ReviewTabController {
 			@Param("review") String review,@Param("star") float star,@Param("review_picture") MultipartFile review_picture) throws IOException {
 		byte[] imageData= review_picture.getBytes();
 		reviewTabMapper.updateReviewTab(product_id, user_sequence_id, product_detail_id, review, star, imageData, review_id);
-		
-	
 	}
 
 	

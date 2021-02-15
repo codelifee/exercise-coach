@@ -14,10 +14,9 @@ import com.shoppingmall.model.OrderItems;
 public interface OrderItemsMapper {
 	
 	@Select("select o.* , p.product_name, p.product_description, p.product_price, p.product_picture from order_items as o " + 
-			"join products as p on o.product_id= p.product_id")
+			"join products as p on o.product_id = p.product_id order by order_item_id")
 	List<OrderItems> getAll();
 	
-
 	@Select("select o.* , p.product_name, p.product_description, p.product_price, p.product_picture from order_items as o "
 			+ "join products as p on o.product_id= p.product_id where o.order_item_id=#{order_item_id}")
 	OrderItems getOrderItems(@Param("order_item_id")int order_item_id);
