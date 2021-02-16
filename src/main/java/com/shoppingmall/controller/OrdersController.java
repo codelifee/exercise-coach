@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -54,6 +55,19 @@ public class OrdersController {
 		ordersMapper.insert(orders);
 		return  orders;
 	}
+	
+	@PatchMapping("/status/{order_id}")
+	public void updateStatus(@PathVariable("order_id")int order_id, @RequestParam("order_status")String order_status) {
+		ordersMapper.updateStatus(order_status, order_id);
+	}
+	
+	  @PatchMapping("/amount/{order_id}") 
+	  public void updateAmount(@PathVariable("order_id")int
+	  order_id, @RequestParam("order_amount")int order_amount) {
+	  ordersMapper.updateAmount(order_amount, order_id);
+	  }
+	 
+	
 	
 	@PutMapping("/{order_id}")
 	public void updateOrder(@PathVariable("order_id")int order_id, @RequestParam("user_sequence_id")int user_sequence_id,
