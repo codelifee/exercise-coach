@@ -2,6 +2,7 @@ package com.shoppingmall.controller;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shoppingmall.mapper.CartItemsMapper;
@@ -47,7 +47,7 @@ public class CartItemsController {
 	
 	@PutMapping("/{cart_item_id}")
 	public void updateCartItems(@PathVariable("cart_item_id") int cart_item_id,
-			@RequestParam("cart_item_quantity") int cart_item_quantity) {
+			@Param("cart_item_quantity") int cart_item_quantity) {
 		cartItemsMapper.updateCartItems(cart_item_id, cart_item_quantity);
 	}
 	

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shoppingmall.mapper.CategoriesMapper;
 import com.shoppingmall.model.Categories;
-import com.shoppingmall.model.Users;
 
 @RestController
 @RequestMapping("/categories")

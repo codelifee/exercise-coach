@@ -1,11 +1,16 @@
 package com.shoppingmall.controller;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -44,14 +49,22 @@ public class OrdersController {
 	
 	@PutMapping("/{order_id}")
 	public void updateOrder(@PathVariable("order_id")int order_id, @RequestParam("user_sequence_id")int user_sequence_id,
-			@RequestParam("order_status")String order_status, 
-			@RequestParam("order_amount")int order_amount) {
-		ordersMapper.updateOrders(user_sequence_id, order_status, order_amount);
+			@RequestParam("order_status")String order_status, @RequestParam("order_amount")int order_amount) {
+		ordersMapper.updateOrders(user_sequence_id, order_status, order_amount, order_id);
 	}
 	
 	@DeleteMapping("/{order_id}")
 	public void deleteOrder(@PathVariable("order_id")int order_id) {
 		ordersMapper.deleteOrders(order_id);
 	}
-
+	
 }
+
+
+
+
+
+
+
+
+

@@ -26,14 +26,12 @@ public interface OrdersMapper {
 	@Options(useGeneratedKeys = true, keyProperty = "order_id")
 	int insert(@Param("orders") Orders orders);
 	
-	@Update("update orders set user_sequence_id=#{user_sequence_id}, "
-			+ "order_status=#{order_status},"
-			+ "order_amount=#{order_amount}")
-	int updateOrders(@Param("user_sequence_id")int user_sequence_id,
-			@Param("order_status")String order_status, @Param("order_amount")int order_amount);
+	@Update("update orders set user_sequence_id=#{user_sequence_id},order_status=#{order_status}, "
+			+ "order_amount=#{order_amount} where order_id=#{order_id}")
+	int updateOrders(@Param("user_sequence_id")int user_sequence_id,@Param("order_status")String order_status, 
+			@Param("order_amount")int order_amount, @Param("order_id")int order_id);
 	
 	@Delete("delete from orders where order_id=#{order_id}")
 	int deleteOrders(@Param("order_id")int order_id);
-	
 
 }

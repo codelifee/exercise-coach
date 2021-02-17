@@ -32,10 +32,10 @@ public interface ReviewTabMapper {
 	
 	@Update("UPDATE review_tab SET product_id=#{product_id}, user_sequence_id=#{user_sequence_id}, "
 			+ "review=#{review}, star=#{star}, "
-			+ "review_picture=#{imageData} WHERE review_id=#{review_id}")
+			+ "review_picture=#{review_picture} WHERE review_id=#{review_id}")
 	int updateReviewTab(@Param("product_id") int product_id,@Param("user_sequence_id") int user_sequence_id,
 		    @Param("review") String review,
-			@Param("star") float star,@Param("imageData") byte[] imageData,
+			@Param("star") float star,@Param("review_picture") byte[] imageData,
 			@Param("review_id") int review_id);
 
 	

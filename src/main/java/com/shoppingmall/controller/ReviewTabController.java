@@ -61,15 +61,8 @@ public class ReviewTabController {
 			@Param("user_sequence_id") int user_sequence_id, 
 			@Param("review") String review,@Param("star") float star,@Param("review_picture") MultipartFile review_picture) throws IOException {
 		byte[] imageData= review_picture.getBytes();
-<<<<<<< HEAD
-		reviewTabMapper.updateReviewTab(product_id, user_sequence_id, product_detail_id, review, star, imageData, review_id);
-=======
 		reviewTabMapper.updateReviewTab(product_id, user_sequence_id,review, star, imageData, review_id);
-		
-	
->>>>>>> 7524db0e60dbc50399f829981b47d8df2e1b9fa7
 	}
-
 	
 	@DeleteMapping("/{review_id}")
 	public void delete(@PathVariable("review_id")int review_id){
