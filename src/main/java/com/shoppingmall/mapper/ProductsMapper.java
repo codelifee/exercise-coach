@@ -21,9 +21,9 @@ public interface ProductsMapper {
 	@Select("select * from products where product_id=#{product_id}")
 	Products getProducts(@Param("product_id")int product_id);
 	
-	@Insert("INSERT INTO products(category_id,product_name,product_description,product_price, product_picture, stock, info_img, quality_img)"
+	@Insert("INSERT INTO products(category_id,product_name,product_description,product_price, stock, info_img, quality_img)"
 			+ " VALUES(#{products.category_id}, #{products.product_name},#{products.product_description}, "
-			+ "#{products.product_price}, #{products.product_picture}, #{products.stock}, #{products.info_img}, #{products.quality_img})")
+			+ "#{products.product_price}, #{products.stock}, #{products.info_img}, #{products.quality_img})")
 	@Options(useGeneratedKeys = true, keyProperty = "product_id")
 	int insertProducts(@Param("products") Products products);
 	

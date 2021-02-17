@@ -3,6 +3,7 @@ package com.shoppingmall.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,59 +29,60 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shoppingmall.mapper.OrdersMapper;
 import com.shoppingmall.model.Orders;
 
-
 @RestController
 @RequestMapping("/orders")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class OrdersController {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(ProductsController.class);
 
-	
 	@Autowired
 	private OrdersMapper ordersMapper;
-	
+
 	@GetMapping("/all")
-	public List<Orders> getAll(){
+	public List<Orders> getAll() {
 		return ordersMapper.findAll();
 	}
 	
+	
+	
+	
+
 	@GetMapping("/{order_id}")
-	public Orders getUser(@PathVariable("order_id")int order_id) {
+	public Orders getUser(@PathVariable("order_id") int order_id) {
 		return ordersMapper.getOrders(order_id);
 	}
 	
+	@GetMapping("/userid/{user_sequence_id}")
+	public List<Orders> getUserByUserId(@PathVariable("user_sequence_id") int user_sequence_id) {
+		return ordersMapper.getOrdersByUserId(user_sequence_id);
+		
+	}
+
 	@PostMapping("")
 	public Orders post(@RequestBody Orders orders) {
 		ordersMapper.insert(orders);
-		return  orders;
-	}
-	
-	@PatchMapping("/status/{order_id}")
-	public void updateStatus(@PathVariable("order_id")int order_id, @RequestParam("order_status")String order_status) {
-		ordersMapper.updateStatus(order_status, order_id);
-	}
-	
-	  @PatchMapping("/amount/{order_id}") 
-	  public void updateAmount(@PathVariable("order_id")int
-	  order_id, @RequestParam("order_amount")int order_amount) {
-	  ordersMapper.updateAmount(order_amount, order_id);
-	  }
-	 
-	
-	
-	@PutMapping("/{order_id}")
-	public void updateOrder(@PathVariable("order_id")int order_id, @RequestParam("user_sequence_id")int user_sequence_id,
-			@RequestParam("order_status")String order_status, 
-			@RequestParam("order_amount")int order_amount) {
-		ordersMapper.updateOrders(user_sequence_id, order_status, order_amount);
-	}
-	
-	@DeleteMapping("/{order_id}")
-	public void deleteOrder(@PathVariable("order_id")int order_id) {
-		ordersMapper.deleteOrders(order_id);
+		return orders;
 	}
 
+	@PatchMapping("/status/{order_id}")
+	public void updateStatus(@PathVariable("order_id") int order_id,
+			@RequestParam("order_status") String order_status) {
+		ordersMapper.updateStatus(order_status, order_id);
+	}
+
+
+	@PutMapping("/{order_id}")
+	public void updateOrder(@PathVariable("order_id") int order_id,
+			@RequestParam("user_sequence_id") int user_sequence_id, @RequestParam("order_status") String order_status,
+			@RequestParam("order_amount") int order_amount) {
+		ordersMapper.updateOrders(user_sequence_id, order_status, order_amount, order_id);
+	}
+
+	@DeleteMapping("/{order_id}")
+	public void deleteOrder(@PathVariable("order_id") int order_id) {
+		ordersMapper.deleteOrders(order_id);
+	}
 
 	@GetMapping("/showProductImage/{order_id}")
 	@ResponseBody
@@ -98,6 +100,6 @@ public class OrdersController {
 			logger.info("Exception: " + e);
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-}
-	
+	}
+
 }

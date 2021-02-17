@@ -16,10 +16,10 @@ import com.shoppingmall.model.QuestionTab;
 public interface QuestionTabMapper {
 
 
-	@Select("select *, u.user_id from question_tab q left outer join answer_tab a on q.question_id=a.question_id join users u on u.user_sequence_id=q.user_sequence_id  order by q.question_id")
+	@Select("selectq q.*, u.user_id from question_tab q left outer join answer_tab a on q.question_id=a.question_id join users u on u.user_sequence_id=q.user_sequence_id  order by q.question_id")
 	List<QuestionTab> getAll();
 	
-	@Select("select *, u.user_id from question_tab q left outer join answer_tab a on q.question_id=a.question_id join users u on u.user_sequence_id=q.user_sequence_id where q.question_id=#{question_id}")
+	@Select("select q.*, u.user_id from question_tab q left outer join answer_tab a on q.question_id=a.question_id join users u on u.user_sequence_id=q.user_sequence_id where q.question_id=#{question_id}")
 	QuestionTab getQuestionTab(@Param("question_id")int question_id);
 	
 	@Insert("INSERT INTO question_tab(product_id,user_sequence_id,question,question_date_created) "

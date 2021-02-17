@@ -17,10 +17,10 @@ import com.shoppingmall.model.ReviewTab;
 public interface ReviewTabMapper {
 
 
-	@Select("select r.*, u.user_id from review_tab r join users u on r.user_sequence_id=u.user_sequence_id order by review_id asc")
+	@Select("select r.*, u.user_id from review_tab r join users u on r.user_sequence_id=u.user_sequence_id order by r.review_id asc")
 	List<ReviewTab> getAll();
 
-	@Select("select r.*, u.user_id from review_tab r join users u on r.user_sequence_id=u.user_sequence_id where review_id=#{review_id}")
+	@Select("select r.*, u.user_id from review_tab r join users u on r.user_sequence_id=u.user_sequence_id where r.review_id=#{review_id}")
 	   ReviewTab getReviewTab(@Param("review_id")int review_id);
 	
 	@Insert("INSERT INTO review_tab(product_id,user_sequence_id, review, star, review_picture,"

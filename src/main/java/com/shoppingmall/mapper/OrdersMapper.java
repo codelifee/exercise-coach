@@ -1,6 +1,7 @@
 package com.shoppingmall.mapper;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -32,17 +33,15 @@ public interface OrdersMapper {
 	
 	@Update("update orders set user_sequence_id=#{user_sequence_id}, "
 			+ "order_status=#{order_status},"
-			+ "order_amount=#{order_amount}")
+			+ "order_amount=#{order_amount} where order_id=#{order_id}")
 	int updateOrders(@Param("user_sequence_id")int user_sequence_id,
-			@Param("order_status")String order_status, @Param("order_amount")int order_amount);
+			@Param("order_status")String order_status, @Param("order_amount")int order_amount, @Param("order_id") int order_id);
 	
 	
 	@Update("update orders set order_status=#{order_status} where order_id=#{order_id}")
-	int updateStatus(@Param("order_status")String order_status, @Param("order_id") int order_id);
+	int updateStatus(String order_status, int order_id);
 	
-	@Update("update orders set order_amount=#{order_amount} where order_id=#{order_id}")
-	int updateAmount(@Param("order_amount")int order_amount, @Param("order_id") int order_id);
-	
+
 	@Delete("delete from orders where order_id=#{order_id}")
 	int deleteOrders(@Param("order_id")int order_id);
 	
@@ -51,4 +50,12 @@ public interface OrdersMapper {
 			"where o.order_id=#{order_id}")
 	@Options(useGeneratedKeys = true, keyProperty = "order_id")
 	byte[] selectImage(int order_id);
+
+	@Select("select u.user_address, u.user_id, o.*, p.product_name, p.product_price from orders o " + 
+			"join products p on o.product_id=p.product_id "+
+			"join users u on o.user_sequence_id=u.user_sequence_id where u.user_sequence_id=#{user_sequence_id}")
+	List<Orders> getOrdersByUserId(int user_sequence_id);
+
+	
+	
 }
