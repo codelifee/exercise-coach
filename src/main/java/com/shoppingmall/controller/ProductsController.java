@@ -1,32 +1,17 @@
 package com.shoppingmall.controller;
 
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Paths;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
-import java.util.zip.DataFormatException;
-import java.util.zip.Inflater;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.rowset.serial.SerialException;
 
-import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.RequestEntity.BodyBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,17 +22,21 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.shoppingmall.mapper.ProductsMapper;
 import com.shoppingmall.model.Products;
+import com.shoppingmall.service.ProductsService;
 
 @RestController
 @RequestMapping("/products")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProductsController {
+	@Autowired
+	ProductsService ps;
 
 	@Autowired
 	private ProductsMapper productsMapper;
@@ -75,17 +64,9 @@ public class ProductsController {
 	}
 
 	@PutMapping("/{product_id}")
-	public void update(@PathVariable("product_id") int product_id, @Param("category_id") int category_id,
-			@Param("product_name") String product_name, @Param("product_description") String product_description,
-			@Param("product_price") int product_price, @Param("stock") int stock,
-			final @RequestParam("product_picture") MultipartFile product_picture,
-			final @RequestParam("info_img") MultipartFile info_img,
-			final @RequestParam("quality_img") MultipartFile quality_img) throws IOException {
-		byte[] image1= product_picture.getBytes();
-		byte[]  image2 = info_img.getBytes();
-		byte[] image3= quality_img.getBytes();
-		productsMapper.updateProducts(product_id, category_id, product_name, product_description, product_price,
-				image1, stock, image2, image3);
+	public void update(@PathVariable("product_id") int product_id, @RequestBody Products products) {
+	
+		productsMapper.updateProducts(products);
 	}
 
 	@DeleteMapping("/{product_id}")

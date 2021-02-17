@@ -25,8 +25,8 @@ public interface CategoriesMapper {
 	@Options(useGeneratedKeys = true, keyProperty = "category_id")
 	int insertCategories(@Param("categories") Categories categories);
 	
-	@Update("UPDATE categories SET category_name=#{category_name} where category_id=#{category_id}")
-	void updateCategories(Categories categories);
+	@Update("UPDATE categories SET category_name=#{categories.category_name} where category_id=#{categories.category_id}")
+	void updateCategories(@Param("categories") Categories categories);
 	
 	@Delete("DELETE FROM categories WHERE category_id=#{category_id}")
 	int deleteCategories(@Param("category_id")int category_id);

@@ -27,8 +27,8 @@ public interface CartItemsMapper {
 	int insert(@Param("cartitems")CartItems cartitems);
 		
 	
-	@Update("UPDATE cart_items SET cart_item_quantity=#{cart_item_quantity} where cart_item_id=#{cart_item_id}")
-	void updateCartItems(CartItems cartItems);
+	@Update("UPDATE cart_items SET cart_item_quantity=#{cartitems.cart_item_quantity} where cart_item_id=#{cartitems.cart_item_id}")
+	void updateCartItems(@Param("cartitems") CartItems cartitems);
 	
 	@Delete("DELETE FROM cart_items WHERE cart_item_id=#{cart_item_id}")
 	int deleteCartItems(@Param("cart_item_id")int cart_item_id);

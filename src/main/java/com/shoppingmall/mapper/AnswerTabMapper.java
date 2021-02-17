@@ -26,8 +26,8 @@ public interface AnswerTabMapper {
 	@Options(useGeneratedKeys = true, keyProperty = "answer_id")
 	int insertAnswerTab(@Param("answerTab") AnswerTab answerTab);
 	
-	@Update("UPDATE answer_tab SET question_id=#{question_id},answer=#{answer} WHERE answer_id=#{answer_id}")
-	void updatequestionTab(AnswerTab answerTab);
+	@Update("UPDATE answer_tab SET question_id=#{answerTab.question_id},answer=#{answerTab.answer} WHERE answer_id=#{answerTab.answer_id}")
+	void updatequestionTab(@Param("answerTab") AnswerTab answerTab);
 
 	
 	@Delete("DELETE FROM answer_tab WHERE answer_id=#{answer_id}")

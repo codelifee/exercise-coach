@@ -42,7 +42,7 @@ public class AnswerTabController {
 	}
 	
 	@PutMapping("/{answer_id}")
-	public void update(@RequestBody AnswerTab answerTab) {
+	public void update(@PathVariable("answer_id")int answer_id, @RequestBody AnswerTab answerTab) {
 		answerMapper.updatequestionTab(answerTab);
 		}
 	

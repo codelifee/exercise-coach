@@ -2,6 +2,8 @@ package com.shoppingmall.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Products {
 	
 	private int product_id;	
@@ -9,9 +11,12 @@ public class Products {
 	private String product_name;
 	private String product_description;
 	private int product_price;
+	@JsonIgnore
 	private byte[] product_picture;
 	private int stock;
+	@JsonIgnore
 	private byte[] info_img;
+	@JsonIgnore
 	private byte[] quality_img;
 
 	

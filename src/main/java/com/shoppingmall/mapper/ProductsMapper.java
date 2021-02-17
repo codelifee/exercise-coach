@@ -27,13 +27,10 @@ public interface ProductsMapper {
 	@Options(useGeneratedKeys = true, keyProperty = "product_id")
 	int insertProducts(@Param("products") Products products);
 	
-	@Update("UPDATE products SET category_id=#{category_id},product_name=#{product_name},product_description=#{product_description},"
-			+ "product_price=#{product_price},product_picture=#{product_picture}, stock=#{stock}, info_img=#{info_img}, quality_img=#{quality_img}"
-			+ "WHERE product_id=#{product_id}")
-	int updateProducts(@Param("product_id") int product_id,@Param("category_id") int category_id,
-			@Param("product_name") String product_name, @Param("product_description") String product_description,
-			@Param("product_price") int product_price,@Param("product_picture") byte[] product_picture, @Param("stock") int stock, 
-			@Param("info_img") byte[] info_img, @Param("quality_img") byte[] quality_img);
+	@Update("UPDATE products SET category_id=#{products.category_id},product_name=#{products.product_name},product_description=#{products.product_description},"
+			+ "product_price=#{products.product_price}, stock=#{products.stock} "
+			+ "WHERE product_id=#{products.product_id}")
+	void updateProducts(@Param("products") Products products);
 	
 	@Delete("DELETE FROM products WHERE product_id=#{product_id}")
 	int deleteProducts(@Param("product_id")int product_id);
@@ -48,6 +45,18 @@ public interface ProductsMapper {
 	@Select("select product_picture from products where product_id=#{product_id}")
 	@Options(useGeneratedKeys = true, keyProperty = "product_id")
 	byte[] selectImage(int product_id);
+
+	/*
+	 * @Update("UPDATE products SET category_id=#{products.category_id},product_name=#{products.product_name},product_description=#{products.product_description},"
+	 * +
+	 * "product_price=#{products.product_price},product_picture=#{image1}, quality_img=#{image2}, info_img=#{image3} "
+	 * + "WHERE product_id=#{products.product_id}") void updateProducts(Products
+	 * products, byte[] image1, byte[] image2, byte[] image3);
+	 */
+
+	@Update("UPDATE products set product_picture=#{image1}, quality_img=#{image2}, info_img=#{image3}")
+	void updatePictures(byte[] image1, byte[] image2, byte[] image3);
+
 
 }
 

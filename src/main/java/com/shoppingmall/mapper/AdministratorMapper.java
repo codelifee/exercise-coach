@@ -26,7 +26,7 @@ public interface AdministratorMapper {
 	int deleteAdministrator(@Param("administrator_id")String administrator_id);
 	
 	
-	@Update("UPDATE administrator SET administrator_pwd=#{administrator_pwd},administrator_name=#{administrator_name} "
-			+ "WHERE administrator_id=#{administrator_id}")
+	@Update("UPDATE administrator SET administrator_pwd=#{administrator.administrator_pwd},administrator_name=#{administrator.administrator_name} "
+			+ "WHERE administrator_id=#{administrator.administrator_id}")
 	void updateAdministrator(@Param("administrator") Administrator administrator);
 }

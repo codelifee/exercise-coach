@@ -38,7 +38,7 @@ public class AdministratorController {
 	}
 	
 	@PutMapping("/{administrator_id}")
-	public void update(@RequestBody Administrator administrator) {
+	public void update(@PathVariable("administrator_id")int administrator_id, @RequestBody Administrator administrator) {
 		administratorMapper.updateAdministrator(administrator);
 		}
 	
