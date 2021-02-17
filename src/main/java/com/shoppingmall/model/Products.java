@@ -1,6 +1,5 @@
 package com.shoppingmall.model;
 
-
 public class Products {
 	
 	private int product_id;	
@@ -12,7 +11,14 @@ public class Products {
 	private int stock;
 	private byte[] info_img;
 	private byte[] quality_img;
-	
+
+	public Products() {
+	}
+	public Products(byte[] product_picture, byte[] info_img, byte[] quality_img) {
+		this.product_picture = product_picture;
+		this.info_img=info_img;
+		this.quality_img=quality_img;
+	}
 	public int getProduct_id() {
 		return product_id;
 	}

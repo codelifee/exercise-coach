@@ -15,10 +15,10 @@ import com.shoppingmall.model.QuestionTab;
 @Mapper
 public interface QuestionTabMapper {
 
-	@Select("select * from question_tab q left outer join answer_tab a on q.question_id=a.question_id order by q.question_id")
+	@Select("selectq q.*, u.user_id from question_tab q left outer join answer_tab a on q.question_id=a.question_id join users u on u.user_sequence_id=q.user_sequence_id  order by q.question_id")
 	List<QuestionTab> getAll();
 	
-	@Select("select * from question_tab q left outer join answer_tab a on q.question_id=a.question_id order by q.question_id where q.question_id=#{q.question_id}")
+	@Select("select q.*, u.user_id from question_tab q left outer join answer_tab a on q.question_id=a.question_id join users u on u.user_sequence_id=q.user_sequence_id where q.question_id=#{question_id}")
 	QuestionTab getQuestionTab(@Param("question_id")int question_id);
 	
 	@Insert("INSERT INTO question_tab(product_id,user_sequence_id,question,question_date_created) "
@@ -26,11 +26,9 @@ public interface QuestionTabMapper {
 	@Options(useGeneratedKeys = true, keyProperty = "question_id")
 	int insertQuestionTab(@Param("questionTab") QuestionTab questionTab);
 	
-	@Update("UPDATE question_tab SET product_id=#{product_id},user_sequence_id=#{user_sequence_id},"
-			+ "question=#{question} WHERE question_id=#{question_id}")
-	int updateQuestionTab(@Param("question_id") int question_id,
-			@Param("product_id") int product_id,@Param("user_sequence_id") int user_sequence_id,
-			@Param("question") String question);
+	@Update("UPDATE question_tab SET product_id=#{questionTab.product_id},user_sequence_id=#{questionTab.user_sequence_id},"
+			+ "question=#{questionTab.question} WHERE question_id=#{questionTab.question_id}")
+	int updateQuestionTab(@Param("questionTab") QuestionTab questionTab);
 	
 	@Delete("DELETE FROM question_tab WHERE question_id=#{question_id}")
 	int deleteQuestionTab(@Param("question_id")int question_id);

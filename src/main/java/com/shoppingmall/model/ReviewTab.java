@@ -9,7 +9,14 @@ public class ReviewTab {
 	private float star;
 	private byte[] review_picture;
 	private String review_date_created;
-
+	private String user_id;
+	
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
 	public int getReview_id() {
 		return review_id;
 	}

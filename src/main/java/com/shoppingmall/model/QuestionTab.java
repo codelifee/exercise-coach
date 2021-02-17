@@ -12,7 +12,14 @@ public class QuestionTab {
 	 private String answer_date_created;
 	 private byte[] info_image;
 	 private byte[] quality_image;
+	 private String user_id;	 
 	 
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
 	public int getQuestion_id() {
 		return question_id;
 	}

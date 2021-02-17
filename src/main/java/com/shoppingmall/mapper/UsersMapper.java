@@ -1,6 +1,7 @@
 package com.shoppingmall.mapper;
 import java.util.List;
 
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -25,12 +26,11 @@ public interface UsersMapper {
 			+ "#{users.user_address},now())")
 	@Options(useGeneratedKeys = true, keyProperty = "user_sequence_id")
 	int insertUsers(@Param("users") Users users);
-
-	@Update("update users set user_pwd=#{user_pwd}, user_name=#{user_name}, user_phone=#{user_phone}, "
-			+ "user_address=#{user_address} where user_sequence_id=#{user_sequence_id}")
-	int updateUsers(@Param("user_pwd")String user_pwd, @Param("user_name")String user_name,
-			@Param("user_phone")String user_phone, @Param("user_address")String user_address, 
-			@Param("user_sequence_id")int user_sequence_id);
+	
+	@Update("update users set user_pwd=#{users.user_pwd}, user_name=#{users.user_name}, "
+			+ "user_phone=#{users.user_phone}, user_address=#{users.user_address} "
+			+ "where user_sequence_id=#{users.user_sequence_id}")
+	int updateUsers(@Param("users") Users users);
 	
 	@Delete("delete from users where user_sequence_id=#{user_sequence_id}")
 	int deleteUsers(@Param("user_sequence_id")int user_sequence_id);

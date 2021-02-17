@@ -43,10 +43,8 @@ public class QuestionTabController {
 	}
 	
 	@PutMapping("/{question_id}")
-	public void update(@PathVariable("question_id")int question_id, 
-			@Param("product_id") int product_id,@Param("user_sequence_id") int user_sequence_id,
-			@Param("question") String question) {
-		questionTabMapper.updateQuestionTab(question_id, product_id, user_sequence_id, question);
+	public void update(@RequestBody QuestionTab questionTab) {
+		questionTabMapper.updateQuestionTab(questionTab);
 		}
 	
 	@DeleteMapping("/{question_id}")

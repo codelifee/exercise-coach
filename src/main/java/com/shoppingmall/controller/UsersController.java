@@ -2,7 +2,6 @@ package com.shoppingmall.controller;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,10 +41,8 @@ public class UsersController {
 	}
 	
 	@PutMapping("/{user_sequence_id}")
-	public void updateUser(@PathVariable("user_sequence_id")int user_sequence_id,
-			@Param("user_pwd")String user_pwd, @Param("user_name")String user_name,
-			@Param("user_phone")String user_phone, @Param("user_address")String user_address) {
-		usersMapper.updateUsers(user_pwd, user_name, user_phone, user_address, user_sequence_id);
+	public void updateUser(@RequestBody Users users) {
+		usersMapper.updateUsers(users);
 	}
 	
 	@DeleteMapping("/{user_sequence_id}")
