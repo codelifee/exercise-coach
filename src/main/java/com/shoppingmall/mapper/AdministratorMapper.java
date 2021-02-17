@@ -21,11 +21,12 @@ public interface AdministratorMapper {
 			+ "#{administrator.administrator_name})")
 	int insertAdministrator(@Param("administrator") Administrator administrator);
 	
-	@Update("UPDATE administrator SET administrator_pwd=#{administrator_pwd},administrator_name=#{administrator_name} "
-			+ "WHERE administrator_id=#{administrator_id}")
-	int updateAdministrator(@Param("administrator_id") String administrator_id,
-			@Param("administrator_pwd") String administrator_pwd,@Param("administrator_name") String administrator_name);
 	
 	@Delete("DELETE FROM administrator WHERE administrator_id=#{administrator_id}")
 	int deleteAdministrator(@Param("administrator_id")String administrator_id);
+	
+	
+	@Update("UPDATE administrator SET administrator_pwd=#{administrator_pwd},administrator_name=#{administrator_name} "
+			+ "WHERE administrator_id=#{administrator_id}")
+	void updateAdministrator(@Param("administrator") Administrator administrator);
 }

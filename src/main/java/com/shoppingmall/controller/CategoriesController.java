@@ -43,8 +43,8 @@ public class CategoriesController {
 	}
 	
 	@PutMapping("/{category_id}")
-	public void update(@PathVariable("category_id")int category_id, @Param("category_name") String category_name) {
-		categoriesMapper.updateCategories(category_id, category_name);
+	public void update(@RequestBody Categories categories) {
+		categoriesMapper.updateCategories(categories);
 		}
 	
 	@DeleteMapping("/{category_id}")

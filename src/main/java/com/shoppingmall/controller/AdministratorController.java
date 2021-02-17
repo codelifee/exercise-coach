@@ -38,9 +38,8 @@ public class AdministratorController {
 	}
 	
 	@PutMapping("/{administrator_id}")
-	public void update(@PathVariable("administrator_id")String administrator_id, 
-			@Param("administrator_pwd") String administrator_pwd,@Param("administrator_name") String administrator_name) {
-		administratorMapper.updateAdministrator(administrator_id, administrator_pwd, administrator_name);
+	public void update(@RequestBody Administrator administrator) {
+		administratorMapper.updateAdministrator(administrator);
 		}
 	
 	@DeleteMapping("/{administrator_id}")

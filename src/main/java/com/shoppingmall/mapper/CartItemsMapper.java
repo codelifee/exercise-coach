@@ -28,8 +28,7 @@ public interface CartItemsMapper {
 		
 	
 	@Update("UPDATE cart_items SET cart_item_quantity=#{cart_item_quantity} where cart_item_id=#{cart_item_id}")
-	int updateCartItems(@Param("cart_item_id")int cart_item_id, 
-			@Param("cart_item_quantity")int cart_item_quantity);
+	void updateCartItems(CartItems cartItems);
 	
 	@Delete("DELETE FROM cart_items WHERE cart_item_id=#{cart_item_id}")
 	int deleteCartItems(@Param("cart_item_id")int cart_item_id);

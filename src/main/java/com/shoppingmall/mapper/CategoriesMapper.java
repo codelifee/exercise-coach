@@ -26,8 +26,7 @@ public interface CategoriesMapper {
 	int insertCategories(@Param("categories") Categories categories);
 	
 	@Update("UPDATE categories SET category_name=#{category_name} where category_id=#{category_id}")
-	int updateCategories(@Param("category_id") int category_id,
-			@Param("category_name") String category_name);
+	void updateCategories(Categories categories);
 	
 	@Delete("DELETE FROM categories WHERE category_id=#{category_id}")
 	int deleteCategories(@Param("category_id")int category_id);

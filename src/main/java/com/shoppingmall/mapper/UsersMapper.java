@@ -34,7 +34,6 @@ public interface UsersMapper {
 	
 	@Update("update users set user_pwd=#{user_pwd}, user_name=#{user_name}, user_phone=#{user_phone}, "
 			+ "user_address=#{user_address} where user_sequence_id=#{user_sequence_id}")
-
 	int updateUsers(@Param("user_pwd")String user_pwd, @Param("user_name")String user_name,
 			@Param("user_phone")String user_phone, @Param("user_address")String user_address, 
 			@Param("user_sequence_id")int user_sequence_id);

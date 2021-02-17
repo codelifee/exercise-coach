@@ -46,9 +46,8 @@ public class CartItemsController {
 	
 	
 	@PutMapping("/{cart_item_id}")
-	public void updateCartItems(@PathVariable("cart_item_id") int cart_item_id,
-			@RequestParam("cart_item_quantity") int cart_item_quantity) {
-		cartItemsMapper.updateCartItems(cart_item_id, cart_item_quantity);
+	public void updateCartItems(@RequestBody CartItems cartItems) {
+		cartItemsMapper.updateCartItems(cartItems);
 	}
 	
 	@DeleteMapping("/{cart_item_id}")
