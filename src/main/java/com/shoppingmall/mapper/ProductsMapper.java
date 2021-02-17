@@ -27,10 +27,17 @@ public interface ProductsMapper {
 	@Options(useGeneratedKeys = true, keyProperty = "product_id")
 	int insertProducts(@Param("products") Products products);
 	
+
 	@Update("UPDATE products SET category_id=#{products.category_id},product_name=#{products.product_name},product_description=#{products.product_description},"
 			+ "product_price=#{products.product_price}, stock=#{products.stock} "
 			+ "WHERE product_id=#{products.product_id}")
 	void updateProducts(@Param("products") Products products);
+
+	
+	@Update("UPDATE products SET product_picture=#{product_picture}, info_img=#{info_img}, "
+			+ "quality_img=#{quality_img} WHERE product_id=#{product_id}")
+	int updatePictures(@Param("product_picture")byte[] product_picture,@Param("info_img")byte[] info_img,
+			@Param("quality_img")byte[] quality_img, @Param("product_id")int product_id);
 	
 	@Delete("DELETE FROM products WHERE product_id=#{product_id}")
 	int deleteProducts(@Param("product_id")int product_id);
@@ -54,8 +61,7 @@ public interface ProductsMapper {
 	 * products, byte[] image1, byte[] image2, byte[] image3);
 	 */
 
-	@Update("UPDATE products set product_picture=#{image1}, quality_img=#{image2}, info_img=#{image3}")
-	void updatePictures(byte[] image1, byte[] image2, byte[] image3);
+	
 
 
 }

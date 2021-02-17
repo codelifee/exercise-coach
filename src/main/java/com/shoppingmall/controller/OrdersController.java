@@ -1,13 +1,11 @@
 package com.shoppingmall.controller;
 
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.shoppingmall.mapper.OrdersMapper;
 import com.shoppingmall.model.Orders;
 
@@ -43,11 +39,7 @@ public class OrdersController {
 	public List<Orders> getAll() {
 		return ordersMapper.findAll();
 	}
-	
-	
-	
-	
-
+		
 	@GetMapping("/{order_id}")
 	public Orders getUser(@PathVariable("order_id") int order_id) {
 		return ordersMapper.getOrders(order_id);
@@ -56,7 +48,6 @@ public class OrdersController {
 	@GetMapping("/userid/{user_sequence_id}")
 	public List<Orders> getUserByUserId(@PathVariable("user_sequence_id") int user_sequence_id) {
 		return ordersMapper.getOrdersByUserId(user_sequence_id);
-		
 	}
 
 	@PostMapping("")
@@ -65,20 +56,16 @@ public class OrdersController {
 		return orders;
 	}
 
-	@PatchMapping("/status/{order_id}")
-	public void updateStatus(@PathVariable("order_id") int order_id,
-			@RequestParam("order_status") String order_status) {
-		ordersMapper.updateStatus(order_status, order_id);
-	}
-
-
 	@PutMapping("/{order_id}")
-	public void updateOrder(@PathVariable("order_id") int order_id,
-			@RequestParam("user_sequence_id") int user_sequence_id, @RequestParam("order_status") String order_status,
-			@RequestParam("order_amount") int order_amount) {
-		ordersMapper.updateOrders(user_sequence_id, order_status, order_amount, order_id);
+	public void updateOrder(@RequestBody Orders orders) {
+		ordersMapper.updateOrders(orders);
 	}
 
+	@PutMapping("/status/{order_id}")
+	public void updateState(@RequestBody Orders orders) {
+		ordersMapper.updateStatus(orders);
+	}
+	
 	@DeleteMapping("/{order_id}")
 	public void deleteOrder(@PathVariable("order_id") int order_id) {
 		ordersMapper.deleteOrders(order_id);
@@ -101,5 +88,13 @@ public class OrdersController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
-
 }
+
+
+
+
+
+
+
+
+

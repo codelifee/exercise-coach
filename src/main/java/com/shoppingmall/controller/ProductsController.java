@@ -1,4 +1,4 @@
-package com.shoppingmall.controller;
+ package com.shoppingmall.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -29,17 +29,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.shoppingmall.mapper.ProductsMapper;
 import com.shoppingmall.model.Products;
-import com.shoppingmall.service.ProductsService;
+
 
 @RestController
 @RequestMapping("/products")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProductsController {
-	@Autowired
-	ProductsService ps;
 
 	@Autowired
 	private ProductsMapper productsMapper;
+	
 	private String destPath = System.getProperty("java.io.tmpdir");
 
 	private static final Logger logger = LoggerFactory.getLogger(ProductsController.class);
@@ -60,13 +59,22 @@ public class ProductsController {
 	public Products insert(@RequestBody Products products) {
 		productsMapper.insertProducts(products);
 		return products;
-
 	}
 
 	@PutMapping("/{product_id}")
-	public void update(@PathVariable("product_id") int product_id, @RequestBody Products products) {
-	
+	public void update(@RequestBody Products products) {
 		productsMapper.updateProducts(products);
+	}
+	
+	
+	@PutMapping("/image/{product_id}")
+	public void updateImage(@PathVariable("product_id") int product_id, final @RequestParam("product_picture") MultipartFile product_picture,
+	final @RequestParam("info_img") MultipartFile info_img,
+	final @RequestParam("quality_img") MultipartFile quality_img) throws IOException {
+		byte[] image1= product_picture.getBytes();
+		byte[] image2 = info_img.getBytes();
+		byte[] image3= quality_img.getBytes();
+		productsMapper.updatePictures(image1, image2, image3, product_id);
 	}
 
 	@DeleteMapping("/{product_id}")
@@ -112,9 +120,6 @@ public class ProductsController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
-
-
-
 		
 		@GetMapping("/showProductImage/{product_id}")
 		@ResponseBody

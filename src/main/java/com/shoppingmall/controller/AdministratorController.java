@@ -1,7 +1,6 @@
 package com.shoppingmall.controller;
 
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -38,7 +37,7 @@ public class AdministratorController {
 	}
 	
 	@PutMapping("/{administrator_id}")
-	public void update(@PathVariable("administrator_id")int administrator_id, @RequestBody Administrator administrator) {
+	public void update(@RequestBody Administrator administrator) {
 		administratorMapper.updateAdministrator(administrator);
 		}
 	

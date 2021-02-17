@@ -7,7 +7,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,15 +56,16 @@ public class ReviewTabController {
 	}
 	
 	@PutMapping("/{review_id}")
-	public void update(@PathVariable("review_id")int review_id, @Param("product_id") int product_id,
-			@Param("user_sequence_id") int user_sequence_id, 
-			@Param("review") String review,@Param("star") float star,@Param("review_picture") MultipartFile review_picture) throws IOException {
+	public void update(@RequestBody ReviewTab reviewTab) {
+		reviewTabMapper.updateReviewTab(reviewTab);
+	}
+	
+	@PutMapping("/image/{review_id}")
+	public void updateImage(@PathVariable("review_id")int review_id,
+			@RequestParam("review_picture") MultipartFile review_picture) throws IOException {
 		byte[] imageData= review_picture.getBytes();
-
-		reviewTabMapper.updateReviewTab(product_id, user_sequence_id,review, star, imageData, review_id);
-		
-		}
-
+		reviewTabMapper.UpdateReviewPicture(imageData, review_id);
+	}
 	
 	@DeleteMapping("/{review_id}")
 	public void delete(@PathVariable("review_id")int review_id){

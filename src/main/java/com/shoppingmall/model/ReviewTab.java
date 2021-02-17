@@ -11,8 +11,6 @@ public class ReviewTab {
 	private String review_date_created;
 	private String user_id;
 	
-	
-
 	public String getUser_id() {
 		return user_id;
 	}
