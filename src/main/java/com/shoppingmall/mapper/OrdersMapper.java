@@ -37,6 +37,12 @@ public interface OrdersMapper {
 	@Delete("delete from orders where order_id=#{order_id}")
 	int deleteOrders(@Param("order_id")int order_id);
 
+	@Select("select p.product_picture from orders o join products p on o.product_id=p.product_id " + 
+			"where o.order_id=#{order_id}")
+	@Options(useGeneratedKeys = true, keyProperty = "order_id")
+	byte[] selectImage(int order_id);
+
+
 	@Select("select u.user_address, u.user_id, o.*, p.product_name, p.product_price from orders o " + 
 			"join products p on o.product_id=p.product_id "+
 			"join users u on o.user_sequence_id=u.user_sequence_id where u.user_sequence_id=#{user_sequence_id}")

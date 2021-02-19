@@ -1,11 +1,20 @@
 package com.shoppingmall.controller;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.ReflectionUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +34,9 @@ import com.shoppingmall.model.Orders;
 @RequestMapping("/orders")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class OrdersController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(OrdersController.class);
+
 
 	@Autowired
 	private OrdersMapper ordersMapper;
@@ -54,20 +66,40 @@ public class OrdersController {
 	public void updateOrder(@RequestBody Orders orders) {
 		ordersMapper.updateOrders(orders);
 	}
-	
+
 	@PatchMapping("/{order_id}")
-	public @ResponseBody void patchOrder(@PathVariable int order_id, @RequestBody Map<Object, Object> fields) {
-		Orders order = ordersMapper.getOrders(order_id);	
-		fields.forEach((k,v) -> {
-			Field field = ReflectionUtils.findRequiredField(Orders.class, (String)k);
-			ReflectionUtils.setField(field, order, v);
-		});
-		ordersMapper.updateOrders(order);
-	}
+	   public @ResponseBody void patchOrder(@PathVariable int order_id, @RequestBody Map<Object, Object> fields) {
+	      Orders order = ordersMapper.getOrders(order_id);   
+	      fields.forEach((k,v) -> {
+	         Field field = ReflectionUtils.findRequiredField(Orders.class, (String)k);
+	         ReflectionUtils.setField(field, order, v);
+	      });
+	      ordersMapper.updateOrders(order);
+	   }
+
 	
 	@DeleteMapping("/{order_id}")
 	public void deleteOrder(@PathVariable("order_id") int order_id) {
 		ordersMapper.deleteOrders(order_id);
+	}
+
+
+	@GetMapping("/showProductImage/{order_id}")
+	@ResponseBody
+	public ResponseEntity<?> showProductImage(@PathVariable("order_id") int order_id, HttpServletResponse response,
+			HttpServletRequest request) throws IOException, SQLException {
+		try {
+			byte[] image = ordersMapper.selectImage(order_id);
+			response.setContentType("image/jpeg; image/jpg; image/png; image/gif");
+
+			response.getOutputStream().write(image);
+			response.getOutputStream().close();
+			return new ResponseEntity<>("Product Saved With File - ", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.info("Exception: " + e);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 	}
 
 }

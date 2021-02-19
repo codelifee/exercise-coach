@@ -11,18 +11,14 @@ public class Products {
 	private int product_price;
 	private byte[] product_picture;
 	private int stock;
-	@JsonIgnore
 	private byte[] info_img;
-	@JsonIgnore
 	private byte[] quality_img;
+	private String status;
+	
+	
 
-	public Products() {
-	}
-	public Products(byte[] product_picture, byte[] info_img, byte[] quality_img) {
-		this.product_picture = product_picture;
-		this.info_img=info_img;
-		this.quality_img=quality_img;
-	}
+	
+	
 	public int getProduct_id() {
 		return product_id;
 	}
@@ -76,6 +72,12 @@ public class Products {
 	}
 	public void setQuality_img(byte[] quality_img) {
 		this.quality_img = quality_img;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

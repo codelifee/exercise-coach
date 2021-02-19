@@ -64,6 +64,7 @@ public class ReviewTabController {
 		reviewTabMapper.updateReviewTab(reviewTab);
 	}
 	
+
 	@PatchMapping("/{review_id}")
 	public @ResponseBody void patchReview(@PathVariable int review_id, @RequestBody Map<Object, Object> fields) {
 		ReviewTab reviewTab = reviewTabMapper.getReviewTab(review_id);	
@@ -74,6 +75,7 @@ public class ReviewTabController {
 		reviewTabMapper.updateReviewTab(reviewTab);
 	}
 	
+
 	@PatchMapping("/image/{review_id}")
 	public void updateImage(@PathVariable("review_id")int review_id,
 			@RequestParam("review_picture") MultipartFile review_picture) throws IOException {
@@ -102,8 +104,9 @@ public class ReviewTabController {
 			r.setReview(review);
 			r.setStar(star);
 			r.setReview_picture(imageData);
-			reviewTabMapper.insertReviewTab(r);
-			
+
+			reviewTabMapper.insertReviewTabs(r);
+
 			logger.info("HttpStatus===" + new ResponseEntity<>(HttpStatus.OK));
 			return new ResponseEntity<>("Product Saved With File - ", HttpStatus.OK);			
 		} catch (Exception e) {

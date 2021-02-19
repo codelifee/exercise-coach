@@ -33,5 +33,8 @@ public interface QuestionTabMapper {
 	@Delete("DELETE FROM question_tab WHERE question_id=#{question_id}")
 	int deleteQuestionTab(@Param("question_id")int question_id);
 
+	@Select("select * from question_tab where user_sequence_id=#{user_sequence_id} order by order_date_created")
+	QuestionTab getQuestionTabByUserId(int user_sequence_id);
+
 	
 }
