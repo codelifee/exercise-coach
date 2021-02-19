@@ -1,8 +1,10 @@
  package com.shoppingmall.controller;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,24 +12,26 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.ReflectionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.shoppingmall.mapper.ProductsMapper;
+import com.shoppingmall.model.Orders;
 import com.shoppingmall.model.Products;
 
 
@@ -39,7 +43,6 @@ public class ProductsController {
 	@Autowired
 	private ProductsMapper productsMapper;
 	
-	private String destPath = System.getProperty("java.io.tmpdir");
 
 	private static final Logger logger = LoggerFactory.getLogger(ProductsController.class);
 
@@ -48,45 +51,97 @@ public class ProductsController {
 	public List<Products> getAll() {
 		return productsMapper.getAll();
 	}
-
+	
+	//이미지를 제외한 상품 목록 전부 보여줌
+	@GetMapping("/allJsonData")
+	public List<Products> allJsonData() {
+		return productsMapper.getAllJsonData();
+	}
+	//이미지를 제외한 입력된 id와 매칭되는 상품 1개 보여줌
+	@GetMapping("/aJsonData/{product_id}")
+	public Products aJsonData(@PathVariable("product_id") int product_id) {
+		return productsMapper.getAJsonData(product_id);
+	}
+	
+	//입력된 id와 매칭되는 상품 1개 보여줌(이미지 포함)
 	@GetMapping("/{product_id}")
 	@ResponseBody
 	public Products get(@PathVariable("product_id") int product_id) {
 		return productsMapper.getProducts(product_id);
 	}
-
+	//이미지를 제외한 상품 관련된 데이터 모두 올리기
 	@PostMapping("")
 	public Products insert(@RequestBody Products products) {
-		productsMapper.insertProducts(products);
+		productsMapper.insertProduct(products);
 		return products;
 	}
 
 	@PutMapping("/{product_id}")
 	public void update(@RequestBody Products products) {
 		productsMapper.updateProducts(products);
+	
 	}
 	
+	@PatchMapping("/{product_id}")
+	   public @ResponseBody void patchProducts(@PathVariable int product_id, @RequestBody Map<Object, Object> fields) {
+		Products products = productsMapper.getProducts(product_id);   
+	      fields.forEach((k,v) -> {
+	         Field field = ReflectionUtils.findRequiredField(Products.class, (String)k);
+	         ReflectionUtils.setField(field, products, v);
+	      });
+	      productsMapper.updateProducts(products);
+	   }
 	
-	@PutMapping("/image/{product_id}")
-	public void updateImage(@PathVariable("product_id") int product_id, final @RequestParam("product_picture") MultipartFile product_picture,
-	final @RequestParam("info_img") MultipartFile info_img,
-	final @RequestParam("quality_img") MultipartFile quality_img) throws IOException {
-		byte[] image1= product_picture.getBytes();
-		byte[] image2 = info_img.getBytes();
-		byte[] image3= quality_img.getBytes();
-		productsMapper.updatePictures(image1, image2, image3, product_id);
+	
+
+	@PatchMapping("/productPicture/{product_id}")
+	public void updateProductPicture(@PathVariable("product_id") int product_id, @RequestParam("product_picture") MultipartFile product_picture) throws IOException {
+		byte[] imageData=product_picture.getBytes();
+		productsMapper.updateProductPicture(product_id, imageData);
+		
 	}
+	
+	@PatchMapping("/qualityImg/{product_id}")
+	public void updateQualityImg(@PathVariable("product_id") int product_id, @RequestParam("quality_img") MultipartFile quality_img) throws IOException {
+		byte[] imageData=quality_img.getBytes();
+		productsMapper.updateQualityImg(product_id, imageData);
+		
+	}
+	
+	@PatchMapping("/infoImg/{product_id}")
+	public void updateInfoImg(@PathVariable("product_id") int product_id, @RequestParam("info_img") MultipartFile info_img) throws IOException {
+		byte[] imageData=info_img.getBytes();
+		productsMapper.updateInfoImg(product_id, imageData);
+		
+	}
+	
+	/*
+	 * @PutMapping("/image/{product_id}") public void
+	 * updateImage(@PathVariable("product_id") int product_id,
+	 * final @RequestParam("product_picture") MultipartFile product_picture,
+	 * final @RequestParam("info_img") MultipartFile info_img,
+	 * final @RequestParam("quality_img") MultipartFile quality_img) throws
+	 * IOException { byte[] image1= product_picture.getBytes(); byte[] image2 =
+	 * info_img.getBytes(); byte[] image3= quality_img.getBytes(); Products p = new
+	 * Products();
+	 * 
+	 * p.setProduct_picture(image1); p.setInfo_img(image2);
+	 * p.setQuality_img(image3); productsMapper.updatePictures(image1, image2,
+	 * image3, product_id); }
+	 */
 
 	@DeleteMapping("/{product_id}")
 	public void delete(@PathVariable("product_id") int product_id) {
 		productsMapper.deleteProducts(product_id);
 	}
-
+	
+	
+	
 	@PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<?> uploadFile(@RequestParam("category_id") int category_id,
 			@RequestParam("product_name") String product_name,
 			@RequestParam("product_description") String product_description,
-			@RequestParam("product_price") int product_price, @RequestParam("stock") int stock,
+			@RequestParam("product_price") int product_price, @RequestParam("stock") int stock, @RequestParam("status") String status,
 			HttpServletRequest request, final @RequestParam("product_picture") MultipartFile product_picture,
 			final @RequestParam("info_img") MultipartFile info_img,
 			final @RequestParam("quality_img") MultipartFile quality_img) {
@@ -109,6 +164,7 @@ public class ProductsController {
 			p.setQuality_img(imageData2);
 			p.setProduct_price(product_price);
 			p.setStock(stock);
+			p.setStatus(status);
 			productsMapper.insertProducts(p);
 
 			logger.info("HttpStatus===" + new ResponseEntity<>(HttpStatus.OK));
@@ -142,7 +198,7 @@ public class ProductsController {
 
 	@GetMapping("/showInfoImage/{product_id}")
 	@ResponseBody
-	public ResponseEntity<?> downloadFile1(@PathVariable("product_id") int product_id, HttpServletResponse response,
+	public ResponseEntity<?> showInfoImage(@PathVariable("product_id") int product_id, HttpServletResponse response,
 			HttpServletRequest request) throws IOException, SQLException {
 		try {
 			Products p = productsMapper.getProducts(product_id);
@@ -160,7 +216,7 @@ public class ProductsController {
 
 	@GetMapping("/showQualityImage/{product_id}")
 	@ResponseBody
-	public ResponseEntity<?> downloadFile2(@PathVariable("product_id") int product_id, HttpServletResponse response,
+	public ResponseEntity<?> showQualityImage(@PathVariable("product_id") int product_id, HttpServletResponse response,
 			HttpServletRequest request) throws IOException, SQLException {
 		try {
 			Products p = productsMapper.getProducts(product_id);
@@ -176,4 +232,9 @@ public class ProductsController {
 		}
 	}
 
+
+	
+	
+	
+	
 }

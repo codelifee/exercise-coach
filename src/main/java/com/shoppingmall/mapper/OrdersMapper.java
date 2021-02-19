@@ -41,7 +41,7 @@ public interface OrdersMapper {
 	@Delete("delete from orders where order_id=#{order_id}")
 	int deleteOrders(@Param("order_id")int order_id);
 
-	@Select("select p.product_picture from orders o join order_items oi on o.order_id=oi.order_id join products p on oi.product_id=p.product_id " + 
+	@Select("select p.product_picture from orders o join products p on o.product_id=p.product_id " + 
 			"where o.order_id=#{order_id}")
 	@Options(useGeneratedKeys = true, keyProperty = "order_id")
 	byte[] selectImage(int order_id);

@@ -31,6 +31,11 @@ public class QuestionTabController {
 		return questionTabMapper.getAll();
 	}	
 	
+	@GetMapping("/userid/{user_sequence_id}")
+	public QuestionTab getByUserId(@PathVariable("user_sequence_id")int user_sequence_id) {
+		return questionTabMapper.getQuestionTab(user_sequence_id);
+	}
+	
 	@GetMapping("/{question_id}")
 	public QuestionTab get(@PathVariable("question_id")int question_id) {
 		return questionTabMapper.getQuestionTab(question_id);

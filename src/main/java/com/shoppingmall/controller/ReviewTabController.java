@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -60,7 +61,7 @@ public class ReviewTabController {
 		reviewTabMapper.updateReviewTab(reviewTab);
 	}
 	
-	@PutMapping("/image/{review_id}")
+	@PatchMapping("/image/{review_id}")
 	public void updateImage(@PathVariable("review_id")int review_id,
 			@RequestParam("review_picture") MultipartFile review_picture) throws IOException {
 		byte[] imageData= review_picture.getBytes();
@@ -89,7 +90,7 @@ public class ReviewTabController {
 			r.setStar(star);
 			r.setReview_picture(imageData);
 			//r.setReview_date_created(review_date_created);
-			reviewTabMapper.insertReviewTab(r);
+			reviewTabMapper.insertReviewTabs(r);
 			
 			logger.info("HttpStatus===" + new ResponseEntity<>(HttpStatus.OK));
 			return new ResponseEntity<>("Product Saved With File - ", HttpStatus.OK);			

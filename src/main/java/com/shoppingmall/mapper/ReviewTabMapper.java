@@ -22,10 +22,15 @@ public interface ReviewTabMapper {
 	@Select("select r.*, u.user_id from review_tab r join users u on r.user_sequence_id=u.user_sequence_id where r.review_id=#{review_id}")
 	   ReviewTab getReviewTab(@Param("review_id")int review_id);
 	
-	@Insert("INSERT INTO review_tab(product_id,user_sequence_id, review, star, review_picture,"
+	@Insert("INSERT INTO review_tab(product_id,user_sequence_id, review, star, review_picture"
 			+ "review_date_created) VALUES(#{reviewTab.product_id}, #{reviewTab.user_sequence_id},"
-			+ "#{reviewTab.review},#{reviewTab.star},"
-			+ "#{reviewTab.review_picture},now())")
+			+ "#{reviewTab.review},#{reviewTab.star}, #{reviewTab.review_picture}, now())")
+	@Options(useGeneratedKeys = true, keyProperty = "review_id")
+	int insertReviewTabs(@Param("reviewTab") ReviewTab reviewTab);
+	
+	@Insert("INSERT INTO review_tab(product_id,user_sequence_id, review, star, "
+			+ "review_date_created) VALUES(#{reviewTab.product_id}, #{reviewTab.user_sequence_id},"
+			+ "#{reviewTab.review},#{reviewTab.star}, now())")
 	@Options(useGeneratedKeys = true, keyProperty = "review_id")
 	int insertReviewTab(@Param("reviewTab") ReviewTab reviewTab);
 	
