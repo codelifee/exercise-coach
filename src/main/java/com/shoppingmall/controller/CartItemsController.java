@@ -38,6 +38,11 @@ public class CartItemsController {
 	public CartItems getCartItems(@PathVariable("cart_item_id") int cart_item_id) {
 		return cartItemsMapper.getCartItems(cart_item_id);
 	}
+	
+	@GetMapping("/getCartItemsByUser/{user_sequence_id}")
+	public CartItems getCartItemsByUser(@PathVariable("user_sequence_id") int user_sequence_id) {
+		return cartItemsMapper.getCartItemsByUser(user_sequence_id);
+	}
 
 	@PostMapping("")
 	public CartItems post(@RequestBody CartItems cartitems) {
