@@ -1,17 +1,21 @@
 package com.shoppingmall.controller;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shoppingmall.mapper.AnswerTabMapper;
@@ -43,8 +47,19 @@ public class AnswerTabController {
 	
 	@PutMapping("/{answer_id}")
 	public void update(@PathVariable("answer_id")int answer_id, @RequestBody AnswerTab answerTab) {
-		answerMapper.updatequestionTab(answerTab);
+		answerMapper.updateAnswerTab(answerTab);
 		}
+	
+	@PatchMapping("/{answer_id}")
+	public @ResponseBody void patchAnswer(@PathVariable int answer_id, @RequestBody Map<Object, Object> fields) {
+		AnswerTab answerTab = answerMapper.getAnswerTab(answer_id);	
+		fields.forEach((k,v) -> {
+			Field field = ReflectionUtils.findRequiredField(AnswerTab.class, (String)k);
+			ReflectionUtils.setField(field, answerTab, v);
+		});
+		answerMapper.updateAnswerTab(answerTab);
+	}
+	
 	
 	@DeleteMapping("/{answer_id}")
 	public void delete(@PathVariable("answer_id")int answer_id){

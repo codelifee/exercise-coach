@@ -1,7 +1,6 @@
 package com.shoppingmall.mapper;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -35,23 +34,12 @@ public interface OrdersMapper {
 			+ "order_status=#{orders.order_status},order_amount=#{orders.order_amount} where order_id=#{orders.order_id}")
 	int updateOrders(@Param("orders") Orders orders);
 	
-//	@Update("update orders set order_status=#{orders.order_status} where order_id=#{orders.order_id}")
-//	int updateStatus(@Param("orders") Orders orders);
-	
 	@Delete("delete from orders where order_id=#{order_id}")
 	int deleteOrders(@Param("order_id")int order_id);
-
-	@Select("select p.product_picture from orders o join order_items oi on o.order_id=oi.order_id join products p on oi.product_id=p.product_id " + 
-			"where o.order_id=#{order_id}")
-	@Options(useGeneratedKeys = true, keyProperty = "order_id")
-	byte[] selectImage(int order_id);
 
 	@Select("select u.user_address, u.user_id, o.*, p.product_name, p.product_price from orders o " + 
 			"join products p on o.product_id=p.product_id "+
 			"join users u on o.user_sequence_id=u.user_sequence_id where u.user_sequence_id=#{user_sequence_id}")
 	List<Orders> getOrdersByUserId(int user_sequence_id);
 
-
-	
-	
 }

@@ -1,8 +1,10 @@
  package com.shoppingmall.controller;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,26 +12,25 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.ReflectionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.shoppingmall.mapper.ProductsMapper;
 import com.shoppingmall.model.Products;
-
 
 @RestController
 @RequestMapping("/products")
@@ -38,8 +39,6 @@ public class ProductsController {
 
 	@Autowired
 	private ProductsMapper productsMapper;
-	
-	private String destPath = System.getProperty("java.io.tmpdir");
 
 	private static final Logger logger = LoggerFactory.getLogger(ProductsController.class);
 
@@ -57,7 +56,7 @@ public class ProductsController {
 
 	@PostMapping("")
 	public Products insert(@RequestBody Products products) {
-		productsMapper.insertProducts(products);
+		productsMapper.insertProduct(products);
 		return products;
 	}
 
@@ -75,21 +74,26 @@ public class ProductsController {
 		byte[] image2 = info_img.getBytes();
 		byte[] image3= quality_img.getBytes();
 		
-		Products p = new Products();
-		p.setProduct_picture(image1);
-		p.setInfo_img(image2);
-		p.setQuality_img(image1);
-		
 		productsMapper.updatePictures(image1, image2, image3, product_id);
 	}
-
+	
+	@PatchMapping("/{product_id}")
+	public @ResponseBody void patchProduct(@PathVariable int product_id, @RequestBody Map<Object, Object> fields) {
+		Products products = productsMapper.getProducts(product_id);	
+		fields.forEach((k,v) -> {
+			Field field = ReflectionUtils.findRequiredField(Products.class, (String)k);
+			ReflectionUtils.setField(field, products, v);
+		});
+		productsMapper.updateProducts(products);
+	}
+	
 	@DeleteMapping("/{product_id}")
 	public void delete(@PathVariable("product_id") int product_id) {
 		productsMapper.deleteProducts(product_id);
 	}
 
 	@PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<?> uploadFile(@RequestParam("category_id") int category_id,
+	public ResponseEntity<?> upload(@RequestParam("category_id") int category_id,
 			@RequestParam("product_name") String product_name,
 			@RequestParam("product_description") String product_description,
 			@RequestParam("product_price") int product_price, @RequestParam("stock") int stock,
@@ -129,7 +133,7 @@ public class ProductsController {
 		
 		@GetMapping("/showProductImage/{product_id}")
 		@ResponseBody
-		public ResponseEntity<?> downloadFile4(@PathVariable("product_id") int product_id, HttpServletResponse response,
+		public ResponseEntity<?> showProductImage(@PathVariable("product_id") int product_id, HttpServletResponse response,
 				HttpServletRequest request) throws IOException, SQLException {
 			try {
 				Products p = productsMapper.getProducts(product_id);
@@ -148,7 +152,7 @@ public class ProductsController {
 
 	@GetMapping("/showInfoImage/{product_id}")
 	@ResponseBody
-	public ResponseEntity<?> downloadFile1(@PathVariable("product_id") int product_id, HttpServletResponse response,
+	public ResponseEntity<?> showInfoImage(@PathVariable("product_id") int product_id, HttpServletResponse response,
 			HttpServletRequest request) throws IOException, SQLException {
 		try {
 			Products p = productsMapper.getProducts(product_id);
@@ -166,7 +170,7 @@ public class ProductsController {
 
 	@GetMapping("/showQualityImage/{product_id}")
 	@ResponseBody
-	public ResponseEntity<?> downloadFile2(@PathVariable("product_id") int product_id, HttpServletResponse response,
+	public ResponseEntity<?> showQualityImage(@PathVariable("product_id") int product_id, HttpServletResponse response,
 			HttpServletRequest request) throws IOException, SQLException {
 		try {
 			Products p = productsMapper.getProducts(product_id);
