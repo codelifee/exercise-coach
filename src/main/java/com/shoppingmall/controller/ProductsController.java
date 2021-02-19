@@ -66,14 +66,20 @@ public class ProductsController {
 		productsMapper.updateProducts(products);
 	}
 	
-	
 	@PutMapping("/image/{product_id}")
-	public void updateImage(@PathVariable("product_id") int product_id, final @RequestParam("product_picture") MultipartFile product_picture,
+	public void updateImage(@PathVariable("product_id") int product_id, 
+	final @RequestParam("product_picture") MultipartFile product_picture,
 	final @RequestParam("info_img") MultipartFile info_img,
 	final @RequestParam("quality_img") MultipartFile quality_img) throws IOException {
 		byte[] image1= product_picture.getBytes();
 		byte[] image2 = info_img.getBytes();
 		byte[] image3= quality_img.getBytes();
+		
+		Products p = new Products();
+		p.setProduct_picture(image1);
+		p.setInfo_img(image2);
+		p.setQuality_img(image1);
+		
 		productsMapper.updatePictures(image1, image2, image3, product_id);
 	}
 

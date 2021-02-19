@@ -35,8 +35,8 @@ public interface OrdersMapper {
 			+ "order_status=#{orders.order_status},order_amount=#{orders.order_amount} where order_id=#{orders.order_id}")
 	int updateOrders(@Param("orders") Orders orders);
 	
-	@Update("update orders set order_status=#{orders.order_status} where order_id=#{orders.order_id}")
-	int updateStatus(@Param("orders") Orders orders);
+//	@Update("update orders set order_status=#{orders.order_status} where order_id=#{orders.order_id}")
+//	int updateStatus(@Param("orders") Orders orders);
 	
 	@Delete("delete from orders where order_id=#{order_id}")
 	int deleteOrders(@Param("order_id")int order_id);
