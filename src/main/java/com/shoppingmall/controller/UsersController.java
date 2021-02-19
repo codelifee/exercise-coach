@@ -1,16 +1,21 @@
 package com.shoppingmall.controller;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shoppingmall.mapper.UsersMapper;
@@ -42,6 +47,16 @@ public class UsersController {
 	
 	@PutMapping("/{user_sequence_id}")
 	public void updateUser(@RequestBody Users users) {
+		usersMapper.updateUsers(users);
+	}
+	
+	@PatchMapping("/{user_sequence_id}")
+	public @ResponseBody void patchUser(@PathVariable int user_sequence_id, @RequestBody Map<Object, Object> fields) {
+		Users users = usersMapper.getUsers(user_sequence_id);
+		fields.forEach((k,v) -> {
+			Field field = ReflectionUtils.findRequiredField(Users.class, (String)k);
+			ReflectionUtils.setField(field, users, v);
+		});
 		usersMapper.updateUsers(users);
 	}
 	

@@ -17,10 +17,12 @@ public interface AdministratorMapper {
 	@Select("select * from administrator")
 	List<Administrator> getAll();
 	
+	@Select("select * from administrator where administrator_id=#{administrator_id}")
+	Administrator getAdministrator(@Param("administrator_id")String administrator_id);
+	
 	@Insert("INSERT INTO administrator VALUES(#{administrator.administrator_id}, #{administrator.administrator_pwd}, "
 			+ "#{administrator.administrator_name})")
 	int insertAdministrator(@Param("administrator") Administrator administrator);
-	
 	
 	@Delete("DELETE FROM administrator WHERE administrator_id=#{administrator_id}")
 	int deleteAdministrator(@Param("administrator_id")String administrator_id);

@@ -1,8 +1,10 @@
 package com.shoppingmall.controller;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.ReflectionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -61,6 +64,18 @@ public class ReviewTabController {
 		reviewTabMapper.updateReviewTab(reviewTab);
 	}
 	
+
+	@PatchMapping("/{review_id}")
+	public @ResponseBody void patchReview(@PathVariable int review_id, @RequestBody Map<Object, Object> fields) {
+		ReviewTab reviewTab = reviewTabMapper.getReviewTab(review_id);	
+		fields.forEach((k,v) -> {
+			Field field = ReflectionUtils.findRequiredField(ReviewTab.class, (String)k);
+			ReflectionUtils.setField(field, reviewTab, v);
+		});
+		reviewTabMapper.updateReviewTab(reviewTab);
+	}
+	
+
 	@PatchMapping("/image/{review_id}")
 	public void updateImage(@PathVariable("review_id")int review_id,
 			@RequestParam("review_picture") MultipartFile review_picture) throws IOException {
@@ -89,9 +104,9 @@ public class ReviewTabController {
 			r.setReview(review);
 			r.setStar(star);
 			r.setReview_picture(imageData);
-			//r.setReview_date_created(review_date_created);
+
 			reviewTabMapper.insertReviewTabs(r);
-			
+
 			logger.info("HttpStatus===" + new ResponseEntity<>(HttpStatus.OK));
 			return new ResponseEntity<>("Product Saved With File - ", HttpStatus.OK);			
 		} catch (Exception e) {
@@ -101,9 +116,9 @@ public class ReviewTabController {
 		}
     }
 	
-	@GetMapping("/show/{review_id}")
+	@GetMapping("/showReviewImage/{review_id}")
 	   @ResponseBody
-	   public ResponseEntity<?> downloadFile(@PathVariable("review_id") int review_id, HttpServletResponse response,
+	   public ResponseEntity<?> showReviewImage(@PathVariable("review_id") int review_id, HttpServletResponse response,
 	         HttpServletRequest request) throws IOException, SQLException {
 	      try {
 	         ReviewTab r = reviewTabMapper.getReviewTab(review_id);
@@ -114,9 +129,8 @@ public class ReviewTabController {
 	         return new ResponseEntity<>("Review Saved With File - ", HttpStatus.OK);
 	      } catch (Exception e) {
 	         e.printStackTrace();
-	         //logger.info("Exception: " + e);
+	         logger.info("Exception: " + e);
 	         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	      }
-
 	   }
 }

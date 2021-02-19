@@ -15,7 +15,6 @@ import com.shoppingmall.model.ReviewTab;
 @Mapper
 public interface ReviewTabMapper {
 
-
 	@Select("select r.*, u.user_id from review_tab r join users u on r.user_sequence_id=u.user_sequence_id order by r.review_id asc")
 	List<ReviewTab> getAll();
 

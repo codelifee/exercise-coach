@@ -15,7 +15,7 @@ import com.shoppingmall.model.QuestionTab;
 @Mapper
 public interface QuestionTabMapper {
 
-	@Select("selectq q.*, u.user_id from question_tab q left outer join answer_tab a on q.question_id=a.question_id join users u on u.user_sequence_id=q.user_sequence_id  order by q.question_id")
+	@Select("select q.*, u.user_id from question_tab q left outer join answer_tab a on q.question_id=a.question_id join users u on u.user_sequence_id=q.user_sequence_id  order by q.question_id")
 	List<QuestionTab> getAll();
 	
 	@Select("select q.*, u.user_id from question_tab q left outer join answer_tab a on q.question_id=a.question_id join users u on u.user_sequence_id=q.user_sequence_id where q.question_id=#{question_id}")

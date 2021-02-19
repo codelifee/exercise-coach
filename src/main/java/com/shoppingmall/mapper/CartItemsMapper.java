@@ -15,17 +15,18 @@ import com.shoppingmall.model.CartItems;
 @Mapper
 public interface CartItemsMapper {
 
-	@Select("select * from cart_items c join product_details p on c.product_detail_id = p.product_detail_id order by cart_item_id")
+	@Select("select c.*, p.product_name, p.product_price, p.product_picture "
+			+ "from cart_items c join products p on c.product_id = p.product_id order by c.cart_item_id")
 	List<CartItems> getAll();
 	
-	@Select("select * from cart_items c join product_details p on c.product_detail_id = p.product_detail_id WHERE cart_item_id=#{cart_item_id}")
+	@Select("select c.*, p.product_name, p.product_price, p.product_picture "
+			+ "from cart_items c join products p on c.product_id = p.product_id WHERE c.cart_item_id=#{cart_item_id}")
 	CartItems getCartItems(@Param("cart_item_id")int cart_item_id);
 	
-	@Insert("INSERT INTO cart_items(user_sequence_id, product_detail_id, product_id, cart_item_quantity)"
-			+ " VALUES(#{cartitems.user_sequence_id},#{cartitems.product_detail_id}, #{cartitems.product_id}, #{cartitems.cart_item_quantity})")
+	@Insert("INSERT INTO cart_items(user_sequence_id, product_id, cart_item_quantity)"
+			+ " VALUES(#{cartitems.user_sequence_id}, #{cartitems.product_id}, #{cartitems.cart_item_quantity})")
 	@Options(useGeneratedKeys=true, keyProperty = "cart_item_id")
 	int insert(@Param("cartitems")CartItems cartitems);
-		
 	
 	@Update("UPDATE cart_items SET cart_item_quantity=#{cartitems.cart_item_quantity} where cart_item_id=#{cartitems.cart_item_id}")
 	void updateCartItems(@Param("cartitems") CartItems cartitems);

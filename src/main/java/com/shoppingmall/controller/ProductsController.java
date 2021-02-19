@@ -29,11 +29,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.shoppingmall.mapper.ProductsMapper;
 import com.shoppingmall.model.Orders;
 import com.shoppingmall.model.Products;
-
 
 @RestController
 @RequestMapping("/products")
@@ -42,7 +40,7 @@ public class ProductsController {
 
 	@Autowired
 	private ProductsMapper productsMapper;
-	
+
 
 	private static final Logger logger = LoggerFactory.getLogger(ProductsController.class);
 
@@ -101,6 +99,7 @@ public class ProductsController {
 		
 	}
 	
+
 	@PatchMapping("/qualityImg/{product_id}")
 	public void updateQualityImg(@PathVariable("product_id") int product_id, @RequestParam("quality_img") MultipartFile quality_img) throws IOException {
 		byte[] imageData=quality_img.getBytes();
@@ -115,21 +114,29 @@ public class ProductsController {
 		
 	}
 	
-	/*
-	 * @PutMapping("/image/{product_id}") public void
-	 * updateImage(@PathVariable("product_id") int product_id,
-	 * final @RequestParam("product_picture") MultipartFile product_picture,
-	 * final @RequestParam("info_img") MultipartFile info_img,
-	 * final @RequestParam("quality_img") MultipartFile quality_img) throws
-	 * IOException { byte[] image1= product_picture.getBytes(); byte[] image2 =
-	 * info_img.getBytes(); byte[] image3= quality_img.getBytes(); Products p = new
-	 * Products();
-	 * 
-	 * p.setProduct_picture(image1); p.setInfo_img(image2);
-	 * p.setQuality_img(image3); productsMapper.updatePictures(image1, image2,
-	 * image3, product_id); }
-	 */
 
+	@PutMapping("/image/{product_id}")
+	public void updateImage(@PathVariable("product_id") int product_id, 
+	final @RequestParam("product_picture") MultipartFile product_picture,
+	final @RequestParam("info_img") MultipartFile info_img,
+	final @RequestParam("quality_img") MultipartFile quality_img) throws IOException {
+		byte[] image1= product_picture.getBytes();
+		byte[] image2 = info_img.getBytes();
+		byte[] image3= quality_img.getBytes();
+		
+		productsMapper.updatePictures(image1, image2, image3, product_id);
+	}
+	
+	@PatchMapping("/{product_id}")
+	public @ResponseBody void patchProduct(@PathVariable int product_id, @RequestBody Map<Object, Object> fields) {
+		Products products = productsMapper.getProducts(product_id);	
+		fields.forEach((k,v) -> {
+			Field field = ReflectionUtils.findRequiredField(Products.class, (String)k);
+			ReflectionUtils.setField(field, products, v);
+		});
+		productsMapper.updateProducts(products);
+	}
+	
 	@DeleteMapping("/{product_id}")
 	public void delete(@PathVariable("product_id") int product_id) {
 		productsMapper.deleteProducts(product_id);
@@ -138,7 +145,7 @@ public class ProductsController {
 	
 	
 	@PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<?> uploadFile(@RequestParam("category_id") int category_id,
+	public ResponseEntity<?> upload(@RequestParam("category_id") int category_id,
 			@RequestParam("product_name") String product_name,
 			@RequestParam("product_description") String product_description,
 			@RequestParam("product_price") int product_price, @RequestParam("stock") int stock, @RequestParam("status") String status,
@@ -179,7 +186,7 @@ public class ProductsController {
 		
 		@GetMapping("/showProductImage/{product_id}")
 		@ResponseBody
-		public ResponseEntity<?> downloadFile4(@PathVariable("product_id") int product_id, HttpServletResponse response,
+		public ResponseEntity<?> showProductImage(@PathVariable("product_id") int product_id, HttpServletResponse response,
 				HttpServletRequest request) throws IOException, SQLException {
 			try {
 				Products p = productsMapper.getProducts(product_id);
@@ -232,9 +239,4 @@ public class ProductsController {
 		}
 	}
 
-
-	
-	
-	
-	
 }

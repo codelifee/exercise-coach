@@ -5,6 +5,7 @@ public class Users {
 	private int user_sequence_id;
 	private String user_id;
 	private String user_pwd;
+	private String user_pwd2;
 	private String user_name;
 	private String user_phone;
 	private String user_address;
@@ -51,5 +52,11 @@ public class Users {
 	}
 	public void setUser_date_joined(String user_date_joined) {
 		this.user_date_joined = user_date_joined;
+	}
+	public String getUser_pwd2() {
+		return user_pwd2;
+	}
+	public void setUser_pwd2(String user_pwd2) {
+		this.user_pwd2 = user_pwd2;
 	}
 }
