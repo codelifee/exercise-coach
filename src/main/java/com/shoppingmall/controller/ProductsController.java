@@ -49,22 +49,22 @@ public class ProductsController {
 		return productsMapper.getAll();
 	}
 	
-	//이미지를 제외한 상품 목록 전부 보여줌
-	@GetMapping("/allJsonData")
-	public List<Products> allJsonData() {
-		return productsMapper.getAllJsonData();
-	}
-	//이미지를 제외한 입력된 id와 매칭되는 상품 1개 보여줌
-	@GetMapping("/allJsonData/{product_id}")
-	public Products allJsonData(@PathVariable("product_id") int product_id) {
-		return productsMapper.getAJsonData(product_id);
-	}
-	
 	//입력된 id와 매칭되는 상품 1개 보여줌(이미지 포함)
 	@GetMapping("/{product_id}")
 	@ResponseBody
 	public Products get(@PathVariable("product_id") int product_id) {
 		return productsMapper.getProducts(product_id);
+	}
+	
+	//이미지를 제외한 상품 목록 전부 보여줌
+	@GetMapping("/allJsonData")
+	public List<Products> getallJsonData() {
+		return productsMapper.getAllJsonData();
+	}
+	//이미지를 제외한 입력된 id와 매칭되는 상품 1개 보여줌
+	@GetMapping("/JsonData/{product_id}")
+	public Products getJsonData(@PathVariable("product_id") int product_id) {
+		return productsMapper.getAJsonData(product_id);
 	}
 	
 	//입력된 id와 매칭되는 product_picture를 보여줌

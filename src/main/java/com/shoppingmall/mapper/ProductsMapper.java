@@ -18,10 +18,10 @@ public interface ProductsMapper {
 	@Select("select * from products order by product_id")
 	List<Products> getAll();
 	
-	@Select("select category_id, product_name, product_description, product_price, stock, status from products order by product_id")
+	@Select("select product_id, category_id, product_name, product_description, product_price, stock, status from products order by product_id")
 	List<Products> getAllJsonData();
 	
-	@Select("select category_id, product_name, product_description, product_price, stock, status from products where product_id=#{product_id} order by product_id ")
+	@Select("select product_id, category_id, product_name, product_description, product_price, stock, status from products where product_id=#{product_id} order by product_id ")
 	Products getAJsonData(@Param("product_id") int product_id);
 
 	@Select("select * from products where product_id=#{product_id}")
@@ -56,6 +56,6 @@ public interface ProductsMapper {
 	
 	@Delete("DELETE FROM products WHERE product_id=#{product_id}")
 	int deleteProducts(@Param("product_id")int product_id);
-	
+
 }
 

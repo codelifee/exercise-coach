@@ -53,6 +53,16 @@ public class ReviewTabController {
 		return reviewTabMapper.getReviewTab(review_id);
 	}
 	
+	@GetMapping("/allJsonData")
+	public List<ReviewTab> getAllJsonData(){
+		return reviewTabMapper.getAllJsonData();
+	}
+	
+	@GetMapping("/JsonData/{review_id}")
+	public ReviewTab getAJsonData(@PathVariable("review_id")int review_id){
+		return reviewTabMapper.getAJsonData(review_id);
+	}
+	
 	@GetMapping("/showReviewImage/{review_id}")
 	   @ResponseBody
 	   public ResponseEntity<?> showReviewImage(@PathVariable("review_id") int review_id, HttpServletResponse response,
@@ -63,7 +73,7 @@ public class ReviewTabController {
 
 	         response.getOutputStream().write(r.getReview_picture());
 	         response.getOutputStream().close();
-	         return new ResponseEntity<>("Review Saved With File - ", HttpStatus.OK);
+	         return new ResponseEntity<>("Image Import Successful!", HttpStatus.OK);
 	      } catch (Exception e) {
 	         e.printStackTrace();
 	         logger.info("Exception: " + e);
@@ -132,8 +142,5 @@ public class ReviewTabController {
 	public void delete(@PathVariable("review_id")int review_id){
 		reviewTabMapper.deleteReviewTab(review_id);
 	}
-	
-	
-	
-	
+
 }
