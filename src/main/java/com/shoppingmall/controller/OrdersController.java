@@ -38,53 +38,28 @@ public class OrdersController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(OrdersController.class);
 
-
 	@Autowired
 	private OrdersMapper ordersMapper;
 
+	//모든 주문내역 목록을 보여줌
 	@GetMapping("/all")
 	public List<Orders> getAll() {
 		return ordersMapper.findAll();
 	}
 		
+	//입력된 id와 매칭되는 주문내역 데이터 보여줌
 	@GetMapping("/{order_id}")
 	public Orders getUser(@PathVariable("order_id") int order_id) {
 		return ordersMapper.getOrders(order_id);
 	}
 	
+	//입력된 user_id와 매칭되는 주문내역 데이터 보여줌
 	@GetMapping("/userid/{user_sequence_id}")
 	public List<Orders> getUserByUserId(@PathVariable("user_sequence_id") int user_sequence_id) {
 		return ordersMapper.getOrdersByUserId(user_sequence_id);
 	}
-
-	@PostMapping("")
-	public Orders post(@RequestBody Orders orders) {
-		ordersMapper.insert(orders);
-		return orders;
-	}
-
-	@PutMapping("/{order_id}")
-	public void updateOrder(@RequestBody Orders orders) {
-		ordersMapper.updateOrders(orders);
-	}
-
-	@PatchMapping("/{order_id}")
-	   public @ResponseBody void patchOrder(@PathVariable int order_id, @RequestBody Map<Object, Object> fields) {
-	      Orders order = ordersMapper.getOrders(order_id);   
-	      fields.forEach((k,v) -> {
-	         Field field = ReflectionUtils.findRequiredField(Orders.class, (String)k);
-	         ReflectionUtils.setField(field, order, v);
-	      });
-	      ordersMapper.updateOrders(order);
-	   }
-
 	
-	@DeleteMapping("/{order_id}")
-	public void deleteOrder(@PathVariable("order_id") int order_id) {
-		ordersMapper.deleteOrders(order_id);
-	}
-
-
+	//입력된 id와 매칭되는 product_picture를 보여줌
 	@GetMapping("/showProductImage/{order_id}")
 	@ResponseBody
 	public ResponseEntity<?> showProductImage(@PathVariable("order_id") int order_id, HttpServletResponse response,
@@ -101,6 +76,36 @@ public class OrdersController {
 			logger.info("Exception: " + e);
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
+	}
+
+	//주문내역 데이터 모두 입력
+	@PostMapping("")
+	public Orders post(@RequestBody Orders orders) {
+		ordersMapper.insert(orders);
+		return orders;
+	}
+
+	//입력된 id와 매칭되는 주문내역 데이터 모두 수정
+	@PutMapping("/{order_id}")
+	public void updateOrder(@RequestBody Orders orders) {
+		ordersMapper.updateOrders(orders);
+	}
+
+	//입력된 id와 매칭되는 주문내역 데이터 부분 수정
+	@PatchMapping("/{order_id}")
+	   public @ResponseBody void patchOrder(@PathVariable int order_id, @RequestBody Map<Object, Object> fields) {
+	      Orders order = ordersMapper.getOrders(order_id);   
+	      fields.forEach((k,v) -> {
+	         Field field = ReflectionUtils.findRequiredField(Orders.class, (String)k);
+	         ReflectionUtils.setField(field, order, v);
+	      });
+	      ordersMapper.updateOrders(order);
+	   }
+
+	//입력된 id와 매칭되는 주문내역 데이터 삭제
+	@DeleteMapping("/{order_id}")
+	public void deleteOrder(@PathVariable("order_id") int order_id) {
+		ordersMapper.deleteOrders(order_id);
 	}
 
 }

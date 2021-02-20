@@ -59,11 +59,9 @@ public class ReviewTabController {
 		return reviewTabMapper.getAllJsonData();
 	}
 
-	//이미지 제외한 입력된 id와 매칭되는 리뷰 데이터 보여줌
-	@GetMapping("/all/{review_id}")
-	public ReviewTab getJsonData(@PathVariable("review_id")int review_id){
+	@GetMapping("/JsonData/{review_id}")
+	public ReviewTab getAJsonData(@PathVariable("review_id")int review_id){
 		return reviewTabMapper.getJsonData(review_id);
-		
 	}
 	//입력된 id와 매칭되는 review_picture 보여줌
 	@GetMapping("/showReviewImage/{review_id}")
@@ -132,7 +130,7 @@ public class ReviewTabController {
 		});
 		reviewTabMapper.updateReviewTab(reviewTab);
 	}
-	
+
 	//입력된 id와 매칭되는 review_picture 수정
 	@PatchMapping("/image/{review_id}")
 	public void updateImage(@PathVariable("review_id")int review_id,
