@@ -29,27 +29,32 @@ public class CategoriesController {
 	@Autowired
 	private CategoriesMapper categoriesMapper;
 
+	//모든 카테고리 목록을 보여줌
 	@GetMapping("/all")
 	public List<Categories> getAll(){
 		return categoriesMapper.getAll();
 	}
 	
+	//입력된 id와 매칭되는 카테고리 데이터 보여줌 
 	@GetMapping("/{category_id}")
 	public Categories get(@PathVariable("category_id")int category_id) {
 		return categoriesMapper.getCategories(category_id);
 	}
-		
+	
+	//카테고리 데이터 모두 입력
 	@PostMapping("")
 	public Categories insert(@RequestBody Categories categories) {
 		categoriesMapper.insertCategories(categories);
 		return categories;
 	}
 	
+	//입력된 id와 매칭되는 카테고리 데이터 모두 수정
 	@PutMapping("/{category_id}")
 	public void update(@RequestBody Categories categories) {
 		categoriesMapper.updateCategories(categories);
 	}
 	
+	//입력된 id와 매칭되는 카테고리 데이터 부분 수정
 	@PatchMapping("/{category_id}")
 	public @ResponseBody void patchCategory(@PathVariable int category_id, @RequestBody Map<Object, Object> fields) {
 		Categories categories = categoriesMapper.getCategories(category_id);
@@ -60,6 +65,7 @@ public class CategoriesController {
 		categoriesMapper.updateCategories(categories);
 	}
 	
+	//입력된 id와 매칭되는 카테고리 데이터 삭제
 	@DeleteMapping("/{category_id}")
 	public void delete(@PathVariable("category_id")int category_id){
 		categoriesMapper.deleteCategories(category_id);

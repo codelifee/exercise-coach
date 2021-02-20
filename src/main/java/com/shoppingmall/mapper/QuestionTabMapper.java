@@ -21,6 +21,9 @@ public interface QuestionTabMapper {
 	@Select("select q.*, u.user_id from question_tab q left outer join answer_tab a on q.question_id=a.question_id join users u on u.user_sequence_id=q.user_sequence_id where q.question_id=#{question_id}")
 	QuestionTab getQuestionTab(@Param("question_id")int question_id);
 	
+	@Select("select * from question_tab where user_sequence_id=#{user_sequence_id} order by order_date_created")
+	QuestionTab getQuestionTabByUserId(int user_sequence_id);
+	
 	@Insert("INSERT INTO question_tab(product_id,user_sequence_id,question,question_date_created) "
 			+ "VALUES(#{questionTab.product_id},#{questionTab.user_sequence_id},#{questionTab.question},now())")
 	@Options(useGeneratedKeys = true, keyProperty = "question_id")
@@ -33,8 +36,4 @@ public interface QuestionTabMapper {
 	@Delete("DELETE FROM question_tab WHERE question_id=#{question_id}")
 	int deleteQuestionTab(@Param("question_id")int question_id);
 
-	@Select("select * from question_tab where user_sequence_id=#{user_sequence_id} order by order_date_created")
-	QuestionTab getQuestionTabByUserId(int user_sequence_id);
-
-	
 }

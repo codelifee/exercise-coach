@@ -29,11 +29,8 @@ public interface AnswerTabMapper {
 	@Update("UPDATE answer_tab SET question_id=#{answerTab.question_id},answer=#{answerTab.answer} WHERE answer_id=#{answerTab.answer_id}")
 	void updateAnswerTab(@Param("answerTab") AnswerTab answerTab);
 
-	
 	@Delete("DELETE FROM answer_tab WHERE answer_id=#{answer_id}")
 	int deleteAnswerTab(@Param("answer_id")int answer_id);
-
-
 }
 
 

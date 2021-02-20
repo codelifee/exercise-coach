@@ -29,28 +29,33 @@ public class AdministratorController {
 
 	@Autowired
 	private AdministratorMapper administratorMapper;
-	
-	@PostMapping("")
-	public Administrator insert(@RequestBody Administrator administrator) {
-		administratorMapper.insertAdministrator(administrator);
-		return administrator;
-	}
 
+	//모든 관리자 목록을 보여줌
 	@GetMapping("/all")
 	public List<Administrator> getAll(){
 		return administratorMapper.getAll();
 	}
 	
+	//입력된 id와 매칭되는 관리자 정보를 보여줌
 	@GetMapping("/{administrator_id}")
 	public Administrator get(@PathVariable("administrator_id")String administrator_id) {
 		return administratorMapper.getAdministrator(administrator_id);
 	}
 	
+	//관리자 데이터 모두 입력
+	@PostMapping("")
+	public Administrator insert(@RequestBody Administrator administrator) {
+		administratorMapper.insertAdministrator(administrator);
+		return administrator;
+	}
+	
+	//입력된 id와 매칭되는 관리자 정보를 모두 수정
 	@PutMapping("/{administrator_id}")
 	public void update(@RequestBody Administrator administrator) {
 		administratorMapper.updateAdministrator(administrator);
 	}
 	
+	//입력된 id와 매칭되는 관리자 정보를 부분 수정
 	@PatchMapping("/{administrator_id}")
 	public @ResponseBody void patchAdministrator(@PathVariable String administrator_id, @RequestBody Map<Object, Object> fields) {
 		Administrator administrator = administratorMapper.getAdministrator(administrator_id);
@@ -61,6 +66,7 @@ public class AdministratorController {
 		administratorMapper.updateAdministrator(administrator);
 	}
 	
+	//입력된 id와 매칭되는 관리자 정보를 삭제
 	@DeleteMapping("/{administrator_id}")
 	public void delete(@PathVariable("administrator_id")String administrator_id){
 		administratorMapper.deleteAdministrator(administrator_id);

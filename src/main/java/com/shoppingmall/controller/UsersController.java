@@ -29,27 +29,32 @@ public class UsersController {
 	@Autowired
 	private UsersMapper usersMapper;
 	
+	//모든 user 목록을 보여줌
 	@GetMapping("/all")
 	public List<Users> getAll(){
 		return usersMapper.getAll();
 	}
 	
+	//입력된 id와 매칭되는 user 데이터를 보여줌
 	@GetMapping("/{user_sequence_id}")
 	public Users getUser(@PathVariable("user_sequence_id")int user_sequence_id) {
 		return usersMapper.getUsers(user_sequence_id);
 	}
 	
+	//user 데이터 모두 입력
 	@PostMapping("")
 	public Users post(@RequestBody Users users) {
 		usersMapper.insertUsers(users);
 		return users;
 	}
 	
+	//입력된 id와 매칭되는 user의 모든 데이터를 수정
 	@PutMapping("/{user_sequence_id}")
 	public void updateUser(@RequestBody Users users) {
 		usersMapper.updateUsers(users);
 	}
 	
+	//입력된 id와 매칭되는 user 데이터를 부분 수정
 	@PatchMapping("/{user_sequence_id}")
 	public @ResponseBody void patchUser(@PathVariable int user_sequence_id, @RequestBody Map<Object, Object> fields) {
 		Users users = usersMapper.getUsers(user_sequence_id);
@@ -60,6 +65,7 @@ public class UsersController {
 		usersMapper.updateUsers(users);
 	}
 	
+	//입력된 id와 매칭되는 user 데이터를 삭제
 	@DeleteMapping("/{user_sequence_id}")
 	public void deleteUser(@PathVariable("user_sequence_id")int user_sequence_id) {
 		usersMapper.deleteUsers(user_sequence_id);

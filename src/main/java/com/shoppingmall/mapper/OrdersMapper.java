@@ -40,7 +40,6 @@ public interface OrdersMapper {
 
 	@Select("select * from products p where p.product_id in (select o.product_id from orders o"+ 
 			" where o.order_id=#{order_id})")
-	@Options(useGeneratedKeys = true, keyProperty = "order_id")
 	Products selectProducts(int order_id);
 
 
