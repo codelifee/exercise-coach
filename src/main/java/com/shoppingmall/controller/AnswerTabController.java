@@ -29,27 +29,33 @@ public class AnswerTabController {
 	@Autowired
 	private AnswerTabMapper answerMapper;
 	
+	//모든 답변 목록을 보여줌
 	@GetMapping("/all")
 	public List<AnswerTab> getAll(){
 		return answerMapper.getAll();
 	}
 	
+	//입력된 id와 매칭되는 답변 데이터 보여줌 
 	@GetMapping("/{answer_id}")
 	public AnswerTab get(@PathVariable("answer_id")int answer_id) {
 		return answerMapper.getAnswerTab(answer_id);
 	}
 	
+	//답변 데이터 모두 입력
 	@PostMapping("")
 	public AnswerTab insert(@RequestBody AnswerTab answerTab) {
 		answerMapper.insertAnswerTab(answerTab);
 		return answerTab;
 	}
 	
+	//입력된 id와 매칭되는 답변 데이터 모두 수정
 	@PutMapping("/{answer_id}")
 	public void update(@PathVariable("answer_id")int answer_id, @RequestBody AnswerTab answerTab) {
 		answerMapper.updateAnswerTab(answerTab);
-		}
+	}
 	
+	
+	///입력된 id와 매칭되는 답변 데이터 부분 수정
 	@PatchMapping("/{answer_id}")
 	public @ResponseBody void patchAnswer(@PathVariable int answer_id, @RequestBody Map<Object, Object> fields) {
 		AnswerTab answerTab = answerMapper.getAnswerTab(answer_id);	
@@ -60,7 +66,7 @@ public class AnswerTabController {
 		answerMapper.updateAnswerTab(answerTab);
 	}
 	
-	
+	//입력된 id와 매칭되는 답변 데이터 삭제
 	@DeleteMapping("/{answer_id}")
 	public void delete(@PathVariable("answer_id")int answer_id){
 		answerMapper.deleteAnswerTab(answer_id);

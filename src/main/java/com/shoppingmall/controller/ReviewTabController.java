@@ -53,39 +53,28 @@ public class ReviewTabController {
 		return reviewTabMapper.getReviewTab(review_id);
 	}
 	
+	@GetMapping("/showReviewImage/{review_id}")
+	   @ResponseBody
+	   public ResponseEntity<?> showReviewImage(@PathVariable("review_id") int review_id, HttpServletResponse response,
+	         HttpServletRequest request) throws IOException, SQLException {
+	      try {
+	         ReviewTab r = reviewTabMapper.getReviewTab(review_id);
+	         response.setContentType("image/jpeg; image/jpg; image/png; image/gif");
+
+	         response.getOutputStream().write(r.getReview_picture());
+	         response.getOutputStream().close();
+	         return new ResponseEntity<>("Review Saved With File - ", HttpStatus.OK);
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	         logger.info("Exception: " + e);
+	         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	      }
+	   }
+	
 	@PostMapping("")
 	public ReviewTab insert(@RequestBody ReviewTab reviewTab) {
 		reviewTabMapper.insertReviewTab(reviewTab);		
 		return reviewTab;
-	}
-	
-	@PutMapping("/{review_id}")
-	public void update(@RequestBody ReviewTab reviewTab) {
-		reviewTabMapper.updateReviewTab(reviewTab);
-	}
-	
-
-	@PatchMapping("/{review_id}")
-	public @ResponseBody void patchReview(@PathVariable int review_id, @RequestBody Map<Object, Object> fields) {
-		ReviewTab reviewTab = reviewTabMapper.getReviewTab(review_id);	
-		fields.forEach((k,v) -> {
-			Field field = ReflectionUtils.findRequiredField(ReviewTab.class, (String)k);
-			ReflectionUtils.setField(field, reviewTab, v);
-		});
-		reviewTabMapper.updateReviewTab(reviewTab);
-	}
-	
-
-	@PatchMapping("/image/{review_id}")
-	public void updateImage(@PathVariable("review_id")int review_id,
-			@RequestParam("review_picture") MultipartFile review_picture) throws IOException {
-		byte[] imageData= review_picture.getBytes();
-		reviewTabMapper.UpdateReviewPicture(imageData, review_id);
-	}
-	
-	@DeleteMapping("/{review_id}")
-	public void delete(@PathVariable("review_id")int review_id){
-		reviewTabMapper.deleteReviewTab(review_id);
 	}
 	
 	@PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -116,21 +105,35 @@ public class ReviewTabController {
 		}
     }
 	
-	@GetMapping("/showReviewImage/{review_id}")
-	   @ResponseBody
-	   public ResponseEntity<?> showReviewImage(@PathVariable("review_id") int review_id, HttpServletResponse response,
-	         HttpServletRequest request) throws IOException, SQLException {
-	      try {
-	         ReviewTab r = reviewTabMapper.getReviewTab(review_id);
-	         response.setContentType("image/jpeg; image/jpg; image/png; image/gif");
+	@PutMapping("/{review_id}")
+	public void update(@RequestBody ReviewTab reviewTab) {
+		reviewTabMapper.updateReviewTab(reviewTab);
+	}
+	
+	@PatchMapping("/{review_id}")
+	public @ResponseBody void patchReview(@PathVariable int review_id, @RequestBody Map<Object, Object> fields) {
+		ReviewTab reviewTab = reviewTabMapper.getReviewTab(review_id);	
+		fields.forEach((k,v) -> {
+			Field field = ReflectionUtils.findRequiredField(ReviewTab.class, (String)k);
+			ReflectionUtils.setField(field, reviewTab, v);
+		});
+		reviewTabMapper.updateReviewTab(reviewTab);
+	}
+	
 
-	         response.getOutputStream().write(r.getReview_picture());
-	         response.getOutputStream().close();
-	         return new ResponseEntity<>("Review Saved With File - ", HttpStatus.OK);
-	      } catch (Exception e) {
-	         e.printStackTrace();
-	         logger.info("Exception: " + e);
-	         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-	      }
-	   }
+	@PatchMapping("/image/{review_id}")
+	public void updateImage(@PathVariable("review_id")int review_id,
+			@RequestParam("review_picture") MultipartFile review_picture) throws IOException {
+		byte[] imageData= review_picture.getBytes();
+		reviewTabMapper.UpdateReviewPicture(imageData, review_id);
+	}
+	
+	@DeleteMapping("/{review_id}")
+	public void delete(@PathVariable("review_id")int review_id){
+		reviewTabMapper.deleteReviewTab(review_id);
+	}
+	
+	
+	
+	
 }
