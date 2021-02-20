@@ -18,14 +18,14 @@ public interface ProductsMapper {
 	@Select("select * from products order by product_id")
 	List<Products> getAll();
 	
+	@Select("select * from products where product_id=#{product_id}")
+	Products getProducts(@Param("product_id") int product_id);
+	
 	@Select("select product_id, category_id, product_name, product_description, product_price, stock, status from products order by product_id")
 	List<Products> getAllJsonData();
 	
 	@Select("select product_id, category_id, product_name, product_description, product_price, stock, status from products where product_id=#{product_id} order by product_id ")
-	Products getAJsonData(@Param("product_id") int product_id);
-
-	@Select("select * from products where product_id=#{product_id}")
-	Products getProducts(@Param("product_id") int product_id);
+	Products getJsonData(@Param("product_id") int product_id);
 	
 	@Insert("INSERT INTO products(category_id,product_name,product_description,product_price, stock)"
 	      + " VALUES(#{products.category_id}, #{products.product_name},#{products.product_description},"

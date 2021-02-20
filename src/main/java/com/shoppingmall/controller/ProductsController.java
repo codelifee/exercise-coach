@@ -64,7 +64,7 @@ public class ProductsController {
 	//이미지를 제외한 입력된 id와 매칭되는 상품 1개 보여줌
 	@GetMapping("/JsonData/{product_id}")
 	public Products getJsonData(@PathVariable("product_id") int product_id) {
-		return productsMapper.getAJsonData(product_id);
+		return productsMapper.getJsonData(product_id);
 	}
 	
 	//입력된 id와 매칭되는 product_picture를 보여줌

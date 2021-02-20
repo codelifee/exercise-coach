@@ -60,7 +60,7 @@ public class ReviewTabController {
 	
 	@GetMapping("/JsonData/{review_id}")
 	public ReviewTab getAJsonData(@PathVariable("review_id")int review_id){
-		return reviewTabMapper.getAJsonData(review_id);
+		return reviewTabMapper.getJsonData(review_id);
 	}
 	
 	@GetMapping("/showReviewImage/{review_id}")
@@ -129,7 +129,6 @@ public class ReviewTabController {
 		});
 		reviewTabMapper.updateReviewTab(reviewTab);
 	}
-	
 
 	@PatchMapping("/image/{review_id}")
 	public void updateImage(@PathVariable("review_id")int review_id,
