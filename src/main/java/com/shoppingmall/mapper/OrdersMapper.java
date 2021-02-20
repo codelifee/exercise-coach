@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.shoppingmall.model.Orders;
+import com.shoppingmall.model.Products;
 
 @Mapper
 public interface OrdersMapper {
@@ -37,10 +38,10 @@ public interface OrdersMapper {
 	@Delete("delete from orders where order_id=#{order_id}")
 	int deleteOrders(@Param("order_id")int order_id);
 
-	@Select("select p.product_picture from orders o join products p on o.product_id=p.product_id " + 
-			"where o.order_id=#{order_id}")
+	@Select("select * from products p where p.product_id in (select o.product_id from orders o"+ 
+			" where o.order_id=#{order_id})")
 	@Options(useGeneratedKeys = true, keyProperty = "order_id")
-	byte[] selectImage(int order_id);
+	Products selectProducts(int order_id);
 
 
 	@Select("select u.user_address, u.user_id, o.*, p.product_name, p.product_price from orders o " + 

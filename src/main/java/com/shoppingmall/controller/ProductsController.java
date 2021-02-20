@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.shoppingmall.mapper.ProductsMapper;
-import com.shoppingmall.model.Orders;
 import com.shoppingmall.model.Products;
 
 @RestController
@@ -56,7 +55,7 @@ public class ProductsController {
 		return productsMapper.getAllJsonData();
 	}
 	//이미지를 제외한 입력된 id와 매칭되는 상품 1개 보여줌
-	@GetMapping("/aJsonData/{product_id}")
+	@GetMapping("/all/{product_id}")
 	public Products aJsonData(@PathVariable("product_id") int product_id) {
 		return productsMapper.getAJsonData(product_id);
 	}
@@ -74,11 +73,6 @@ public class ProductsController {
 		return products;
 	}
 
-	@PutMapping("/{product_id}")
-	public void update(@RequestBody Products products) {
-		productsMapper.updateProducts(products);
-	
-	}
 	
 	@PatchMapping("/{product_id}")
 	   public @ResponseBody void patchProducts(@PathVariable int product_id, @RequestBody Map<Object, Object> fields) {
@@ -114,28 +108,6 @@ public class ProductsController {
 		
 	}
 	
-
-	@PutMapping("/image/{product_id}")
-	public void updateImage(@PathVariable("product_id") int product_id, 
-	final @RequestParam("product_picture") MultipartFile product_picture,
-	final @RequestParam("info_img") MultipartFile info_img,
-	final @RequestParam("quality_img") MultipartFile quality_img) throws IOException {
-		byte[] image1= product_picture.getBytes();
-		byte[] image2 = info_img.getBytes();
-		byte[] image3= quality_img.getBytes();
-		
-		productsMapper.updatePictures(image1, image2, image3, product_id);
-	}
-	
-	@PatchMapping("/{product_id}")
-	public @ResponseBody void patchProduct(@PathVariable int product_id, @RequestBody Map<Object, Object> fields) {
-		Products products = productsMapper.getProducts(product_id);	
-		fields.forEach((k,v) -> {
-			Field field = ReflectionUtils.findRequiredField(Products.class, (String)k);
-			ReflectionUtils.setField(field, products, v);
-		});
-		productsMapper.updateProducts(products);
-	}
 	
 	@DeleteMapping("/{product_id}")
 	public void delete(@PathVariable("product_id") int product_id) {
@@ -175,7 +147,7 @@ public class ProductsController {
 			productsMapper.insertProducts(p);
 
 			logger.info("HttpStatus===" + new ResponseEntity<>(HttpStatus.OK));
-			return new ResponseEntity<>("Product Saved With File - ", HttpStatus.OK);
+			return new ResponseEntity<>("Product Saved With File", HttpStatus.OK);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -194,7 +166,7 @@ public class ProductsController {
 
 				response.getOutputStream().write(p.getProduct_picture());
 				response.getOutputStream().close();
-				return new ResponseEntity<>("Product Saved With File - ", HttpStatus.OK);
+				return new ResponseEntity<>("Image Import Successful!", HttpStatus.OK);
 			} catch (Exception e) {
 				e.printStackTrace();
 				logger.info("Exception: " + e);
@@ -213,7 +185,7 @@ public class ProductsController {
 
 			response.getOutputStream().write(p.getInfo_img());
 			response.getOutputStream().close();
-			return new ResponseEntity<>("Product Saved With File", HttpStatus.OK);
+			return new ResponseEntity<>("Image Import Successful!", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.info("Exception: " + e);
@@ -231,7 +203,7 @@ public class ProductsController {
 
 			response.getOutputStream().write(p.getQuality_img());
 			response.getOutputStream().close();
-			return new ResponseEntity<>("Product Saved With File - ", HttpStatus.OK);
+			return new ResponseEntity<>("Image Import Successful!", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.info("Exception: " + e);

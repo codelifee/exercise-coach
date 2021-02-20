@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shoppingmall.mapper.OrdersMapper;
 import com.shoppingmall.model.Orders;
+import com.shoppingmall.model.Products;
 
 @RestController
 @RequestMapping("/orders")
@@ -89,12 +90,12 @@ public class OrdersController {
 	public ResponseEntity<?> showProductImage(@PathVariable("order_id") int order_id, HttpServletResponse response,
 			HttpServletRequest request) throws IOException, SQLException {
 		try {
-			byte[] image = ordersMapper.selectImage(order_id);
+			Products p = ordersMapper.selectProducts(order_id); 
 			response.setContentType("image/jpeg; image/jpg; image/png; image/gif");
 
-			response.getOutputStream().write(image);
+			response.getOutputStream().write(p.getProduct_picture());
 			response.getOutputStream().close();
-			return new ResponseEntity<>("Product Saved With File - ", HttpStatus.OK);
+			return new ResponseEntity<>("Image Import Successful!" , HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.info("Exception: " + e);

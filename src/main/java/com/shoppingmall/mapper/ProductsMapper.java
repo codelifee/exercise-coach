@@ -18,10 +18,10 @@ public interface ProductsMapper {
 	@Select("select * from products order by product_id")
 	List<Products> getAll();
 	
-	@Select("select category_id, product_name, product_description, product_price, stock, status from products order by product_id")
+	@Select("select product_id, category_id, product_name, product_description, product_price, stock, status from products order by product_id")
 	List<Products> getAllJsonData();
 	
-	@Select("select category_id, product_name, product_description, product_price, stock, status from products where product_id=#{product_id} order by product_id ")
+	@Select("select product_id, category_id, product_name, product_description, product_price, stock, status from products where product_id=#{product_id} order by product_id ")
 	Products getAJsonData(@Param("product_id") int product_id);
 	
 
@@ -42,23 +42,14 @@ public interface ProductsMapper {
 	   int insertProducts(@Param("products") Products products);
 
 
-	
-
-
 	@Update("UPDATE products SET category_id=#{products.category_id},product_name=#{products.product_name},product_description=#{products.product_description},"
 			+ "product_price=#{products.product_price}, stock=#{products.stock}, status=#{products.status} "
 			+ "WHERE product_id=#{products.product_id}")
 	void updateProducts(@Param("products") Products products);
 	
-	@Update("UPDATE products SET product_picture=#{product_picture}, info_img=#{info_img}, "
-			+ "quality_img=#{quality_img} WHERE product_id=#{product_id}")
-	int updatePictures(@Param("product_picture")byte[] product_picture,@Param("info_img")byte[] info_img,
-			@Param("quality_img")byte[] quality_img, @Param("product_id")int product_id);
-	
 	@Delete("DELETE FROM products WHERE product_id=#{product_id}")
 	int deleteProducts(@Param("product_id")int product_id);
 	
-
 	
 	@Update("update products set product_picture=#{imageData}")
 	void updateProductPicture(@Param("product_id") int product_id, @Param("imageData") byte[] imageData);
@@ -69,9 +60,6 @@ public interface ProductsMapper {
 	@Update("update products set info_img=#{imageData}")
 	void updateInfoImg(int product_id, byte[] imageData);
 	
-
-	@Select("select product_picture from products where product_id=#{product_id}")
-	byte[] selectImage(@Param("product_id")int product_id);
 
 }
 

@@ -13,7 +13,7 @@ public class Orders {
 	private int product_price;
 	private int quantity;
 	private int product_id;
-	
+	private byte[] product_picture;
 	
 	
 	
@@ -84,6 +84,12 @@ public class Orders {
 	}
 	public void setUser_address(String user_address) {
 		this.user_address = user_address;
+	}
+	public byte[] getProduct_picture() {
+		return product_picture;
+	}
+	public void setProduct_picture(byte[] product_picture) {
+		this.product_picture = product_picture;
 	}
 
 }

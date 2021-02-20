@@ -43,4 +43,10 @@ public interface ReviewTabMapper {
 
 	@Delete("DELETE FROM review_tab WHERE review_id=#{review_id}")
 	int deleteReviewTab(@Param("review_id")int review_id);
+
+	@Select("select review_id, product_id, user_sequence_id, review, star, review_date_created from review_tab order by review_id")
+	List<ReviewTab> getAllJsonData();
+	
+	@Select("select review_id, product_id, user_sequence_id, review, star, review_date_created from review_tab where review_id=#{review_id} order by review_id")
+	ReviewTab getAJsonData(@Param("review_id")int review_id);
 }
