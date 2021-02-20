@@ -59,8 +59,8 @@ public class ReviewTabController {
 	}
 	
 	@GetMapping("/all/{review_id}")
-	public ReviewTab getAJsonData(@PathVariable("review_id")int review_id){
-		return reviewTabMapper.getAJsonData(review_id);
+	public ReviewTab getJsonData(@PathVariable("review_id")int review_id){
+		return reviewTabMapper.getJsonData(review_id);
 	}
 	
 	

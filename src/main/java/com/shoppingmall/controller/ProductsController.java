@@ -51,13 +51,13 @@ public class ProductsController {
 	
 	//이미지를 제외한 상품 목록 전부 보여줌
 	@GetMapping("/allJsonData")
-	public List<Products> allJsonData() {
+	public List<Products> getAllJsonData() {
 		return productsMapper.getAllJsonData();
 	}
 	//이미지를 제외한 입력된 id와 매칭되는 상품 1개 보여줌
 	@GetMapping("/all/{product_id}")
 	public Products aJsonData(@PathVariable("product_id") int product_id) {
-		return productsMapper.getAJsonData(product_id);
+		return productsMapper.getJsonData(product_id);
 	}
 	
 	//입력된 id와 매칭되는 상품 1개 보여줌(이미지 포함)

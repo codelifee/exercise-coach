@@ -48,5 +48,5 @@ public interface ReviewTabMapper {
 	List<ReviewTab> getAllJsonData();
 	
 	@Select("select review_id, product_id, user_sequence_id, review, star, review_date_created from review_tab where review_id=#{review_id} order by review_id")
-	ReviewTab getAJsonData(@Param("review_id")int review_id);
+	ReviewTab getJsonData(@Param("review_id")int review_id);
 }
