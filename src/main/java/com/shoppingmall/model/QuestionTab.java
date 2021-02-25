@@ -10,9 +10,11 @@ public class QuestionTab {
 	 private int answer_id;
 	 private String answer;
 	 private String answer_date_created;
-	 private byte[] info_image;
-	 private byte[] quality_image;
-	 private String user_id;	 
+	 private int category_id;
+	 private String user_id;	
+	 
+	 
+	 
 	 
 	public String getUser_id() {
 		return user_id;
@@ -68,17 +70,12 @@ public class QuestionTab {
 	public void setAnswer_date_created(String answer_date_created) {
 		this.answer_date_created = answer_date_created;
 	}
-	public byte[] getInfo_image() {
-		return info_image;
+	public int getCategory_id() {
+		return category_id;
 	}
-	public void setInfo_image(byte[] info_image) {
-		this.info_image = info_image;
+	public void setCategory_id(int category_id) {
+		this.category_id = category_id;
 	}
-	public byte[] getQuality_image() {
-		return quality_image;
-	}
-	public void setQuality_image(byte[] quality_image) {
-		this.quality_image = quality_image;
-	}
+
 
 }

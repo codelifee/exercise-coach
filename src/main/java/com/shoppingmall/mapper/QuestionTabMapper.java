@@ -15,10 +15,10 @@ import com.shoppingmall.model.QuestionTab;
 @Mapper
 public interface QuestionTabMapper {
 
-	@Select("select q.*, u.user_id, a.answer, a.answer_date_created from question_tab q left outer join answer_tab a on q.question_id=a.question_id join users u on u.user_sequence_id=q.user_sequence_id  order by q.question_id")
+	@Select("select q.*, u.user_id, a.answer, a.answer_date_created, p.category_id from question_tab q left outer join answer_tab a on q.question_id=a.question_id join users u on u.user_sequence_id=q.user_sequence_id join products p on p.product_id=q.product_id order by q.question_id")
 	List<QuestionTab> getAll();
 	
-	@Select("select q.*, u.user_id, a.answer, a.answer_date_created from question_tab q left outer join answer_tab a on q.question_id=a.question_id join users u on u.user_sequence_id=q.user_sequence_id where q.question_id=#{question_id}")
+	@Select("select q.*, u.user_id, a.answer, a.answer_date_created, p.category_id from question_tab q left outer join answer_tab a on q.question_id=a.question_id join users u on u.user_sequence_id=q.user_sequence_id join products p on p.product_id=q.product_id order by q.question_id where q.question_id=#{question_id}")
 	QuestionTab getQuestionTab(@Param("question_id")int question_id);
 	
 	@Select("select q.*, u.user_id, a.answer, a.answer_date_created from question_tab q left outer join answer_tab a on q.question_id=a.question_id join users u on u.user_sequence_id=q.user_sequence_id "
