@@ -43,25 +43,25 @@ public class ProductsController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ProductsController.class);
 
-	//모든 상품목록 전부보여줌
+	//紐⑤뱺 �긽�뭹紐⑸줉 �쟾遺�蹂댁뿬以�
 	@GetMapping("/all")
 	public List<Products> getAll() {
 		return productsMapper.getAll();
 	}
 	
-	//입력된 id와 매칭되는 상품 1개 보여줌(이미지 포함)
+	//�엯�젰�맂 id�� 留ㅼ묶�릺�뒗 �긽�뭹 1媛� 蹂댁뿬以�(�씠誘몄� �룷�븿)
 	@GetMapping("/{product_id}")
 	@ResponseBody
 	public Products get(@PathVariable("product_id") int product_id) {
 		return productsMapper.getProducts(product_id);
 	}
 	
-	//이미지를 제외한 상품 목록 전부 보여줌
+	//�씠誘몄�瑜� �젣�쇅�븳 �긽�뭹 紐⑸줉 �쟾遺� 蹂댁뿬以�
 	@GetMapping("/allJsonData")
 	public List<Products> getAllJsonData() {
 		return productsMapper.getAllJsonData();
 	}
-	//이미지를 제외한 입력된 id와 매칭되는 상품 1개 보여줌
+	//�씠誘몄�瑜� �젣�쇅�븳 �엯�젰�맂 id�� 留ㅼ묶�릺�뒗 �긽�뭹 1媛� 蹂댁뿬以�
 
 
 	@GetMapping("/JsonData/{product_id}")
@@ -69,7 +69,7 @@ public class ProductsController {
 		return productsMapper.getJsonData(product_id);
 	}
 
-	//입력된 id와 매칭되는 product_picture를 보여줌
+	//�엯�젰�맂 id�� 留ㅼ묶�릺�뒗 product_picture瑜� 蹂댁뿬以�
 	@GetMapping("/showProductImage/{product_id}")
 	@ResponseBody
 	public ResponseEntity<?> showProductImage(@PathVariable("product_id") int product_id, HttpServletResponse response,
@@ -87,7 +87,7 @@ public class ProductsController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 }
-	//입력된 id와 매칭되는 Info_img를 보여줌
+	//�엯�젰�맂 id�� 留ㅼ묶�릺�뒗 Info_img瑜� 蹂댁뿬以�
 	@GetMapping("/showInfoImage/{product_id}")
 	@ResponseBody
 	public ResponseEntity<?> showInfoImage(@PathVariable("product_id") int product_id, HttpServletResponse response,
@@ -106,7 +106,7 @@ public class ProductsController {
 		}
 	}
 	
-	//입력된 id와 매칭되는 Quality_img를 보여줌
+	//�엯�젰�맂 id�� 留ㅼ묶�릺�뒗 Quality_img瑜� 蹂댁뿬以�
 	@GetMapping("/showQualityImage/{product_id}")
 	@ResponseBody
 	public ResponseEntity<?> showQualityImage(@PathVariable("product_id") int product_id, HttpServletResponse response,
@@ -125,14 +125,14 @@ public class ProductsController {
 		}
 	}
 	
-	//이미지를 제외한 상품 데이터 모두 입력
+	//�씠誘몄�瑜� �젣�쇅�븳 �긽�뭹 �뜲�씠�꽣 紐⑤몢 �엯�젰
 	@PostMapping("")
 	public Products insert(@RequestBody Products products) {
-		productsMapper.insertProduct(products);
+		productsMapper.insertProducts(products);
 		return products;
 	}
 	
-	//이미지 포함한 상품 데이터 모두 입력
+	//�씠誘몄� �룷�븿�븳 �긽�뭹 �뜲�씠�꽣 紐⑤몢 �엯�젰
 	@PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<?> upload(@RequestParam("category_id") int category_id,
 			@RequestParam("product_name") String product_name,
@@ -159,8 +159,7 @@ public class ProductsController {
 			p.setInfo_img(imageData1);
 			p.setQuality_img(imageData2);
 			p.setProduct_price(product_price);
-			p.setStock(stock);
-			p.setStatus(status);
+			p.setStock(stock);			
 			productsMapper.insertProducts(p);
 
 			logger.info("HttpStatus===" + new ResponseEntity<>(HttpStatus.OK));
@@ -173,13 +172,13 @@ public class ProductsController {
 		}
 	}
 	
-	//이미지 제외한 입력된 id와 매칭되는 상품 데이터 모두 수정 
+	//�씠誘몄� �젣�쇅�븳 �엯�젰�맂 id�� 留ㅼ묶�릺�뒗 �긽�뭹 �뜲�씠�꽣 紐⑤몢 �닔�젙 
 	@PutMapping("/{product_id}")
 	public void update(@RequestBody Products products) {
 		productsMapper.updateProducts(products);
 	}
 	
-	//이미지 제외한 입력된 id와 매칭되는 상품 데이터 부분 수정
+	//�씠誘몄� �젣�쇅�븳 �엯�젰�맂 id�� 留ㅼ묶�릺�뒗 �긽�뭹 �뜲�씠�꽣 遺�遺� �닔�젙
 	@PatchMapping("/{product_id}")
 	   public @ResponseBody void patchProducts(@PathVariable int product_id, @RequestBody Map<Object, Object> fields) {
 		Products products = productsMapper.getProducts(product_id);   
@@ -190,28 +189,28 @@ public class ProductsController {
 	      productsMapper.updateProducts(products);
 	   }
 	
-	//입력된 id와 매칭되는 상품 product_picture 수정
+	//�엯�젰�맂 id�� 留ㅼ묶�릺�뒗 �긽�뭹 product_picture �닔�젙
 	@PatchMapping("/productPicture/{product_id}")
 	public void updateProductPicture(@PathVariable("product_id") int product_id, @RequestParam("product_picture") MultipartFile product_picture) throws IOException {
 		byte[] imageData=product_picture.getBytes();
 		productsMapper.updateProductPicture(product_id, imageData);
 	}
 	
-	//입력된 id와 매칭되는 상품 Info_img 수정
+	//�엯�젰�맂 id�� 留ㅼ묶�릺�뒗 �긽�뭹 Info_img �닔�젙
 	@PatchMapping("/infoImg/{product_id}")
 	public void updateInfoImg(@PathVariable("product_id") int product_id, @RequestParam("info_img") MultipartFile info_img) throws IOException {
 		byte[] imageData=info_img.getBytes();
 		productsMapper.updateInfoImg(product_id, imageData);
 	}
 	
-	//입력된 id와 매칭되는 상품 Quality_img 수정
+	//�엯�젰�맂 id�� 留ㅼ묶�릺�뒗 �긽�뭹 Quality_img �닔�젙
 	@PatchMapping("/qualityImg/{product_id}")
 	public void updateQualityImg(@PathVariable("product_id") int product_id, @RequestParam("quality_img") MultipartFile quality_img) throws IOException {
 		byte[] imageData=quality_img.getBytes();
 		productsMapper.updateQualityImg(product_id, imageData);		
 	}
 	
-	//입력된 id와 매칭되는 상품 데이터 삭제
+	//�엯�젰�맂 id�� 留ㅼ묶�릺�뒗 �긽�뭹 �뜲�씠�꽣 �궘�젣
 	@DeleteMapping("/{product_id}")
 	public void delete(@PathVariable("product_id") int product_id) {
 		productsMapper.deleteProducts(product_id);
