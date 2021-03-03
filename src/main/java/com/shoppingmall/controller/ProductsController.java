@@ -159,9 +159,7 @@ public class ProductsController {
 			p.setInfo_img(imageData1);
 			p.setQuality_img(imageData2);
 			p.setProduct_price(product_price);
-			p.setStock(stock);
-			p.setStatus(status);
-			productsMapper.insertProducts(p);
+			p.setStock(stock);			productsMapper.insertProducts(p);
 
 			logger.info("HttpStatus===" + new ResponseEntity<>(HttpStatus.OK));
 			return new ResponseEntity<>("Product Saved With File - ", HttpStatus.OK);
