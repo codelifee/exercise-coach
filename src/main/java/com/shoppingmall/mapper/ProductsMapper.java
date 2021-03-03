@@ -33,7 +33,7 @@ public interface ProductsMapper {
 	@Options(useGeneratedKeys = true, keyProperty = "product_id")
 	int insertProduct(@Param("products") Products products);
 	   
-	@Insert("INSERT INTO products(category_id,product_name,product_description,product_price, stock, "
+	@Insert("INSERT INTO products(category_id,product_name,product_description,product_price, stock,"
 	      + "product_picture, info_img, quality_img)"
 	      + " VALUES(#{products.category_id}, #{products.product_name},#{products.product_description}, "
 	      + "#{products.product_price}, #{products.stock}, #{products.product_picture}, #{products.info_img}, #{products.quality_img})")

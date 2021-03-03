@@ -13,11 +13,8 @@ public class Products {
 	private int stock;
 	private byte[] info_img;
 	private byte[] quality_img;
-	private String status;
-	
 	
 
-	
 	
 	public int getProduct_id() {
 		return product_id;
@@ -72,12 +69,6 @@ public class Products {
 	}
 	public void setQuality_img(byte[] quality_img) {
 		this.quality_img = quality_img;
-	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 }
