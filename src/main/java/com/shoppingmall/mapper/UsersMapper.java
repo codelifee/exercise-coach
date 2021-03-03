@@ -21,6 +21,9 @@ public interface UsersMapper {
 	@Select("select * from users where user_sequence_id=#{user_sequence_id}")
 	Users getUsers(@Param("user_sequence_id")int user_sequence_id);
 
+	@Select("select * from users where user_id=#{user_id}")
+	Users loginUser(@Param("user_id")String user_id);
+	
 	@Insert("insert into users (user_id, user_pwd, user_pwd2, user_name, user_phone, user_address, user_date_joined) "
 			+ "values(#{users.user_id}, #{users.user_pwd}, #{users.user_pwd2}, #{users.user_name}, #{users.user_phone},"
 			+ "#{users.user_address},now())")

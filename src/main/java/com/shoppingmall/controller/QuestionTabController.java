@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shoppingmall.mapper.QuestionTabMapper;
-import com.shoppingmall.model.Categories;
 import com.shoppingmall.model.QuestionTab;
 
 @RestController
