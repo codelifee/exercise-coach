@@ -40,7 +40,7 @@ public interface OrdersMapper {
 	@Options(useGeneratedKeys = true, keyProperty = "order_id")
 	int insert(@Param("orders") Orders orders);
 	
-	@Update("update orders set user_sequence_id=#{orders.user_sequence_id}, "
+	@Update("update orders set user_sequence_id=#{orders.user_sequence_id}, order_return=#{orders.order_return}, "
 			+ "order_status=#{orders.order_status},order_amount=#{orders.order_amount} where order_id=#{orders.order_id}")
 	int updateOrders(@Param("orders") Orders orders);
 	
