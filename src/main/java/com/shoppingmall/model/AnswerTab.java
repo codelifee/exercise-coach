@@ -6,6 +6,7 @@ public class AnswerTab {
 	private int question_id;
 	private String answer;
 	private String answer_date_created;
+
 	
 	public int getAnswer_id() {
 		return answer_id;
