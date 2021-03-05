@@ -137,7 +137,7 @@ public class ProductsController {
 	public ResponseEntity<?> upload(@RequestParam("category_id") int category_id,
 			@RequestParam("product_name") String product_name,
 			@RequestParam("product_description") String product_description,
-			@RequestParam("product_price") int product_price, @RequestParam("stock") int stock, @RequestParam("status") String status,
+			@RequestParam("product_price") int product_price, @RequestParam("stock") int stock,
 			HttpServletRequest request, final @RequestParam("product_picture") MultipartFile product_picture,
 			final @RequestParam("info_img") MultipartFile info_img,
 			final @RequestParam("quality_img") MultipartFile quality_img) {

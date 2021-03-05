@@ -41,7 +41,7 @@ public interface ProductsMapper {
 	int insertProducts(@Param("products") Products products);
 
 	@Update("UPDATE products SET category_id=#{products.category_id},product_name=#{products.product_name},product_description=#{products.product_description},"
-			+ "product_price=#{products.product_price}, stock=#{products.stock}, status=#{products.status} "
+			+ "product_price=#{products.product_price}, stock=#{products.stock} "
 			+ "WHERE product_id=#{products.product_id}")
 	void updateProducts(@Param("products") Products products);
 	
