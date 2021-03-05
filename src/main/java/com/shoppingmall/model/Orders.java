@@ -13,6 +13,7 @@ public class Orders {
 	private int product_price;
 	private int quantity;
 	private int product_id;
+	private String order_return;
 	private byte[] product_picture;
 	
 	
@@ -90,6 +91,12 @@ public class Orders {
 	}
 	public void setProduct_picture(byte[] product_picture) {
 		this.product_picture = product_picture;
+	}
+	public String getOrder_return() {
+		return order_return;
+	}
+	public void setOrder_return(String order_return) {
+		this.order_return = order_return;
 	}
 
 }

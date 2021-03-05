@@ -21,10 +21,10 @@ public interface ProductsMapper {
 	@Select("select * from products where product_id=#{product_id}")
 	Products getProducts(@Param("product_id") int product_id);
 	
-	@Select("select product_id, category_id, product_name, product_description, product_price, stock, status from products order by product_id")
+	@Select("select product_id, category_id, product_name, product_description, product_price, stock from products order by product_id")
 	List<Products> getAllJsonData();
 	
-	@Select("select product_id, category_id, product_name, product_description, product_price, stock, status from products where product_id=#{product_id} order by product_id ")
+	@Select("select product_id, category_id, product_name, product_description, product_price, stock from products where product_id=#{product_id} order by product_id ")
 	Products getJsonData(@Param("product_id") int product_id);	
 
 	@Insert("INSERT INTO products(category_id,product_name,product_description,product_price, stock)"
@@ -33,7 +33,7 @@ public interface ProductsMapper {
 	@Options(useGeneratedKeys = true, keyProperty = "product_id")
 	int insertProduct(@Param("products") Products products);
 	   
-	@Insert("INSERT INTO products(category_id,product_name,product_description,product_price, stock, "
+	@Insert("INSERT INTO products(category_id,product_name,product_description,product_price, stock,"
 	      + "product_picture, info_img, quality_img)"
 	      + " VALUES(#{products.category_id}, #{products.product_name},#{products.product_description}, "
 	      + "#{products.product_price}, #{products.stock}, #{products.product_picture}, #{products.info_img}, #{products.quality_img})")
@@ -41,7 +41,7 @@ public interface ProductsMapper {
 	int insertProducts(@Param("products") Products products);
 
 	@Update("UPDATE products SET category_id=#{products.category_id},product_name=#{products.product_name},product_description=#{products.product_description},"
-			+ "product_price=#{products.product_price}, stock=#{products.stock}, status=#{products.status} "
+			+ "product_price=#{products.product_price}, stock=#{products.stock} "
 			+ "WHERE product_id=#{products.product_id}")
 	void updateProducts(@Param("products") Products products);
 	

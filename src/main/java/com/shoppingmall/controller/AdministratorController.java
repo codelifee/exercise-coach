@@ -30,7 +30,7 @@ public class AdministratorController {
 	@Autowired
 	private AdministratorMapper administratorMapper;
 
-	//모든 관리자 목록을 보여줌
+	//show all of administrators
 	@GetMapping("/all")
 	public List<Administrator> getAll(){
 		return administratorMapper.getAll();

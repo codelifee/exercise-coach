@@ -27,7 +27,7 @@ public interface ReviewTabMapper {
 	@Select("select review_id, product_id, user_sequence_id, review, star, review_date_created from review_tab where review_id=#{review_id} order by review_id")
 	ReviewTab getJsonData(@Param("review_id")int review_id);
 	
-	@Insert("INSERT INTO review_tab(product_id,user_sequence_id, review, star, review_picture"
+	@Insert("INSERT INTO review_tab(product_id,user_sequence_id, review, star, review_picture,"
 			+ "review_date_created) VALUES(#{reviewTab.product_id}, #{reviewTab.user_sequence_id},"
 			+ "#{reviewTab.review},#{reviewTab.star}, #{reviewTab.review_picture}, now())")
 	@Options(useGeneratedKeys = true, keyProperty = "review_id")
