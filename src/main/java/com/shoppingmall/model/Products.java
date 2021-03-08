@@ -1,6 +1,5 @@
 package com.shoppingmall.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Products {
 	
@@ -13,7 +12,7 @@ public class Products {
 	private int stock;
 	private byte[] info_img;
 	private byte[] quality_img;
-	
+
 
 	
 	public int getProduct_id() {
@@ -70,5 +69,8 @@ public class Products {
 	public void setQuality_img(byte[] quality_img) {
 		this.quality_img = quality_img;
 	}
+
+
+	
 
 }
