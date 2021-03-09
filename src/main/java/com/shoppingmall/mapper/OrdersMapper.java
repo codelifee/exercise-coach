@@ -21,7 +21,7 @@ public interface OrdersMapper {
 			"join users u on o.user_sequence_id=u.user_sequence_id")
 	List<Orders> findAll();
 	
-	@Select("select u.user_address, u.user_id, o.*, p.product_name, p.product_price from orders o " + 
+	@Select("select u.user_address, u.user_id,u.user_name, u.user_phone,o.*, p.product_name, p.product_price from orders o " + 
 			"join products p on o.product_id=p.product_id "+
 			"join users u on o.user_sequence_id=u.user_sequence_id where o.order_id=#{order_id}")
 	Orders getOrders(@Param("order_id")int order_id);
@@ -35,8 +35,8 @@ public interface OrdersMapper {
 			" where o.order_id=#{order_id})")
 	Products selectProducts(int order_id);
 		
-	@Insert("insert into orders (user_sequence_id, order_date_created, order_status, order_amount) "
-			+ "values(#{orders.user_sequence_id}, now(),#{orders.order_status},#{orders.order_amount})")
+	@Insert("insert into orders (user_sequence_id, order_status, order_amount) "
+			+ "values(#{orders.user_sequence_id},#{orders.order_status},#{orders.order_amount})")
 	@Options(useGeneratedKeys = true, keyProperty = "order_id")
 	int insert(@Param("orders") Orders orders);
 	

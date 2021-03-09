@@ -56,6 +56,9 @@ public interface ProductsMapper {
 	
 	@Delete("DELETE FROM products WHERE product_id=#{product_id}")
 	int deleteProducts(@Param("product_id")int product_id);
+	
+	@Select("select p.* from product as p p.product_name LIKE %#{search_name}%")
+	void showSearchResult(@Param("search_name")String search_name);
+
 
 }
-
