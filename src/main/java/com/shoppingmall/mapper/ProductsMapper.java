@@ -27,6 +27,10 @@ public interface ProductsMapper {
 	@Select("select product_id, category_id, product_name, product_description, product_price, stock from products where product_id=#{product_id} order by product_id ")
 	Products getJsonData(@Param("product_id") int product_id);	
 
+
+	@Select("select p.product_name, p.product_id, p.product_description, p.product_price, p.stock, c.category_name from products as p join categories as c on p.category_id=c.category_id where c.category_id=#{category_id} order by product_id")
+	List<Products> getCategoryProducts(@Param("category_id") int category_id);
+	
 	@Insert("INSERT INTO products(category_id,product_name,product_description,product_price, stock)"
 	      + " VALUES(#{products.category_id}, #{products.product_name},#{products.product_description},"
 	      + "#{products.product_price}, #{products.stock})")
@@ -57,8 +61,13 @@ public interface ProductsMapper {
 	@Delete("DELETE FROM products WHERE product_id=#{product_id}")
 	int deleteProducts(@Param("product_id")int product_id);
 	
-	@Select("select p.* from product as p p.product_name LIKE %#{search_name}%")
-	void showSearchResult(@Param("search_name")String search_name);
+
+
+	
+	@Select("select p.product_name, p.product_id, p.product_description, p.product_price, p.stock, p.category_id from products as p where p.product_name LIKE CONCAT('%',#{search},'%')")
+	List<Products> showSearchResult(@Param("search")String search);
+
+	
 
 
 }
