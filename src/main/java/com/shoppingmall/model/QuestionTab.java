@@ -12,7 +12,7 @@ public class QuestionTab {
 	 private String answer_date_created;
 	 private int category_id;
 	 private String user_id;	
-	 
+	 private String product_name;
 	 
 	 
 	 
@@ -75,6 +75,12 @@ public class QuestionTab {
 	}
 	public void setCategory_id(int category_id) {
 		this.category_id = category_id;
+	}
+	public String getProduct_name() {
+		return product_name;
+	}
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
 	}
 
 

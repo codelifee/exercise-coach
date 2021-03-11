@@ -17,6 +17,9 @@ public interface UsersMapper {
 	
 	@Select("select * from users order by user_sequence_id")
 	List<Users> getAll();
+	
+	@Select("select * from users where user_id = #{user_id} and user_pwd = #{user_pwd}")
+	Users loginUser(@Param("user_id") String user_id, @Param("user_pwd") String user_pwd);
 
 	@Select("select * from users where user_sequence_id=#{user_sequence_id}")
 	Users getUsers(@Param("user_sequence_id")int user_sequence_id);

@@ -59,24 +59,7 @@ public class OrdersController {
 		return ordersMapper.getOrdersByUserId(user_sequence_id);
 	}
 	
-	//입력된 id와 매칭되는 product_picture를 보여줌
-	@GetMapping("/showProductImage/{order_id}")
-	@ResponseBody
-	public ResponseEntity<?> showProductImage(@PathVariable("order_id") int order_id, HttpServletResponse response,
-			HttpServletRequest request) throws IOException, SQLException {
-		try {
-			Products p = ordersMapper.selectProducts(order_id); 
-			response.setContentType("image/jpeg; image/jpg; image/png; image/gif");
-
-			response.getOutputStream().write(p.getProduct_picture());
-			response.getOutputStream().close();
-			return new ResponseEntity<>("Image Import Successful!" , HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.info("Exception: " + e);
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-	}
+	
 
 	//주문내역 데이터 모두 입력
 	@PostMapping("")
