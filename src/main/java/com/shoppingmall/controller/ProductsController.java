@@ -1,4 +1,4 @@
- package com.shoppingmall.controller;
+package com.shoppingmall.controller;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -47,23 +47,29 @@ public class ProductsController {
 	public List<Products> getAll() {
 		return productsMapper.getAll();
 	}
-	
+
 	@GetMapping("/{product_id}")
 	@ResponseBody
 	public Products get(@PathVariable("product_id") int product_id) {
 		return productsMapper.getProducts(product_id);
 	}
-	
+
 	@GetMapping("/allJsonData")
 	public List<Products> getAllJsonData() {
 		return productsMapper.getAllJsonData();
 	}
 
-
 	@GetMapping("/JsonData/{product_id}")
 	public Products getJsonData(@PathVariable("product_id") int product_id) {
 		return productsMapper.getJsonData(product_id);
 	}
+
+	@GetMapping("/category/{category_id}")
+	public List<Products> getCategoryProducts(@PathVariable("category_id") int category_id) {
+		return productsMapper.getCategoryProducts(category_id);
+	}
+
+
 
 	@GetMapping("/showProductImage/{product_id}")
 	@ResponseBody
@@ -81,7 +87,8 @@ public class ProductsController {
 			logger.info("Exception: " + e);
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-}
+	}
+
 	@GetMapping("/showInfoImage/{product_id}")
 	@ResponseBody
 	public ResponseEntity<?> showInfoImage(@PathVariable("product_id") int product_id, HttpServletResponse response,
@@ -89,7 +96,7 @@ public class ProductsController {
 		try {
 			Products p = productsMapper.getProducts(product_id);
 			response.setContentType("image/jpeg; image/jpg; image/png; image/gif");
-	
+
 			response.getOutputStream().write(p.getInfo_img());
 			response.getOutputStream().close();
 			return new ResponseEntity<>("Product Saved With File", HttpStatus.OK);
@@ -99,7 +106,7 @@ public class ProductsController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@GetMapping("/showQualityImage/{product_id}")
 	@ResponseBody
 	public ResponseEntity<?> showQualityImage(@PathVariable("product_id") int product_id, HttpServletResponse response,
@@ -107,7 +114,7 @@ public class ProductsController {
 		try {
 			Products p = productsMapper.getProducts(product_id);
 			response.setContentType("image/jpeg; image/jpg; image/png; image/gif");
-	
+
 			response.getOutputStream().write(p.getQuality_img());
 			response.getOutputStream().close();
 			return new ResponseEntity<>("Product Saved With File - ", HttpStatus.OK);
@@ -117,13 +124,13 @@ public class ProductsController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@PostMapping("")
 	public Products insert(@RequestBody Products products) {
 		productsMapper.insertProducts(products);
 		return products;
 	}
-	
+
 	@PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<?> upload(@RequestParam("category_id") int category_id,
 			@RequestParam("product_name") String product_name,
@@ -150,7 +157,7 @@ public class ProductsController {
 			p.setInfo_img(imageData1);
 			p.setQuality_img(imageData2);
 			p.setProduct_price(product_price);
-			p.setStock(stock);			
+			p.setStock(stock);
 			productsMapper.insertProducts(p);
 
 			logger.info("HttpStatus===" + new ResponseEntity<>(HttpStatus.OK));
@@ -162,51 +169,48 @@ public class ProductsController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@PutMapping("/{product_id}")
 	public void update(@RequestBody Products products) {
 		productsMapper.updateProducts(products);
 	}
-	
-//	@PostMapping("/search/{search_name}")
-//	public void searchinsert(@RequestParam("search_name") String search_name) {
-//		Products p = new Products();
-//		p.setSearch_name(search_name);
-//	}
-//	
+
 	@GetMapping("/search/{search}")
 	public List<Products> getSearchResult(@PathVariable("search") String search) {
 		return productsMapper.showSearchResult(search);
 	}
-	
+
 	@PatchMapping("/{product_id}")
-	   public @ResponseBody void patchProducts(@PathVariable int product_id, @RequestBody Map<Object, Object> fields) {
-		Products products = productsMapper.getProducts(product_id);   
-	      fields.forEach((k,v) -> {
-	         Field field = ReflectionUtils.findRequiredField(Products.class, (String)k);
-	         ReflectionUtils.setField(field, products, v);
-	      });
-	      productsMapper.updateProducts(products);
-	   }
-	
+	public @ResponseBody void patchProducts(@PathVariable int product_id, @RequestBody Map<Object, Object> fields) {
+		Products products = productsMapper.getProducts(product_id);
+		fields.forEach((k, v) -> {
+			Field field = ReflectionUtils.findRequiredField(Products.class, (String) k);
+			ReflectionUtils.setField(field, products, v);
+		});
+		productsMapper.updateProducts(products);
+	}
+
 	@PatchMapping("/productPicture/{product_id}")
-	public void updateProductPicture(@PathVariable("product_id") int product_id, @RequestParam("product_picture") MultipartFile product_picture) throws IOException {
-		byte[] imageData=product_picture.getBytes();
+	public void updateProductPicture(@PathVariable("product_id") int product_id,
+			@RequestParam("product_picture") MultipartFile product_picture) throws IOException {
+		byte[] imageData = product_picture.getBytes();
 		productsMapper.updateProductPicture(product_id, imageData);
 	}
-	
+
 	@PatchMapping("/infoImg/{product_id}")
-	public void updateInfoImg(@PathVariable("product_id") int product_id, @RequestParam("info_img") MultipartFile info_img) throws IOException {
-		byte[] imageData=info_img.getBytes();
+	public void updateInfoImg(@PathVariable("product_id") int product_id,
+			@RequestParam("info_img") MultipartFile info_img) throws IOException {
+		byte[] imageData = info_img.getBytes();
 		productsMapper.updateInfoImg(product_id, imageData);
 	}
-	
+
 	@PatchMapping("/qualityImg/{product_id}")
-	public void updateQualityImg(@PathVariable("product_id") int product_id, @RequestParam("quality_img") MultipartFile quality_img) throws IOException {
-		byte[] imageData=quality_img.getBytes();
-		productsMapper.updateQualityImg(product_id, imageData);		
+	public void updateQualityImg(@PathVariable("product_id") int product_id,
+			@RequestParam("quality_img") MultipartFile quality_img) throws IOException {
+		byte[] imageData = quality_img.getBytes();
+		productsMapper.updateQualityImg(product_id, imageData);
 	}
-	
+
 	@DeleteMapping("/{product_id}")
 	public void delete(@PathVariable("product_id") int product_id) {
 		productsMapper.deleteProducts(product_id);

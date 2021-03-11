@@ -58,6 +58,8 @@ public class OrdersController {
 	public List<Orders> getUserByUserId(@PathVariable("user_sequence_id") int user_sequence_id) {
 		return ordersMapper.getOrdersByUserId(user_sequence_id);
 	}
+	
+	
 
 	//주문내역 데이터 모두 입력
 	@PostMapping("")

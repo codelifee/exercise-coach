@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,6 +34,11 @@ public class UsersController {
 	@GetMapping("/all")
 	public List<Users> getAll(){
 		return usersMapper.getAll();
+	}
+	
+	@GetMapping("/login")
+	public Users loginUser(@RequestParam("user_id") String user_id, @RequestParam("user_pwd") String user_pwd) {
+		return usersMapper.loginUser(user_id, user_pwd);
 	}
 	
 	//입력된 id와 매칭되는 user 데이터를 보여줌
