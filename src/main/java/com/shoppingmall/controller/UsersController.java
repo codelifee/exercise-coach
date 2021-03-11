@@ -43,6 +43,28 @@ public class UsersController {
 		return usersMapper.getUsers(user_sequence_id);
 	}
 	
+	@PostMapping("/checkId")
+	public int checkId(String user_id) {
+		Users users = usersMapper.loginUser(user_id);
+		int re = -1;
+		if(users != null) {
+			re = 1;
+		}
+		return re;
+	}
+	
+	@PostMapping("/checkPhone")
+	public int chekcPhone(String user_phone, String user_id) {
+		Users users = usersMapper.loginUser(user_id);
+		int re = -1;
+		if(users != null) {
+			if(!(users.getUser_phone().equals(user_phone))) {
+				re = 1;
+			}
+		}
+		return re;
+	}
+	
 	//user 데이터 모두 입력
 	@PostMapping("")
 	public Users post(@RequestBody Users users) {
@@ -74,51 +96,23 @@ public class UsersController {
 	}
 	
 	//로그인 인증
-//		@PostMapping("/checklogin")
-//		public String checkLogin(String user_id, String user_pwd, HttpServletResponse response, HttpSession session)
-//		throws Exception{
-//			response.setContentType("text/html;charset=UTF-8");
-//			PrintWriter out = response.getWriter();
-//					
-//			Users user = usersMapper.loginUser(user_id);
-//
-//			String status = null;
-//					
-//			if(user==null) {
-//				status = null;
-//			}else {
-//				if(!user.getUser_pwd().equals(user_pwd)){
-//					status = null;
-//				}else {
-//					session.setAttribute("id", user_id);
-//					status = "success";
-//				}//if else
-//			}//if else
-//			return status;
-//		}//checkLogin()
-	
-	//로그인
-	@PostMapping("/login")
-	public String login(String user_id, String user_pwd, HttpSession session)
-	throws Exception{		
+	@PostMapping("/checklogin")
+	public String checkLogin(String user_id, String user_pwd, HttpSession session)
+		throws Exception{
 		Users user = usersMapper.loginUser(user_id);
-
+		String status = null;
+				
 		if(user==null) {
-			return "null";
+			status = null;
 		}else {
 			if(!user.getUser_pwd().equals(user_pwd)){
-				return "null";
+				status = null;
 			}else {
-				session.setAttribute("sessionUser", user);
-				return "user";
+				session.setAttribute("id", user_id);
+				status = "success";
 			}//if else
 		}//if else
-	}//login()
-	
-	//로그아웃
-	@GetMapping("/logout")
-	public void logout(HttpSession session) {
-		session.removeAttribute("sessionUser");
-	}
+		return status;
+	}//checkLogin()
 	
 }
