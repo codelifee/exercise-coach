@@ -4,8 +4,6 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -47,29 +45,7 @@ public class UsersController {
 	@GetMapping("/{user_sequence_id}")
 	public Users getUser(@PathVariable("user_sequence_id")int user_sequence_id) {
 		return usersMapper.getUsers(user_sequence_id);
-	}
-	
-	@PostMapping("/checkId")
-	public int checkId(String user_id) {
-		Users users = usersMapper.loginUser(user_id);
-		int re = -1;
-		if(users != null) {
-			re = 1;
-		}
-		return re;
-	}
-	
-	@PostMapping("/checkPhone")
-	public int chekcPhone(String user_phone, String user_id) {
-		Users users = usersMapper.loginUser(user_id);
-		int re = -1;
-		if(users != null) {
-			if(!(users.getUser_phone().equals(user_phone))) {
-				re = 1;
-			}
-		}
-		return re;
-	}
+	}	
 	
 	//user 데이터 모두 입력
 	@PostMapping("")
@@ -100,25 +76,5 @@ public class UsersController {
 	public void deleteUser(@PathVariable("user_sequence_id")int user_sequence_id) {
 		usersMapper.deleteUsers(user_sequence_id);
 	}
-	
-	//로그인 인증
-	@PostMapping("/checklogin")
-	public String checkLogin(String user_id, String user_pwd, HttpSession session)
-		throws Exception{
-		Users user = usersMapper.loginUser(user_id);
-		String status = null;
-				
-		if(user==null) {
-			status = null;
-		}else {
-			if(!user.getUser_pwd().equals(user_pwd)){
-				status = null;
-			}else {
-				session.setAttribute("id", user_id);
-				status = "success";
-			}//if else
-		}//if else
-		return status;
-	}//checkLogin()
 	
 }
