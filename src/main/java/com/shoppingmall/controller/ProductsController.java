@@ -69,7 +69,9 @@ public class ProductsController {
 		return productsMapper.getCategoryProducts(category_id);
 	}
 
-
+	
+	
+	
 
 	@GetMapping("/showProductImage/{product_id}")
 	@ResponseBody
