@@ -5,6 +5,7 @@ public class Payment {
 	private String merchant_uid;
 	private int user_sequence_id;
 	private String product_name;
+	private String amount;
 	private String user_name;
 	private String user_phone;
 	private String user_id;
@@ -51,6 +52,12 @@ public class Payment {
 	}
 	public void setDate_of_payment(String date_of_payment) {
 		this.date_of_payment = date_of_payment;
+	}
+	public String getAmount() {
+		return amount;
+	}
+	public void setAmount(String amount) {
+		this.amount = amount;
 	}
 	
 }

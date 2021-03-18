@@ -21,7 +21,7 @@ public interface PaymentMapper {
 	Payment getPayment(@Param("merchant_uid")String merchant_uid);
 	
 	@Insert("INSERT INTO payment VALUES(#{payment.merchant_uid},#{payment.user_sequence_id},#{payment.product_name}, "
-			+ "#{payment.user_name}, #{payment.user_phone}, #{payment.user_id}, now())")
+			+ "#{payment.amount}, #{payment.user_name}, #{payment.user_phone}, #{payment.user_id}, now())")
 	@Options(useGeneratedKeys = true, keyProperty = "answer_id")
 	int insertPayment(@Param("payment") Payment payment);
 
