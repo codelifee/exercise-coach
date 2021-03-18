@@ -47,6 +47,12 @@ public class QuestionTabController {
 		return questionTabMapper.getQuestionTab(question_id);
 	}
 
+	
+	@GetMapping("/countByProductId/{product_id}")
+	public int getCountByProductId(@PathVariable("product_id") int product_id) {
+		return questionTabMapper.getCountByProductId(product_id);
+	}
+	
 	// 모든 데이터 입력
 	@PostMapping("")
 	public QuestionTab insert(@RequestBody QuestionTab questionTab) {

@@ -25,6 +25,10 @@ public interface QuestionTabMapper {
 			+ "where u.user_sequence_id=#{user_sequence_id} order by q.question_date_created")
 	QuestionTab getQuestionTabByUserId(int user_sequence_id);
 	
+	@Select("select COUNT(*) from question_tab where product_id=#{product_id}")
+	int getCountByProductId(int product_id);
+
+	
 	@Insert("INSERT INTO question_tab(product_id,user_sequence_id,question,question_date_created) "
 			+ "VALUES(#{questionTab.product_id},#{questionTab.user_sequence_id},#{questionTab.question},now())")
 	@Options(useGeneratedKeys = true, keyProperty = "question_id")
@@ -36,5 +40,6 @@ public interface QuestionTabMapper {
 	
 	@Delete("DELETE FROM question_tab WHERE question_id=#{question_id}")
 	int deleteQuestionTab(@Param("question_id")int question_id);
+
 
 }

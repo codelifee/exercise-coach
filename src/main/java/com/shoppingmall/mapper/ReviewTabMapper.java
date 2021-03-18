@@ -24,6 +24,10 @@ public interface ReviewTabMapper {
 	@Select("select review_id, product_id, user_sequence_id, review, star, review_date_created from review_tab order by review_id")
 	List<ReviewTab> getAllJsonData();
 	
+	
+	@Select("select COUNT(*) from review_tab where product_id=#{product_id}")
+	int getJsonDataByProductId(@Param("product_id")int product_id);
+	
 	@Select("select review_id, product_id, user_sequence_id, review, star, review_date_created from review_tab where review_id=#{review_id} order by review_id")
 	ReviewTab getJsonData(@Param("review_id")int review_id);
 	

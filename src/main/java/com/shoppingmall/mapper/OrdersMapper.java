@@ -35,13 +35,13 @@ public interface OrdersMapper {
 			" where o.order_id=#{order_id})")
 	Products selectProducts(int order_id);
 		
-	@Insert("insert into orders (user_sequence_id, order_status, order_amount) "
-			+ "values(#{orders.user_sequence_id},#{orders.order_status},#{orders.order_amount})")
+	@Insert("insert into orders (user_sequence_id, order_status, product_id, quantity, order_amount) "
+			+ "values(#{orders.user_sequence_id},#{orders.order_status},#{orders.product_id},#{orders.quantity},#{orders.order_amount})")
 	@Options(useGeneratedKeys = true, keyProperty = "order_id")
 	int insert(@Param("orders") Orders orders);
 	
 	@Update("update orders set user_sequence_id=#{orders.user_sequence_id}, order_return=#{orders.order_return}, "
-			+ "order_status=#{orders.order_status},order_amount=#{orders.order_amount} where order_id=#{orders.order_id}")
+			+ "order_status=#{orders.order_status},order_amount=#{orders.order_amount}, quantity=#{orders.quantity}, product_id=#{orders.product_id} where order_id=#{orders.order_id}")
 	int updateOrders(@Param("orders") Orders orders);
 	
 	@Delete("delete from orders where order_id=#{order_id}")
