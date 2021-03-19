@@ -45,7 +45,7 @@ public class UsersController {
 	@GetMapping("/{user_sequence_id}")
 	public Users getUser(@PathVariable("user_sequence_id")int user_sequence_id) {
 		return usersMapper.getUsers(user_sequence_id);
-	}
+	}	
 	
 	//user 데이터 모두 입력
 	@PostMapping("")
@@ -76,4 +76,5 @@ public class UsersController {
 	public void deleteUser(@PathVariable("user_sequence_id")int user_sequence_id) {
 		usersMapper.deleteUsers(user_sequence_id);
 	}
+	
 }

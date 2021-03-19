@@ -16,8 +16,6 @@ public class Orders {
 	private String order_return;
 	private byte[] product_picture;
 	
-	
-	
 	public int getProduct_price() {
 		return product_price;
 	}

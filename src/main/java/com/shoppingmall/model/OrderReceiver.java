@@ -1,8 +1,5 @@
 package com.shoppingmall.model;
 
-import lombok.Data;
-
-
 public class OrderReceiver {
 	
 	private int id;
