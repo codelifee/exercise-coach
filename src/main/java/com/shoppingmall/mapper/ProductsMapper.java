@@ -21,7 +21,7 @@ public interface ProductsMapper {
 	@Select("select * from products where product_id=#{product_id}")
 	Products getProducts(@Param("product_id") int product_id);
 	
-	@Select("select review_id, product_id, r.user_sequence_id, review, star, review_date_created, u.user_id from review_tab r join users u on r.user_sequence_id=u.user_sequence_id order by review_id")
+	@Select("select product_id, category_id, product_name, product_description, product_price, stock from products order by product_id")
 	List<Products> getAllJsonData();
 	
 	@Select("select product_id, category_id, product_name, product_description, product_price, stock from products where product_id=#{product_id} order by product_id ")
