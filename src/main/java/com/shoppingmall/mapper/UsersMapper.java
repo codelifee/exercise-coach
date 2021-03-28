@@ -1,5 +1,6 @@
-package com.shoppingmall.mapper;
+ package com.shoppingmall.mapper;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -13,6 +14,9 @@ import com.shoppingmall.model.Users;
 
 @Mapper
 public interface UsersMapper {
+	
+	@Select("select * from users where user_id = #{user_id}")
+	Optional<Users> findByUserName(@Param("user_id") String user_id);
 	
 	@Select("select * from users order by user_sequence_id")
 	List<Users> getAll();
