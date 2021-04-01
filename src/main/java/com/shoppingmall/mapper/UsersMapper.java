@@ -23,13 +23,13 @@ public interface UsersMapper {
 	@Select("select * from users where user_sequence_id=#{user_sequence_id}")
 	Users getUsers(@Param("user_sequence_id")int user_sequence_id);
 
-	@Insert("insert into users (user_id, user_pwd, user_pwd2, user_name, user_phone, user_address, user_date_joined) "
-			+ "values(#{users.user_id}, #{users.user_pwd}, #{users.user_pwd2}, #{users.user_name}, #{users.user_phone},"
+	@Insert("insert into users (user_id, user_pwd, user_name, user_phone, user_address, user_date_joined) "
+			+ "values(#{users.user_id}, #{users.user_pwd}, #{users.user_name}, #{users.user_phone},"
 			+ "#{users.user_address},now())")
 	@Options(useGeneratedKeys = true, keyProperty = "user_sequence_id")
 	int insertUsers(@Param("users") Users users);
 	
-	@Update("update users set user_pwd=#{users.user_pwd}, user_pwd2=#{users.user_pwd2}, user_name=#{users.user_name}, "
+	@Update("update users set user_pwd=#{users.user_pwd}, user_name=#{users.user_name}, "
 			+ "user_phone=#{users.user_phone}, user_address=#{users.user_address} "
 			+ "where user_sequence_id=#{users.user_sequence_id}")
 	int updateUsers(@Param("users") Users users);
