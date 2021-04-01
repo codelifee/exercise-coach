@@ -24,9 +24,8 @@ public interface CartItemsMapper {
 			+ "from cart_items c join products p on c.product_id = p.product_id WHERE c.cart_item_id=#{cart_item_id}")
 	CartItems getCartItems(@Param("cart_item_id")int cart_item_id);
 	
-	@Select("select c.*, p.product_name, p.product_price, p.product_picture "
-			+ "from cart_items c join products p on c.product_id = p.product_id WHERE c.user_sequence_id=#{user_sequence_id}")
-	CartItems getCartItemsByUser(@Param("user_sequence_id")int user_sequence_id);	
+	@Select("select c.*, p.product_name, p.product_price, c.cart_item_quantity*p.product_price as price from cart_items c join products p on c.product_id = p.product_id WHERE c.user_sequence_id=#{user_sequence_id}")
+	List<CartItems> getCartItemsByUser(@Param("user_sequence_id")int user_sequence_id);	
 	
 	@Select("select * from products p where p.product_id in (select c.product_id from cart_items c where c.cart_item_id=#{cart_item_id})") 
 	Products getProductImage(@Param("cart_item_id")int cart_item_id);
@@ -42,6 +41,7 @@ public interface CartItemsMapper {
 	
 	@Delete("DELETE FROM cart_items WHERE cart_item_id=#{cart_item_id}")
 	int deleteCartItems(@Param("cart_item_id")int cart_item_id);
+
 
 
 }

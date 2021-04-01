@@ -53,11 +53,12 @@ public class CartItemsController {
 	public CartItems getCartItems(@PathVariable("cart_item_id") int cart_item_id) {
 		return cartItemsMapper.getCartItems(cart_item_id);
 	}
-	//사용자 id와 매칭되는 상품 1개 보여줌
+	//사용자 id와 매칭되는 상품 다수 보여줌
 	@GetMapping("/getCartItemsByUser/{user_sequence_id}")
-	public CartItems getCartItemsByUser(@PathVariable("user_sequence_id") int user_sequence_id) {
+	public List<CartItems> getCartItemsByUser(@PathVariable("user_sequence_id") int user_sequence_id) {
 		return cartItemsMapper.getCartItemsByUser(user_sequence_id);
 	}
+	
 
 	//cart_item_id로 상품이미지만 가져옴
 	@GetMapping("/showProductImage/{cart_item_id}")
