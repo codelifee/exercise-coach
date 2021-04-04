@@ -53,6 +53,12 @@ public class CartItemsController {
 	public CartItems getCartItems(@PathVariable("cart_item_id") int cart_item_id) {
 		return cartItemsMapper.getCartItems(cart_item_id);
 	}
+	
+	@GetMapping("/quantity/{cart_item_id}")
+	public CartItems getCartQuantity(@PathVariable("cart_item_id") int cart_item_id) {
+		return cartItemsMapper.getCartQuantity(cart_item_id);
+	}
+	
 	//사용자 id와 매칭되는 상품 다수 보여줌
 	@GetMapping("/getCartItemsByUser/{user_sequence_id}")
 	public List<CartItems> getCartItemsByUser(@PathVariable("user_sequence_id") int user_sequence_id) {
@@ -84,21 +90,62 @@ public class CartItemsController {
 		cartItemsMapper.insert(cartitems);
 		return cartitems;
 	}
+	
+	
+	//장바구니 데이터 수량 1증가시킴
+	@PutMapping("/plus/{cart_item_id}")
+	public void plusQuantity(@PathVariable("cart_item_id") int cart_item_id,@RequestBody CartItems cartitems) {
+		System.out.println(cartitems);
+		cartItemsMapper.plusQuantity(cartitems);
+		
+	}
+	
 	//장바구니 모든 데이터 수정
 	@PutMapping("/{cart_item_id}")
 	public void updateCartItems(@PathVariable("cart_item_id") int cart_item_id,@RequestBody CartItems cartitems) {
 		cartItemsMapper.updateCartItems(cartitems);
 	}
+	
+	
 	//장바구니 데이터 부분 수정
 	@PatchMapping("/{cart_item_id}")
 	public @ResponseBody void patchCartItem(@PathVariable int cart_item_id, @RequestBody Map<Object, Object> fields) {
 		CartItems cartitems = cartItemsMapper.getCartItems(cart_item_id);	
 		fields.forEach((k,v) -> {
 			Field field = ReflectionUtils.findRequiredField(CartItems.class, (String)k);
+			System.out.println(k);
+			System.out.println(v);
 			ReflectionUtils.setField(field, cartitems, v);
 		});
 		cartItemsMapper.updateCartItems(cartitems);
 	}
+	
+	
+	@PatchMapping("/plusQuantity/{cart_item_id}")
+	public @ResponseBody void updateplusQuantity(@PathVariable int cart_item_id, @RequestBody Map<Object, Object> fields) {
+		CartItems cartitems = cartItemsMapper.getCartItems(cart_item_id);	
+		fields.forEach((k,v) -> {
+			Field field = ReflectionUtils.findRequiredField(CartItems.class, (String)k);
+			System.out.println(k);
+			System.out.println(v);
+			ReflectionUtils.setField(field, cartitems, v);
+		});
+		cartItemsMapper.updateplusQuantity(cartitems);
+	}
+	
+	@PatchMapping("/minusQuantity/{cart_item_id}")
+	public @ResponseBody void updateminusQuantity(@PathVariable int cart_item_id, @RequestBody Map<Object, Object> fields) {
+		CartItems cartitems = cartItemsMapper.getCartItems(cart_item_id);	
+		fields.forEach((k,v) -> {
+			Field field = ReflectionUtils.findRequiredField(CartItems.class, (String)k);
+			System.out.println(k);
+			System.out.println(v);
+			ReflectionUtils.setField(field, cartitems, v);
+		});
+		cartItemsMapper.updateMinusQuantity(cartitems);
+	}
+	
+	
 	//입력된 id와 매칭되는 상품 삭제
 	@DeleteMapping("/{cart_item_id}")
 	public void deleteUser(@PathVariable("cart_item_id")int cart_item_id) {

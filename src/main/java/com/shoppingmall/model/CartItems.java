@@ -10,6 +10,7 @@ public class CartItems {
 	private byte[] product_picture;
 	private int price;
 	private int product_price;
+	private String user_name;
 	
 	public int getCart_item_id() {
 		return cart_item_id;
@@ -58,6 +59,12 @@ public class CartItems {
 	}
 	public void setProduct_price(int product_price) {
 		this.product_price = product_price;
+	}
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
 	}
 
 
