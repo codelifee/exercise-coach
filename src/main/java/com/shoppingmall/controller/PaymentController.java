@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shoppingmall.mapper.PaymentMapper;
 import com.shoppingmall.model.Payment;
 
-
 @RestController
 @RequestMapping("/payment")
 @CrossOrigin(origins = "*", allowedHeaders = "*")

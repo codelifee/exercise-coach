@@ -20,7 +20,7 @@ public interface PaymentMapper {
 	Payment getPayment(@Param("merchant_uid")String merchant_uid);
 	
 	@Insert("INSERT INTO payment VALUES(#{payment.merchant_uid},#{payment.product_name}, "
-			+ "#{payment.amount}, #{payment.user_name}, now())")
+			+ "#{payment.amount}, #{payment.user_name}, now(), #{payment.user_sequence_id})")
 	int insertPayment(@Param("payment") Payment payment);
 
 	@Delete("DELETE FROM payment WHERE merchant_uid=#{merchant_uid}")
