@@ -30,4 +30,6 @@ public interface CategoriesMapper {
 	
 	@Delete("DELETE FROM categories WHERE category_id=#{category_id}")
 	int deleteCategories(@Param("category_id")int category_id);
+	
+	
 }
