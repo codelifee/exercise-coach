@@ -13,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+//	private final PasswordEncoder passwordEncoder;
+	
 	@Autowired
 	UserDetailsService userDetailsService;
 	
@@ -26,7 +28,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 				.antMatchers("/**").hasAnyRole("USER")
 				.antMatchers("/").permitAll()
-				.and().formLogin();
+				.and().httpBasic()
+				.and()
+				.rememberMe();
 	}
 
 	@Bean
