@@ -8,7 +8,10 @@ public class CartItems {
 	private int cart_item_quantity;
 	private String product_name;
 	private byte[] product_picture;
-
+	private int price;
+	private int product_price;
+	private String user_name;
+	
 	public int getCart_item_id() {
 		return cart_item_id;
 	}
@@ -44,6 +47,24 @@ public class CartItems {
 	}
 	public void setProduct_picture(byte[] product_picture) {
 		this.product_picture = product_picture;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	public int getProduct_price() {
+		return product_price;
+	}
+	public void setProduct_price(int product_price) {
+		this.product_price = product_price;
+	}
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
 	}
 
 

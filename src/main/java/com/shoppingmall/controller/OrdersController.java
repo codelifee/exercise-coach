@@ -81,6 +81,8 @@ public class OrdersController {
 	      fields.forEach((k,v) -> {
 	         Field field = ReflectionUtils.findRequiredField(Orders.class, (String)k);
 	         ReflectionUtils.setField(field, order, v);
+	     	System.out.println(k);
+			System.out.println(v);
 	      });
 	      ordersMapper.updateOrders(order);
 	   }

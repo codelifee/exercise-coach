@@ -20,28 +20,47 @@ public interface CartItemsMapper {
 			+ "from cart_items c join products p on c.product_id = p.product_id order by c.cart_item_id")
 	List<CartItems> getAll();
 	
-	@Select("select c.*, p.product_name, p.product_price, p.product_picture "
-			+ "from cart_items c join products p on c.product_id = p.product_id WHERE c.cart_item_id=#{cart_item_id}")
+	@Select("select c.*, p.product_name, p.product_price"
+			+ " from cart_items c join products p on c.product_id = p.product_id WHERE c.cart_item_id=#{cart_item_id}")
 	CartItems getCartItems(@Param("cart_item_id")int cart_item_id);
 	
-	@Select("select c.*, p.product_name, p.product_price, p.product_picture "
-			+ "from cart_items c join products p on c.product_id = p.product_id WHERE c.user_sequence_id=#{user_sequence_id}")
-	CartItems getCartItemsByUser(@Param("user_sequence_id")int user_sequence_id);	
+	@Select("select c.*,u.user_name, p.product_name, p.product_price, c.cart_item_quantity*p.product_price as price from cart_items c join products p on c.product_id = p.product_id join users u on c.user_sequence_id=u.user_sequence_id WHERE c.user_sequence_id=#{user_sequence_id}")
+	List<CartItems> getCartItemsByUser(@Param("user_sequence_id")int user_sequence_id);	
 	
 	@Select("select * from products p where p.product_id in (select c.product_id from cart_items c where c.cart_item_id=#{cart_item_id})") 
 	Products getProductImage(@Param("cart_item_id")int cart_item_id);
+	
+	@Select("select cart_item_quantity"
+			+ " from cart_items WHERE cart_item_id=#{cart_item_id}") 
+	CartItems getCartQuantity(int cart_item_id);
+
 	
 	@Insert("INSERT INTO cart_items(user_sequence_id, product_id, cart_item_quantity)"
 			+ " VALUES(#{cartitems.user_sequence_id}, #{cartitems.product_id}, #{cartitems.cart_item_quantity})")
 	@Options(useGeneratedKeys=true, keyProperty = "cart_item_id")
 	int insert(@Param("cartitems")CartItems cartitems);
 	
+	@Update("UPDATE cart_items SET cart_item_quantity=#{cartitems.cart_item_quantity}+1 where cart_item_id=#{cartitems.cart_item_id}")
+	void updateplusQuantity(@Param("cartitems") CartItems cartitems);
+	
+	
+	
+	@Update("UPDATE cart_items SET cart_item_quantity=#{cartitems.cart_item_quantity}-1 where cart_item_id=#{cartitems.cart_item_id}")
+	void updateMinusQuantity(@Param("cartitems") CartItems cartitems);
+	
 	@Update("UPDATE cart_items SET user_sequence_id=#{cartitems.user_sequence_id}, product_id=#{cartitems.product_id}, "
 			+ "cart_item_quantity=#{cartitems.cart_item_quantity} where cart_item_id=#{cartitems.cart_item_id}")
 	void updateCartItems(@Param("cartitems") CartItems cartitems);
 	
+	@Update("update cart_items set cart_item_quantity=#{cartitems.cart_item_quantity} where cart_item_id=#{cartitems.cart_item_id}")
+	void plusQuantity(@Param("cartitems") CartItems cartitems);
+
+	
 	@Delete("DELETE FROM cart_items WHERE cart_item_id=#{cart_item_id}")
 	int deleteCartItems(@Param("cart_item_id")int cart_item_id);
+
+
+
 
 
 }
