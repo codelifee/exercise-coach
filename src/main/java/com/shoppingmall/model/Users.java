@@ -54,7 +54,6 @@ public class Users {
 	public void setUser_date_joined(String user_date_joined) {
 		this.user_date_joined = user_date_joined;
 	}
-<<<<<<< HEAD
 	public String getUser_pwd2() {
 		return user_pwd2;
 	}
@@ -67,6 +66,4 @@ public class Users {
 	public void setRoles(String roles) {
 		this.roles = roles;
 	}
-=======
->>>>>>> 6f6e23f690853f21b62a902348c9ebef605dd891
 }

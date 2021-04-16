@@ -6,9 +6,12 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.shoppingmall.jwt.JwtUsernameAndPasswordAuthenticationFilter;
 
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -25,12 +28,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
+		http
+				.csrf().disable()
+				.sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.and()
+				.addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager()))
+				.authorizeRequests()
 				.antMatchers("/users/**","/payment/**", "/orders/**").hasAnyRole("USER")
 				.antMatchers("/").permitAll()
-				.and().httpBasic()
-				.and()
-				.rememberMe();
+				.anyRequest()
+				.authenticated();
 	}
 
 	@Bean
