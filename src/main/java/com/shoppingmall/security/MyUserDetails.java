@@ -25,6 +25,7 @@ public class MyUserDetails implements UserDetails{
 	
 	public MyUserDetails(Users user) {
 		this.user_name = user.getUser_name();
+		this.user_id = user.getUser_id();
 		this.user_pwd = user.getUser_pwd();
 		this.user_pwd2 = user.getUser_pwd2();
 		this.user_phone = user.getUser_phone();
