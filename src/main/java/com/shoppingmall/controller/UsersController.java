@@ -3,9 +3,11 @@ package com.shoppingmall.controller;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.ReflectionUtils;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,9 +38,11 @@ public class UsersController {
 		return usersMapper.getAll();
 	}
 	
-	@GetMapping("/login")
-	public Users loginUser(@RequestParam("user_id") String user_id, @RequestParam("user_pwd") String user_pwd) {
-		return usersMapper.loginUser(user_id, user_pwd);
+	@PostMapping("/getUserNumber")
+	public int getUserNumber(@RequestParam("user_id") String user_id) {		
+		Users result = usersMapper.getUserNumber(user_id);
+		
+		return result.getUser_sequence_id();
 	}
 	
 	//입력된 id와 매칭되는 user 데이터를 보여줌
