@@ -15,6 +15,7 @@ public class Orders {
 	private int product_id;
 	private String order_return;
 	private byte[] product_picture;
+	private int amount;
 	
 	public int getProduct_price() {
 		return product_price;
@@ -95,6 +96,12 @@ public class Orders {
 	}
 	public void setOrder_return(String order_return) {
 		this.order_return = order_return;
+	}
+	public int getAmount() {
+		return amount;
+	}
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
 
 }

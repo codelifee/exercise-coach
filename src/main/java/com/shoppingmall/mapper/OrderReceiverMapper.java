@@ -10,7 +10,6 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import com.shoppingmall.model.Categories;
 import com.shoppingmall.model.OrderReceiver;
 
 @Mapper

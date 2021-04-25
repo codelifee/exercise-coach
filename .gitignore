@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
-/src/main/resources
+**/resources
 
->>>>>>> f15ac00e7c80fc68927c4b5218a60b5fc496e514
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -36,9 +33,5 @@ build/
 
 ### VS Code ###
 .vscode/
-<<<<<<< HEAD
-=======
 /.metadata/
 *.properties
-
->>>>>>> f15ac00e7c80fc68927c4b5218a60b5fc496e514

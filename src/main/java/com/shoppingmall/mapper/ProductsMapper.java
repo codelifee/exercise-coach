@@ -61,9 +61,6 @@ public interface ProductsMapper {
 	@Delete("DELETE FROM products WHERE product_id=#{product_id}")
 	int deleteProducts(@Param("product_id")int product_id);
 	
-
-
-	
 	@Select("select p.product_name, p.product_id, p.product_description, p.product_price, p.stock, p.category_id from products as p where p.product_name LIKE CONCAT('%',#{search},'%')")
 	List<Products> showSearchResult(@Param("search")String search);
 
