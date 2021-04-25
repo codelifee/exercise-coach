@@ -1,7 +1,5 @@
 
-=======
 **/resources
-
 
 HELP.md
 target/
@@ -36,9 +34,6 @@ build/
 
 ### VS Code ###
 .vscode/
-<<<<<<< HEAD
-=======
 /.metadata/
 *.properties
-
 
