@@ -17,7 +17,6 @@ public class MyUserDetails implements UserDetails{
 	private String user_id;
 	private String user_pwd;
 	private List<GrantedAuthority> roles;
-	private String user_pwd2;
 	private String user_name;
 	private String user_phone;
 	private String user_address;
@@ -27,7 +26,6 @@ public class MyUserDetails implements UserDetails{
 		this.user_name = user.getUser_name();
 		this.user_id = user.getUser_id();
 		this.user_pwd = user.getUser_pwd();
-		this.user_pwd2 = user.getUser_pwd2();
 		this.user_phone = user.getUser_phone();
 		this.user_address = user.getUser_address();
 		this.user_date_joined = user.getUser_date_joined();
