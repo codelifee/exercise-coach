@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 **/resources
 
+=======
+
+**/resources
+
+>>>>>>> 409e365c6fede736a353614f78be8a534d3a6cf2
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -34,4 +40,9 @@ build/
 ### VS Code ###
 .vscode/
 /.metadata/
+<<<<<<< HEAD
 *.properties
+=======
+*.properties
+
+>>>>>>> 409e365c6fede736a353614f78be8a534d3a6cf2

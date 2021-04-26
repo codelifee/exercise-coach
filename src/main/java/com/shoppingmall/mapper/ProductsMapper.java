@@ -49,16 +49,16 @@ public interface ProductsMapper {
 			+ "WHERE product_id=#{products.product_id}")
 	void updateProducts(@Param("products") Products products);
 	
-	@Update("update products set product_picture=#{imageData}")
+	@Update("update products set product_picture=#{imageData} where product_id=#{product_id}")
 	void updateProductPicture(@Param("product_id") int product_id, @Param("imageData") byte[] imageData);
 
-	@Update("update products set info_img=#{imageData}")
+	@Update("update products set info_img=#{imageData} where product_id=#{product_id}")
 	void updateInfoImg(int product_id, byte[] imageData);
 
-	@Update("update products set quality_img=#{imageData}")
+	@Update("update products set quality_img=#{imageData} where product_id=#{product_id}")
 	void updateQualityImg(int product_id, byte[] imageData);
 	
-	@Delete("DELETE FROM products WHERE product_id=#{product_id}")
+	@Delete("DELETE FROM products WHERE product_id=#{product_id} where product_id=#{product_id}")
 	int deleteProducts(@Param("product_id")int product_id);
 	
 	@Select("select p.product_name, p.product_id, p.product_description, p.product_price, p.stock, p.category_id from products as p where p.product_name LIKE CONCAT('%',#{search},'%')")

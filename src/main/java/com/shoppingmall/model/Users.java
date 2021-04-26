@@ -5,6 +5,7 @@ public class Users {
 	private int user_sequence_id;
 	private String user_id;
 	private String user_pwd;
+	private String roles = "ROLE_USER";
 	private String user_name;
 	private String user_phone;
 	private String user_address;
@@ -51,5 +52,12 @@ public class Users {
 	}
 	public void setUser_date_joined(String user_date_joined) {
 		this.user_date_joined = user_date_joined;
+	}
+
+	public String getRoles() {
+		return roles;
+	}
+	public void setRoles(String roles) {
+		this.roles = roles;
 	}
 }
