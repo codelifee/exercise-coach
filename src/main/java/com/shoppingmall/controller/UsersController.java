@@ -31,10 +31,10 @@ public class UsersController {
 	private UsersMapper usersMapper;
 	
 	//모든 user 목록을 보여줌
-//	@GetMapping("/all")
-//	public List<Users> getAll(){
-//		return usersMapper.getAll();
-//	}
+	@GetMapping("/all")
+	public List<Users> getAll(){
+		return usersMapper.getAll();
+	}
 	
 	@PostMapping("/getUserNumber")
 	public int getUserNumber(@RequestParam("user_id") String user_id) {		
@@ -50,11 +50,11 @@ public class UsersController {
 	}	
 	
 	//user 데이터 모두 입력
-//	@PostMapping("")
-//	public Users post(@RequestBody Users users) {
-//		usersMapper.insertUsers(users);
-//		return users;
-//	}
+	@PostMapping("")
+	public Users post(@RequestBody Users users) {
+		usersMapper.insertUsers(users);
+		return users;
+	}
 	
 	//입력된 id와 매칭되는 user의 모든 데이터를 수정
 	@PutMapping("/{user_sequence_id}")
